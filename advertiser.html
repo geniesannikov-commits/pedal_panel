@@ -137,43 +137,48 @@
             <div class="fact-dots">
               <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
             </div>
-            <p class="fact-footnote mono">a fixed route delivers this automatically</p>
+            <p class="fact-footnote mono">a city-wide campaign delivers this automatically</p>
           </div>
         </div>
 
-        <!-- Street-loop repetition diagram. The route path draws in on
-             scroll (stroke-dasharray/dashoffset reveal, the classic Jake
-             Archibald SVG line-draw technique referenced from Codrops'
-             /codrops/tag/svg/ demos), then the bike marker loops the
-             route continuously using native CSS motion-path
-             (offset-path/offset-distance) rather than a JS animation
-             loop or GSAP's MotionPathPlugin — see css/advertiser.css
-             #loop-diagram. -->
-        <div class="loop-diagram reveal" id="loop-diagram">
-          <svg viewBox="0 0 760 260" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path id="loop-route" class="loop-route"
-              d="M40,190 C120,60 220,60 300,140 C360,200 420,210 470,150 C520,90 600,80 660,150 C690,185 700,190 720,190"
-              fill="none" />
-            <g class="loop-stops">
-              <circle cx="70" cy="176" r="4"></circle>
-              <circle cx="230" cy="88" r="4"></circle>
-              <circle cx="380" cy="190" r="4"></circle>
-              <circle cx="540" cy="104" r="4"></circle>
-              <circle cx="680" cy="164" r="4"></circle>
+        <!-- City-wide repetition map. Replaces the single fixed-route
+             diagram: instead of one path, a field of small pink dots
+             twinkles across a stylised wireframe of the city — the same
+             viewer catches your ad in multiple places at different
+             times, which is what actually racks up the ~7 views from
+             the fact card above, not one repeated loop. The street grid
+             and coastline are hand-authored (illustrative, not a literal
+             map — consistent with the coverage diagram further down).
+             The dot field is generated and twinkled in JS: randomized
+             position/duration/delay per dot for an asynchronous
+             starfield look, gated behind IntersectionObserver so it only
+             animates once scrolled into view. A twinkle like this is a
+             simple per-element opacity keyframe — no Codrops demo or
+             library needed for something this small, per the brief's
+             plain-CSS fallback. -->
+        <div class="repeat-map reveal" id="repeat-map">
+          <svg viewBox="0 0 760 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g class="repeat-map-grid">
+              <line x1="40" y1="60" x2="720" y2="60" />
+              <line x1="40" y1="110" x2="720" y2="110" />
+              <line x1="40" y1="165" x2="720" y2="165" />
+              <line x1="40" y1="215" x2="720" y2="215" />
+              <line x1="40" y1="270" x2="720" y2="270" />
+              <line x1="100" y1="20" x2="100" y2="320" />
+              <line x1="175" y1="20" x2="175" y2="320" />
+              <line x1="255" y1="20" x2="255" y2="320" />
+              <line x1="335" y1="20" x2="335" y2="320" />
+              <line x1="410" y1="20" x2="410" y2="320" />
+              <line x1="485" y1="20" x2="485" y2="320" />
+              <line x1="560" y1="20" x2="560" y2="320" />
+              <line x1="635" y1="20" x2="635" y2="320" />
+              <line class="repeat-map-arterial" x1="60" y1="30" x2="700" y2="300" />
+              <line class="repeat-map-arterial" x1="700" y1="40" x2="140" y2="310" />
             </g>
-            <g class="loop-houses">
-              <path class="house" d="M55,176 l15,-13 15,13 v18 h-30 z"/>
-              <path class="house" d="M215,88 l15,-13 15,13 v18 h-30 z"/>
-              <path class="house" d="M365,190 l15,-13 15,13 v18 h-30 z"/>
-              <path class="house" d="M525,104 l15,-13 15,13 v18 h-30 z"/>
-              <path class="house" d="M665,164 l15,-13 15,13 v18 h-30 z"/>
-            </g>
-            <!-- Bike/screen marker: positioned with native CSS motion-path
-                 (offset-path, matching the route's own "d"), not JS
-                 getPointAtLength — see .loop-marker-dot in advertiser.css. -->
-            <circle class="loop-marker-dot" r="6"></circle>
+            <path class="repeat-map-coast" d="M500,20 C545,65 470,95 515,135 C555,172 480,205 525,245 C558,275 505,300 530,320" />
+            <g class="repeat-map-dots" id="repeat-map-dots"></g>
           </svg>
-          <p class="loop-caption mono">the same route, on repeat, every riding day</p>
+          <p class="repeat-map-caption mono">your ad, all over the city — seen again and again</p>
         </div>
       </div>
     </section>
