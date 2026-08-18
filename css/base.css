@@ -603,11 +603,13 @@ section {
 
 .swap-stat {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   margin-top: 24px;
   padding-top: 20px;
   border-top: 1px dashed var(--paper-line);
+  text-align: left;
 }
 
 .swap-stat-num {
@@ -628,6 +630,7 @@ section {
 .swap-earning {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-top: 24px;
   padding-top: 20px;
