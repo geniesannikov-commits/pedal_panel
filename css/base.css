@@ -186,16 +186,20 @@ section {
   inset: 6px 6px 6px 6px;
   background: var(--pink);
   border-radius: 2px;
-  animation: markSquint 5.6s ease-in-out infinite;
+  animation: markSquint 8s ease-in-out infinite;
 }
 
+/* Keyframe percentages scaled from the previous 5.6s version so the
+   blink+glance motion itself still takes ~3.25s in absolute time — only
+   the resting/held-square gap between blinks got longer (now ~4.75s
+   instead of ~2.35s). */
 @keyframes markSquint {
   0% { transform: scaleY(1) translateX(0); border-radius: 2px; }
-  8% { transform: scaleY(0.32) translateX(0); border-radius: 3px; }
-  20% { transform: scaleY(0.32) translateX(-3px); border-radius: 3px; }
-  35% { transform: scaleY(0.32) translateX(3px); border-radius: 3px; }
-  48% { transform: scaleY(0.32) translateX(0); border-radius: 3px; }
-  58%, 100% { transform: scaleY(1) translateX(0); border-radius: 2px; }
+  6% { transform: scaleY(0.32) translateX(0); border-radius: 3px; }
+  14% { transform: scaleY(0.32) translateX(-3px); border-radius: 3px; }
+  24% { transform: scaleY(0.32) translateX(3px); border-radius: 3px; }
+  34% { transform: scaleY(0.32) translateX(0); border-radius: 3px; }
+  41%, 100% { transform: scaleY(1) translateX(0); border-radius: 2px; }
 }
 
 .nav-links {
