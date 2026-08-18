@@ -165,7 +165,7 @@
 .price-tag {
   position: relative;
   background: var(--paper);
-  border: 1px solid var(--paper-line);
+  border: 2px solid var(--paper-line);
   padding: 36px 40px 34px 50px;
   clip-path: polygon(28px 0, 100% 0, 100% 100%, 28px 100%, 0 50%);
   box-shadow: 0 24px 48px -30px rgba(20, 20, 26, 0.28);
