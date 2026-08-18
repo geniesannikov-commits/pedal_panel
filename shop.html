@@ -85,13 +85,10 @@
     <section class="how-it-works">
       <div class="container">
         <!-- v2: intro paragraphs were flat two-column text; reworked with
-             an idle-vs-busy meter strip. v3: moved into the shared
-             .anchor-grid pattern so it sits beside the text instead of
-             full-width below it, and each card now stacks two bars
-             ("hours ridden" / "amount earned") instead of one — the two
-             bars track together within a card (both low for the idle
-             bike, both high for the busy bike), making the "paid out
-             based on hours ridden" line literal rather than just stated. -->
+             a meter strip. v3: moved into the shared .anchor-grid pattern
+             so it sits beside the text instead of full-width below it.
+             v4: reframed from idle-vs-busy to with/without PedalPanel —
+             see the comment on .meter-strip below. -->
         <div class="anchor-grid">
           <div class="anchor-text reveal">
             <h2>How it works</h2>
@@ -100,12 +97,17 @@
             <p>We handle everything on the advertiser side — sales, campaigns, billing. You don't need to do anything different day to day. The screens run themselves; the earnings show up.</p>
           </div>
 
+          <!-- Same hours ridden, different outcome: the point isn't idle
+               vs busy, it's screen vs no screen — two bikes ridden the
+               identical amount, only one earning. Both cards use the
+               same "hours ridden" bar length; only "amount earned"
+               differs. -->
           <div class="meter-strip reveal" aria-hidden="true">
-            <div class="meter-card meter-idle">
-              <p class="meter-label mono">Idle bike</p>
+            <div class="meter-card meter-without">
+              <p class="meter-label mono">Without PedalPanel</p>
               <div class="meter-metric">
                 <span class="meter-metric-label">Hours ridden</span>
-                <div class="meter-track"><div class="meter-fill" style="width: 4%;"></div></div>
+                <div class="meter-track"><div class="meter-fill" style="width: 78%;"></div></div>
               </div>
               <div class="meter-metric">
                 <span class="meter-metric-label">Amount earned</span>
@@ -113,11 +115,11 @@
               </div>
               <p class="meter-value mono">$0 earned</p>
             </div>
-            <div class="meter-card meter-busy">
-              <p class="meter-label mono">Busy bike</p>
+            <div class="meter-card meter-with">
+              <p class="meter-label mono">With PedalPanel</p>
               <div class="meter-metric">
                 <span class="meter-metric-label">Hours ridden</span>
-                <div class="meter-track"><div class="meter-fill is-live" style="width: 82%;"></div></div>
+                <div class="meter-track"><div class="meter-fill is-live" style="width: 78%;"></div></div>
               </div>
               <div class="meter-metric">
                 <span class="meter-metric-label">Amount earned</span>

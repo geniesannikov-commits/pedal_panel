@@ -57,13 +57,14 @@
   border-bottom: 1px solid var(--paper-line);
 }
 
-/* ---------- How it works: idle vs busy meter strip ----------
+/* ---------- How it works: with/without PedalPanel meter strip ----------
    Sits beside the text as the right column of .anchor-grid, so the two
    cards stack vertically rather than side-by-side (there isn't room for
-   both in a ~0.85fr column). Each card now shows two stacked bars —
-   "hours ridden" and "amount earned" — that track together within a
-   card (both low for the idle bike, both high for the busy bike), so the
-   "paid out based on hours ridden" idea is visible, not just stated. */
+   both in a ~0.85fr column). Each card shows two stacked bars — "hours
+   ridden" and "amount earned". The point isn't idle vs busy, it's screen
+   vs no screen: both cards use the same "hours ridden" bar length (same
+   riding, either way) — only "amount earned" differs, since only the
+   PedalPanel-equipped bike earns anything for those hours. */
 
 .meter-strip {
   display: flex;
@@ -79,7 +80,7 @@
   padding: 20px 22px;
 }
 
-.meter-idle {
+.meter-without {
   opacity: 0.72;
 }
 
@@ -106,7 +107,7 @@
   margin-bottom: 6px;
 }
 
-.meter-idle .meter-metric-label {
+.meter-without .meter-metric-label {
   color: var(--ink-faint);
 }
 
@@ -135,7 +136,7 @@
   color: var(--ink);
 }
 
-.meter-idle .meter-value {
+.meter-without .meter-value {
   color: var(--ink-faint);
   font-weight: 500;
 }
