@@ -84,12 +84,32 @@
     <!-- ================= HOW IT WORKS ================= -->
     <section class="how-it-works">
       <div class="container">
+        <!-- v2: intro paragraphs were flat two-column text. Reworked with
+             a full-width idle-vs-busy meter strip rather than a side
+             card — a third distinct visual shape from the swap-card and
+             fact-card patterns used elsewhere, since the 3-step flow
+             right below already carries the icon-based diagram for this
+             section. -->
         <div class="section-head reveal">
           <h2>How it works</h2>
+          <p class="statement">An idle bike earns nothing. A busy fleet just&nbsp;earns.</p>
         </div>
-        <div class="two-col reveal">
+        <div class="anchor-text reveal">
           <p>Local businesses pay to advertise on your fleet's screens. That revenue is pooled across your fleet and paid out based on how many hours your bikes are actually out and moving — the more your fleet is on the road, the more it earns. An idle bike earns nothing, so there's no cost or downside to bikes sitting unused; a busy fleet is simply a fleet that earns.</p>
           <p>We handle everything on the advertiser side — sales, campaigns, billing. You don't need to do anything different day to day. The screens run themselves; the earnings show up.</p>
+        </div>
+
+        <div class="meter-strip reveal" aria-hidden="true">
+          <div class="meter-card meter-idle">
+            <p class="meter-label mono">Idle bike</p>
+            <div class="meter-track"><div class="meter-fill" style="width: 4%;"></div></div>
+            <p class="meter-value mono">$0 earned</p>
+          </div>
+          <div class="meter-card meter-busy">
+            <p class="meter-label mono">Busy bike</p>
+            <div class="meter-track"><div class="meter-fill is-live" style="width: 82%;"></div></div>
+            <p class="meter-value mono">earning<span class="meter-live-dot"></span></p>
+          </div>
         </div>
 
         <!-- 3-step mechanism graphic. Connecting line draws in on scroll
@@ -191,13 +211,34 @@
     </section>
 
     <!-- ================= WHAT IT MEANS ================= -->
-    <section class="container">
-      <div class="section-head reveal">
-        <h2>What this means for your business</h2>
-      </div>
-      <div class="two-col reveal">
-        <p>The revenue your fleet earns doesn't have to just sit as profit — many shops use it to fund a discounted rental rate on ad-equipped bikes. That means you can offer riders a cheaper rental tier than your competitors, funded by advertisers rather than out of your own margin — a real point of difference in a market where riders compare rental prices closely.</p>
-        <p>How you use the revenue is entirely up to you — keep it, discount rent with it, or split the difference. We just make sure it lands in your account.</p>
+    <!-- v2: was flat two-column text with no visual anchor nearby (unlike
+         the other flagged sections, nothing above or below it already
+         carries a diagram). Reworked as an anchor-grid with a rotated
+         "price tag" card — a fourth distinct visual language (die-cut
+         tag shape via clip-path, not a bag/meter/fact card) with a small
+         tactile wink (the slight rotation) fitting the discount-tag idea
+         in the copy. -->
+    <section class="anchor-section">
+      <div class="anchor-bg" aria-hidden="true"></div>
+      <div class="container anchor-grid">
+        <div class="anchor-text reveal">
+          <p class="eyebrow">Where the revenue goes</p>
+          <h2>What this means for your business</h2>
+          <p class="statement">Cheaper rent for your riders — funded by advertisers, not your margin.</p>
+          <p>The revenue your fleet earns doesn't have to just sit as profit — many shops use it to fund a discounted rental rate on ad-equipped bikes. That means you can offer riders a cheaper rental tier than your competitors, funded by advertisers rather than out of your own margin — a real point of difference in a market where riders compare rental prices closely.</p>
+          <p>How you use the revenue is entirely up to you — keep it, discount rent with it, or split the difference. We just make sure it lands in your account.</p>
+        </div>
+
+        <div class="price-tag-card reveal" aria-hidden="true">
+          <div class="price-tag">
+            <span class="price-tag-hole"></span>
+            <p class="price-tag-label mono">Illustrative example</p>
+            <p class="price-tag-name">Ad-equipped rental</p>
+            <p class="price-old">was <span class="mono">$59</span>/week</p>
+            <p class="price-new mono">$45<span>/week</span></p>
+            <p class="price-tag-caption">funded by ad revenue, not your margin</p>
+          </div>
+        </div>
       </div>
     </section>
 

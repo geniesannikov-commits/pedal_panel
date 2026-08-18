@@ -115,12 +115,30 @@
     <!-- ================= WHY IT WORKS ================= -->
     <section class="why-works">
       <div class="container">
-        <div class="section-head reveal">
-          <h2>Why it works</h2>
-        </div>
-        <div class="two-col reveal">
-          <p>Advertising works through repetition and recognition — the same principle behind a billboard on your daily commute. You don't remember a billboard because you stopped and stared at it once. You remember it because you passed it a hundred times.</p>
-          <p>PedalPanel works the same way, except instead of one fixed billboard, your ad is moving through the exact streets your customers live and work on — past their homes, their offices, their local cafés — over and over, building the kind of local recognition that a one-off social post can't.</p>
+        <!-- v2: intro paragraphs were flat two-column text. Reworked with
+             a "rule of 7" fact card — a different visual language from
+             the "What it actually is" swap-card (a stat callout with a
+             chasing dot sequence, not a before/after diagram), since the
+             loop diagram right below already carries the icon-based
+             visual for this section. -->
+        <div class="anchor-grid">
+          <div class="anchor-text reveal">
+            <p class="eyebrow">The psychology</p>
+            <h2>Why it works</h2>
+            <p class="statement">Repetition is the whole game. Recognition takes about seven views.</p>
+            <p>Advertising works through repetition and recognition — the same principle behind a billboard on your daily commute. You don't remember a billboard because you stopped and stared at it once. You remember it because you passed it a hundred times.</p>
+            <p>PedalPanel works the same way, except instead of one fixed billboard, your ad is moving through the exact streets your customers live and work on — past their homes, their offices, their local cafés — over and over, building the kind of local recognition that a one-off social post can't.</p>
+          </div>
+
+          <div class="fact-card reveal" aria-hidden="true">
+            <p class="fact-label mono">A marketing fact</p>
+            <p class="fact-number">7</p>
+            <p class="fact-caption">views it typically takes before a message actually sticks — the logic behind every billboard ever bought.</p>
+            <div class="fact-dots">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="fact-footnote mono">a fixed route delivers this automatically</p>
+          </div>
         </div>
 
         <!-- Street-loop repetition diagram. The route path draws in on
@@ -224,10 +242,35 @@
 
     <!-- ================= WHY DIFFERENT / COMPARISON ================= -->
     <section class="compare">
+      <div class="anchor-bg no-glow" aria-hidden="true"></div>
       <div class="container">
         <div class="section-head reveal">
           <h2>Why this is different</h2>
+          <p class="statement">Physical presence, without the billboard price tag.</p>
           <p class="lede">Most local advertising options force a trade-off: billboards are expensive and fixed in one spot; social ads are cheap but easy to scroll past and forget; letterbox drops go straight in the recycling. PedalPanel is the first way to get physical, repeated, real-world visibility in your own neighbourhood — at a price close to what you'd spend on a modest social campaign, not a billboard contract.</p>
+        </div>
+
+        <!-- v2: a compact cost-preview strip, foreshadowing the full
+             comparison table below with a different visual shape (a
+             horizontal mini bar-chart, not a card) — bars grow in on
+             scroll, same draw-in-on-scroll spirit as the other diagrams
+             on this page but implemented as width, not stroke-offset. -->
+        <div class="cost-preview reveal" id="cost-preview" aria-hidden="true">
+          <div class="cost-row">
+            <span class="cost-name">Billboard</span>
+            <div class="cost-bar-track"><div class="cost-bar" data-w="92%"></div></div>
+            <span class="cost-amt mono">$$$$</span>
+          </div>
+          <div class="cost-row">
+            <span class="cost-name">Social ads</span>
+            <div class="cost-bar-track"><div class="cost-bar" data-w="26%"></div></div>
+            <span class="cost-amt mono">$</span>
+          </div>
+          <div class="cost-row cost-row-pp">
+            <span class="cost-name">PedalPanel</span>
+            <div class="cost-bar-track"><div class="cost-bar cost-bar-pp" data-w="38%"></div></div>
+            <span class="cost-amt mono">$–$$</span>
+          </div>
         </div>
 
         <div class="compare-table-wrap reveal">

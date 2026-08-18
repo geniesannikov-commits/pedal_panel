@@ -461,6 +461,10 @@ section {
   left: -140px;
 }
 
+.anchor-bg.no-glow::after {
+  display: none;
+}
+
 .anchor-grid {
   position: relative;
   z-index: 1;

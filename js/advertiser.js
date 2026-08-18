@@ -40,6 +40,33 @@
     }
   }
 
+  var costPreview = document.getElementById("cost-preview");
+  if (costPreview) {
+    var costBars = costPreview.querySelectorAll(".cost-bar");
+    var growBars = function () {
+      costBars.forEach(function (bar) {
+        bar.style.width = bar.dataset.w;
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      var costObs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              growBars();
+              costObs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      costObs.observe(costPreview);
+    } else {
+      growBars();
+    }
+  }
+
   var tabs = document.querySelectorAll(".budget-tab");
   var amountEl = document.getElementById("budget-amount");
   var lowEl = document.getElementById("budget-low");
