@@ -174,25 +174,31 @@ section {
   overflow: hidden;
 }
 
-.mark::before {
-  content: "";
+/* Logo mark: a squinting "eye" (a lens/almond shape, points at each side —
+   the classic vesica shape) rather than a literal pupil, that glances
+   left and right on a slow loop. The path itself never changes; only the
+   fill glides via translateX, so it reads as an eye looking around
+   rather than blinking. transform-box: fill-box keeps the origin
+   centered on the shape regardless of viewBox coordinates. */
+.mark-eye {
   position: absolute;
-  inset: 6px 6px 6px 6px;
-  background: var(--pink);
-  border-radius: 2px;
-  animation: markPulse 3.2s var(--ease) infinite;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes markPulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  50% {
-    opacity: 0.55;
-    transform: translateX(2px);
-  }
+.mark-eye path {
+  fill: var(--pink);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eyeGlance 4.6s ease-in-out infinite;
+}
+
+@keyframes eyeGlance {
+  0%, 10% { transform: translateX(0); }
+  28%, 42% { transform: translateX(2.6px); }
+  58%, 72% { transform: translateX(-2.6px); }
+  90%, 100% { transform: translateX(0); }
 }
 
 .nav-links {
