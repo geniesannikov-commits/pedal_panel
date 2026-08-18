@@ -57,20 +57,19 @@
   border-bottom: 1px solid var(--paper-line);
 }
 
-/* ---------- How it works: idle vs busy meter strip ---------- */
+/* ---------- How it works: idle vs busy meter strip ----------
+   Sits beside the text as the right column of .anchor-grid, so the two
+   cards stack vertically rather than side-by-side (there isn't room for
+   both in a ~0.85fr column). Each card now shows two stacked bars —
+   "hours ridden" and "amount earned" — that track together within a
+   card (both low for the idle bike, both high for the busy bike), so the
+   "paid out based on hours ridden" idea is visible, not just stated. */
 
 .meter-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 32px;
-  max-width: 640px;
-}
-
-@media (max-width: 620px) {
-  .meter-strip {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 }
 
 .meter-card {
@@ -89,7 +88,26 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+
+.meter-metric {
   margin-bottom: 12px;
+}
+
+.meter-metric:last-of-type {
+  margin-bottom: 14px;
+}
+
+.meter-metric-label {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.meter-idle .meter-metric-label {
+  color: var(--ink-faint);
 }
 
 .meter-track {
@@ -110,7 +128,8 @@
 }
 
 .meter-value {
-  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--paper-line);
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--ink);

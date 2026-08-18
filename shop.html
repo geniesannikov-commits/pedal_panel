@@ -84,31 +84,47 @@
     <!-- ================= HOW IT WORKS ================= -->
     <section class="how-it-works">
       <div class="container">
-        <!-- v2: intro paragraphs were flat two-column text. Reworked with
-             a full-width idle-vs-busy meter strip rather than a side
-             card — a third distinct visual shape from the swap-card and
-             fact-card patterns used elsewhere, since the 3-step flow
-             right below already carries the icon-based diagram for this
-             section. -->
-        <div class="section-head reveal">
-          <h2>How it works</h2>
-          <p class="statement">An idle bike earns nothing. A busy fleet just&nbsp;earns.</p>
-        </div>
-        <div class="anchor-text reveal">
-          <p>Local businesses pay to advertise on your fleet's screens. That revenue is pooled across your fleet and paid out based on how many hours your bikes are actually out and moving — the more your fleet is on the road, the more it earns. An idle bike earns nothing, so there's no cost or downside to bikes sitting unused; a busy fleet is simply a fleet that earns.</p>
-          <p>We handle everything on the advertiser side — sales, campaigns, billing. You don't need to do anything different day to day. The screens run themselves; the earnings show up.</p>
-        </div>
-
-        <div class="meter-strip reveal" aria-hidden="true">
-          <div class="meter-card meter-idle">
-            <p class="meter-label mono">Idle bike</p>
-            <div class="meter-track"><div class="meter-fill" style="width: 4%;"></div></div>
-            <p class="meter-value mono">$0 earned</p>
+        <!-- v2: intro paragraphs were flat two-column text; reworked with
+             an idle-vs-busy meter strip. v3: moved into the shared
+             .anchor-grid pattern so it sits beside the text instead of
+             full-width below it, and each card now stacks two bars
+             ("hours ridden" / "amount earned") instead of one — the two
+             bars track together within a card (both low for the idle
+             bike, both high for the busy bike), making the "paid out
+             based on hours ridden" line literal rather than just stated. -->
+        <div class="anchor-grid">
+          <div class="anchor-text reveal">
+            <h2>How it works</h2>
+            <p class="statement">An idle bike earns nothing. A busy fleet just&nbsp;earns.</p>
+            <p>Local businesses pay to advertise on your fleet's screens. That revenue is pooled across your fleet and paid out based on how many hours your bikes are actually out and moving — the more your fleet is on the road, the more it earns. An idle bike earns nothing, so there's no cost or downside to bikes sitting unused; a busy fleet is simply a fleet that earns.</p>
+            <p>We handle everything on the advertiser side — sales, campaigns, billing. You don't need to do anything different day to day. The screens run themselves; the earnings show up.</p>
           </div>
-          <div class="meter-card meter-busy">
-            <p class="meter-label mono">Busy bike</p>
-            <div class="meter-track"><div class="meter-fill is-live" style="width: 82%;"></div></div>
-            <p class="meter-value mono">earning<span class="meter-live-dot"></span></p>
+
+          <div class="meter-strip reveal" aria-hidden="true">
+            <div class="meter-card meter-idle">
+              <p class="meter-label mono">Idle bike</p>
+              <div class="meter-metric">
+                <span class="meter-metric-label">Hours ridden</span>
+                <div class="meter-track"><div class="meter-fill" style="width: 4%;"></div></div>
+              </div>
+              <div class="meter-metric">
+                <span class="meter-metric-label">Amount earned</span>
+                <div class="meter-track"><div class="meter-fill" style="width: 4%;"></div></div>
+              </div>
+              <p class="meter-value mono">$0 earned</p>
+            </div>
+            <div class="meter-card meter-busy">
+              <p class="meter-label mono">Busy bike</p>
+              <div class="meter-metric">
+                <span class="meter-metric-label">Hours ridden</span>
+                <div class="meter-track"><div class="meter-fill is-live" style="width: 82%;"></div></div>
+              </div>
+              <div class="meter-metric">
+                <span class="meter-metric-label">Amount earned</span>
+                <div class="meter-track"><div class="meter-fill is-live" style="width: 82%;"></div></div>
+              </div>
+              <p class="meter-value mono">earning<span class="meter-live-dot"></span></p>
+            </div>
           </div>
         </div>
 
