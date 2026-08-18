@@ -415,6 +415,236 @@ section {
   line-height: 1.6;
 }
 
+/* ---------- Anchor sections ----------
+   Shared pattern for sections that used to be flat two-column paragraph
+   text with no visual anchor (v2 feedback): a narrower text column with a
+   bold scannable "statement" line, next to a small supporting diagram
+   card, sitting over a subtle dot-grid + soft radial-glow background so
+   the section has its own identity before anyone reads a word. Background
+   glow technique is plain CSS radial-gradient + blur (see Codrops' CSS
+   reference for radial-gradient/blur — no demo needed for something this
+   simple, per the brief's fallback). Reused on both the advertiser and
+   shop pages, with per-page content in the .swap-card.
+   ------------------------------------------------------------------ */
+
+.anchor-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.anchor-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--paper-line) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.anchor-bg::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -140px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle, rgba(255, 44, 104, 0.16), rgba(255, 44, 104, 0) 70%);
+  filter: blur(6px);
+}
+
+.anchor-grid-reverse .anchor-bg::after {
+  right: auto;
+  left: -140px;
+}
+
+.anchor-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .anchor-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+  }
+
+  .anchor-grid-reverse .anchor-text {
+    order: 2;
+  }
+
+  .anchor-grid-reverse .swap-card {
+    order: 1;
+  }
+}
+
+.anchor-text {
+  max-width: 46ch;
+}
+
+.anchor-text p {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.anchor-text p + p {
+  margin-top: 16px;
+}
+
+.statement {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 2.1vw, 1.4rem);
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 3px solid var(--pink);
+  padding-left: 16px;
+  margin: 18px 0 22px;
+  max-width: 34ch;
+}
+
+.swap-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.25);
+}
+
+.swap-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 20px;
+}
+
+.swap-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.swap-bag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.swap-bag svg {
+  width: 46px;
+  height: 46px;
+  color: var(--ink-faint);
+}
+
+.swap-bag-after svg {
+  color: var(--ink);
+}
+
+.swap-live-dot {
+  fill: var(--pink);
+  animation: swapBlink 1.8s var(--ease) infinite;
+}
+
+@keyframes swapBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-live-dot { animation: none; }
+}
+
+.swap-caption {
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.swap-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--pink);
+  flex-shrink: 0;
+  padding-bottom: 24px;
+}
+
+.swap-arrow svg {
+  width: 22px;
+  height: 22px;
+}
+
+.swap-arrow-label {
+  font-size: 0.66rem;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.swap-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--paper-line);
+}
+
+.swap-stat-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.1rem;
+  color: var(--pink-deep);
+  line-height: 1;
+}
+
+.swap-stat-label {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  max-width: 20ch;
+  line-height: 1.4;
+}
+
+.swap-earning {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--paper-line);
+}
+
+.swap-earning-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pink);
+  flex-shrink: 0;
+  animation: swapBlink 1.8s var(--ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-earning-dot { animation: none; }
+}
+
+.swap-earning-label {
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
