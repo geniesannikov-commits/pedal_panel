@@ -1,0 +1,425 @@
+/* ==========================================================================
+   PedalPanel — base design system
+   Shared across all three pages: tokens, reset, type, layout, nav, buttons,
+   cards, footer, and the site-wide scroll-reveal utility.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --pink: #ff2c68;
+  --pink-deep: #e01259;
+  --pink-tint: #ffe4ee;
+  --pink-tint-2: #fff0f5;
+
+  /* Ink */
+  --ink: #14141a;
+  --ink-soft: #4a4a56;
+  --ink-faint: #8b8b98;
+
+  /* Surfaces */
+  --paper: #ffffff;
+  --paper-alt: #faf9fb;
+  --paper-line: #ebe9ef;
+  --dark: #121218;
+  --dark-line: #2a2a34;
+
+  /* Type */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+
+  /* Scale */
+  --container: 1160px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 700px) {
+  .container {
+    padding-inline: 40px;
+  }
+}
+
+section {
+  padding-block: clamp(56px, 9vw, 108px);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pink);
+  flex-shrink: 0;
+}
+
+/* ---------- Nav ---------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.site-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.mark {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--ink);
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.mark::before {
+  content: "";
+  position: absolute;
+  inset: 6px 6px 6px 6px;
+  background: var(--pink);
+  border-radius: 2px;
+  animation: markPulse 3.2s var(--ease) infinite;
+}
+
+@keyframes markPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translateX(2px);
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+}
+
+.nav-links a:not(.btn) {
+  text-decoration: none;
+  color: var(--ink-soft);
+  transition: color 0.2s var(--ease);
+}
+
+.nav-links a:not(.btn):hover {
+  color: var(--ink);
+}
+
+.nav-audience {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 5px 10px;
+  border: 1px solid var(--paper-line);
+  border-radius: 100px;
+}
+
+/* Below ~640px, keep only the wordmark + primary CTA — the audience pill
+   and cross-link text don't have room and aren't essential on mobile. */
+@media (max-width: 640px) {
+  .nav-audience,
+  .nav-links li:nth-child(2) {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .site-nav .btn {
+    padding: 10px 18px;
+    font-size: 0.88rem;
+  }
+}
+
+/* ---------- Buttons ----------
+   Hover treatment adapted from Codrops' magnetic-button family
+   (tympanus.net/codrops/2020/08/05/magnetic-buttons/) and the fill-sweep
+   idea from "Ideas for CSS Button Hover Animations" — reimplemented here
+   in plain JS (subtle pointer-follow translate, ±10px clamp) + a
+   radial-gradient sweep that expands from the cursor position, no library.
+   ------------------------------------------------------------------ */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
+  will-change: transform;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--pink-deep) 0%, var(--pink) 60%);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
+}
+
+.btn-primary {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn-primary::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.btn-primary:hover {
+  transform: translate(var(--tx, 0), var(--ty, 0));
+}
+
+.btn-primary:hover::before {
+  transform: scale(1.15);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--paper-line);
+}
+
+.btn-ghost::before {
+  background: var(--ink);
+}
+
+.btn-ghost:hover {
+  color: #fff;
+  border-color: var(--ink);
+  transform: translate(var(--tx, 0), var(--ty, 0));
+}
+
+.btn-ghost:hover::before {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.btn-lg {
+  padding: 17px 32px;
+  font-size: 1rem;
+}
+
+/* ---------- Reveal-on-scroll ----------
+   IntersectionObserver fade/slide utility, adapted from Codrops' scroll
+   tag family (e.g. tympanus.net/codrops/tag/scroll/) — a single restrained
+   reveal reused everywhere rather than a bespoke animation per section.
+   See js/reveal.js.
+   ------------------------------------------------------------------ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.03s; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.09s; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.15s; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.21s; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.27s; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--paper-line);
+  padding-block: 40px;
+}
+
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+}
+
+.site-footer a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--pink-deep);
+}
+
+/* ---------- Shared misc ---------- */
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.text-pink {
+  color: var(--pink-deep);
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.section-head.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.lede {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  margin-top: 14px;
+  line-height: 1.6;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

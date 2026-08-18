@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Advertisers — PedalPanel</title>
+  <meta name="description" content="Put your brand on LED screens riding through your neighbourhood every day. No design agency, no six-figure minimum, no lock-in." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/advertiser.css" />
+</head>
+<body>
+
+  <header class="site-nav">
+    <div class="container">
+      <a class="wordmark" href="index.html"><span class="mark"></span>PedalPanel</a>
+      <ul class="nav-links">
+        <li class="nav-audience">Advertiser</li>
+        <li><a href="shop.html">Run a rental shop instead?</a></li>
+        <li><a class="btn btn-primary" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Advertiser">Book a call</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+    <section class="adv-hero">
+      <div class="container adv-hero-grid">
+        <div class="adv-hero-copy reveal">
+          <p class="eyebrow">For local advertisers</p>
+          <h1>A local billboard that follows your customers home.</h1>
+          <p class="lede">Your ad, on screens riding through your neighbourhood, every day — no design agency, no six-figure minimum, no lock-in.</p>
+          <a class="btn btn-primary btn-lg" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Advertiser">Book a call</a>
+        </div>
+
+        <!-- Product visual: placeholder device-frame mockup, ready to swap
+             for the real bag/screen phone footage. Ad rotation is a plain
+             CSS opacity crossfade (no library needed for something this
+             simple) — echoes the "rotation alongside a few other
+             advertisers" idea from the pricing copy below. -->
+        <div class="adv-hero-visual reveal">
+          <div class="bag-mock">
+            <div class="bag-mock-strap"></div>
+            <div class="bag-mock-body">
+              <div class="bag-mock-screen">
+                <div class="ad-slide ad-slide-1">
+                  <span class="ad-tag mono">01 / 03</span>
+                  <span class="ad-brand">Corner&nbsp;Coffee&nbsp;Co.</span>
+                  <span class="ad-line">Flat white, $4.50 &mdash; Newtown</span>
+                </div>
+                <div class="ad-slide ad-slide-2">
+                  <span class="ad-tag mono">02 / 03</span>
+                  <span class="ad-brand">Marrick&nbsp;Physio</span>
+                  <span class="ad-line">New patients welcome this week</span>
+                </div>
+                <div class="ad-slide ad-slide-3">
+                  <span class="ad-tag mono">03 / 03</span>
+                  <span class="ad-brand">The&nbsp;Local&nbsp;Locksmith</span>
+                  <span class="ad-line">24/7 &middot; 10 min from you</span>
+                </div>
+              </div>
+              <div class="bag-mock-vents"></div>
+            </div>
+            <p class="bag-mock-caption mono">live rotation — your ad here</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHAT IT IS ================= -->
+    <section class="container">
+      <div class="section-head reveal">
+        <h2>What it actually is</h2>
+      </div>
+      <div class="two-col reveal">
+        <p>PedalPanel puts a small LED advertising screen on the delivery bags already carried by e-bike riders working for Uber&nbsp;Eats, DoorDash, and other delivery platforms in your area. As riders do their normal deliveries, your ad rotates on the screen — repeatedly, in the same streets, to the same residents, day after day.</p>
+        <p>We don't change how riders work. We don't add new riders to the road. We just put a screen on bags that are already moving through your suburb, all day, every day.</p>
+      </div>
+    </section>
+
+    <!-- ================= WHY IT WORKS ================= -->
+    <section class="why-works">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Why it works</h2>
+        </div>
+        <div class="two-col reveal">
+          <p>Advertising works through repetition and recognition — the same principle behind a billboard on your daily commute. You don't remember a billboard because you stopped and stared at it once. You remember it because you passed it a hundred times.</p>
+          <p>PedalPanel works the same way, except instead of one fixed billboard, your ad is moving through the exact streets your customers live and work on — past their homes, their offices, their local cafés — over and over, building the kind of local recognition that a one-off social post can't.</p>
+        </div>
+
+        <!-- Street-loop repetition diagram. The route path draws in on
+             scroll (stroke-dasharray/dashoffset reveal, the classic Jake
+             Archibald SVG line-draw technique referenced from Codrops'
+             /codrops/tag/svg/ demos), then the bike marker loops the
+             route continuously using native CSS motion-path
+             (offset-path/offset-distance) rather than a JS animation
+             loop or GSAP's MotionPathPlugin — see css/advertiser.css
+             #loop-diagram. -->
+        <div class="loop-diagram reveal" id="loop-diagram">
+          <svg viewBox="0 0 760 260" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <path id="loop-route" class="loop-route"
+              d="M40,190 C120,60 220,60 300,140 C360,200 420,210 470,150 C520,90 600,80 660,150 C690,185 700,190 720,190"
+              fill="none" />
+            <g class="loop-stops">
+              <circle cx="70" cy="176" r="4"></circle>
+              <circle cx="230" cy="88" r="4"></circle>
+              <circle cx="380" cy="190" r="4"></circle>
+              <circle cx="540" cy="104" r="4"></circle>
+              <circle cx="680" cy="164" r="4"></circle>
+            </g>
+            <g class="loop-houses">
+              <path class="house" d="M55,176 l15,-13 15,13 v18 h-30 z"/>
+              <path class="house" d="M215,88 l15,-13 15,13 v18 h-30 z"/>
+              <path class="house" d="M365,190 l15,-13 15,13 v18 h-30 z"/>
+              <path class="house" d="M525,104 l15,-13 15,13 v18 h-30 z"/>
+              <path class="house" d="M665,164 l15,-13 15,13 v18 h-30 z"/>
+            </g>
+            <!-- Bike/screen marker: positioned with native CSS motion-path
+                 (offset-path, matching the route's own "d"), not JS
+                 getPointAtLength — see .loop-marker-dot in advertiser.css. -->
+            <circle class="loop-marker-dot" r="6"></circle>
+          </svg>
+          <p class="loop-caption mono">the same route, on repeat, every riding day</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COVERAGE ================= -->
+    <section class="coverage">
+      <div class="container coverage-grid">
+        <div class="section-head reveal" style="margin-bottom:0;">
+          <h2>Where your ad actually runs</h2>
+          <p class="lede">Right now, PedalPanel coverage is built around individual e-bike rental shops — each shop's fleet of riders lives and delivers around that shop's local area. When you buy a campaign with us, your ad runs across the riders based out of shops in your chosen neighbourhood, which naturally keeps your ad hyperlocal to where your actual customers are.</p>
+          <p class="lede">As we sign on more rental shops across Sydney, coverage grows suburb by suburb — with the long-term goal of full city-wide coverage. You're getting in on hyperlocal advertising at its most targeted, before it scales city-wide.</p>
+        </div>
+
+        <!-- Stylised, illustrative coverage-cluster graphic — not a real
+             live map. A soft pulse on the reach ring is a plain CSS
+             keyframe (reduced-motion respected via base.css), reveal-in
+             handled by the shared IntersectionObserver utility. -->
+        <div class="coverage-map reveal" aria-hidden="true">
+          <svg viewBox="0 0 320 320" width="100%" height="100%">
+            <g class="cov-grid" stroke="currentColor">
+              <path d="M0,80 H320 M0,160 H320 M0,240 H320"/>
+              <path d="M80,0 V320 M160,0 V320 M240,0 V320"/>
+            </g>
+            <circle class="cov-ring cov-ring-1" cx="160" cy="160" r="60"/>
+            <circle class="cov-ring cov-ring-2" cx="160" cy="160" r="100"/>
+            <circle class="cov-ring cov-ring-3" cx="160" cy="160" r="140"/>
+            <g class="cov-dots">
+              <circle cx="120" cy="120" r="3.5"/>
+              <circle cx="200" cy="130" r="3.5"/>
+              <circle cx="140" cy="200" r="3.5"/>
+              <circle cx="205" cy="195" r="3.5"/>
+              <circle cx="95" cy="175" r="3.5"/>
+            </g>
+            <circle class="cov-shop" cx="160" cy="160" r="7"/>
+          </svg>
+          <p class="coverage-map-label mono">shop &rarr; hyperlocal reach</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRICING ================= -->
+    <section class="pricing">
+      <div class="container pricing-grid">
+        <div class="section-head reveal" style="margin-bottom:0;">
+          <h2>How pricing works</h2>
+          <p class="lede">You set a daily budget — that's the only number you need to think about. We handle the rest: pacing your spend across the day, weighting it toward the hours your customers are actually out and about (lunch and evening), and showing your ad in a continuous rotation alongside a small number of other advertisers, never buried among dozens.</p>
+          <p class="lede">You only pay for time your ad is verifiably live and moving — tracked directly from the screen's own GPS. If your full budget isn't used on a given day, you're not charged for it. No wasted spend, no black-box reporting.</p>
+        </div>
+
+        <div class="budget-card reveal">
+          <p class="eyebrow" style="margin-bottom:20px;">Illustrative example</p>
+          <div class="budget-tabs" role="tablist" aria-label="Example daily budget">
+            <button type="button" class="budget-tab" data-budget="20" data-low="45" data-high="70">$20/day</button>
+            <button type="button" class="budget-tab is-active" data-budget="40" data-low="90" data-high="140">$40/day</button>
+            <button type="button" class="budget-tab" data-budget="80" data-low="180" data-high="280">$80/day</button>
+          </div>
+          <div class="budget-output">
+            <span class="budget-amount mono">$<span id="budget-amount">40</span><span class="budget-unit">/day</span></span>
+            <span class="budget-arrow" aria-hidden="true">&asymp;</span>
+            <span class="budget-plays"><span id="budget-low">90</span>&ndash;<span id="budget-high">140</span> <span class="budget-plays-label">plays</span></span>
+          </div>
+          <p class="budget-footnote">Based on ~90&ndash;140 plays per screen-hour of active coverage. Actual plays depend on live rider activity in your area.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHY DIFFERENT / COMPARISON ================= -->
+    <section class="compare">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Why this is different</h2>
+          <p class="lede">Most local advertising options force a trade-off: billboards are expensive and fixed in one spot; social ads are cheap but easy to scroll past and forget; letterbox drops go straight in the recycling. PedalPanel is the first way to get physical, repeated, real-world visibility in your own neighbourhood — at a price close to what you'd spend on a modest social campaign, not a billboard contract.</p>
+        </div>
+
+        <div class="compare-table-wrap reveal">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th scope="col" class="row-label"></th>
+                <th scope="col" class="col-pp">PedalPanel</th>
+                <th scope="col">Billboard</th>
+                <th scope="col">Social ads</th>
+                <th scope="col">Print / letterbox</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Cost</th>
+                <td class="col-pp"><span class="dot"></span>Low, you set it</td>
+                <td><span class="dot"></span>High, fixed</td>
+                <td><span class="dot"></span>Low</td>
+                <td><span class="dot"></span>Medium</td>
+              </tr>
+              <tr>
+                <th scope="row">Lock-in</th>
+                <td class="col-pp"><span class="dot"></span>None</td>
+                <td><span class="dot"></span>Months+</td>
+                <td><span class="dot"></span>None</td>
+                <td><span class="dot"></span>Per run</td>
+              </tr>
+              <tr>
+                <th scope="row">Physical, real-world presence</th>
+                <td class="col-pp"><span class="dot"></span>Yes, moving</td>
+                <td><span class="dot"></span>Yes, fixed</td>
+                <td><span class="dot"></span>No</td>
+                <td><span class="dot"></span>Briefly</td>
+              </tr>
+              <tr>
+                <th scope="row">Local targeting</th>
+                <td class="col-pp"><span class="dot"></span>Hyperlocal</td>
+                <td><span class="dot"></span>One spot</td>
+                <td><span class="dot"></span>Broad radius</td>
+                <td><span class="dot"></span>Local</td>
+              </tr>
+              <tr>
+                <th scope="row">Setup effort</th>
+                <td class="col-pp"><span class="dot"></span>Minimal</td>
+                <td><span class="dot"></span>Agency + design</td>
+                <td><span class="dot"></span>Creative + ad ops</td>
+                <td><span class="dot"></span>Print + drop</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GETTING STARTED / CTA ================= -->
+    <section class="closing">
+      <div class="container closing-grid">
+        <div class="reveal">
+          <h2>Getting started is simple</h2>
+          <p class="lede">No creative agency required, no long contracts, no minimum spend that only makes sense for big brands. Set a budget, tell us your area, and we take care of the rest — from placement to reporting.</p>
+        </div>
+        <div class="closing-cta reveal">
+          <p class="closing-question">Ready to get your business in front of your neighbourhood?</p>
+          <a class="btn btn-primary btn-lg" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Advertiser">Book a call</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 PedalPanel &middot; a Leddrive Media company</span>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a> &nbsp;&middot;&nbsp;
+        <a href="shop.html">For rental shops</a> &nbsp;&middot;&nbsp;
+        <a href="mailto:hello@pedalpanel.com.au">hello@pedalpanel.com.au</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/reveal.js"></script>
+  <script src="js/buttons.js"></script>
+  <script src="js/advertiser.js"></script>
+</body>
+</html>

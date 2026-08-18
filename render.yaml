@@ -1,0 +1,22 @@
+# Render Blueprint — pedal_panel marketing site
+# Static site, no build step: plain HTML/CSS/JS served as-is.
+# https://render.com/docs/static-sites + https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    runtime: static
+    name: pedalpanel
+    branch: claude/pedalpanel-marketing-site-eo2fhe
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
+    routes:
+      - type: rewrite
+        source: /advertiser
+        destination: /advertiser.html
+      - type: rewrite
+        source: /shop
+        destination: /shop.html
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

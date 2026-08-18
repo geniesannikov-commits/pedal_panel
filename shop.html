@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Rental Shops — PedalPanel</title>
+  <meta name="description" content="Turn your e-bike rental fleet into a second revenue stream, funded by advertisers, not your riders." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/shop.css" />
+</head>
+<body>
+
+  <header class="site-nav">
+    <div class="container">
+      <a class="wordmark" href="index.html"><span class="mark"></span>PedalPanel</a>
+      <ul class="nav-links">
+        <li class="nav-audience">Rental shop</li>
+        <li><a href="advertiser.html">Looking to advertise instead?</a></li>
+        <li><a class="btn btn-primary" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Rental%20shop">Book a call</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+    <section class="shop-hero">
+      <div class="container">
+        <div class="shop-hero-inner reveal">
+          <p class="eyebrow">For e-bike rental shops</p>
+          <h1>Your bikes are already on the road. Now they can pay for themselves.</h1>
+          <p class="lede">Turn your rental fleet into a second income stream — funded by advertisers, not your riders.</p>
+          <a class="btn btn-primary btn-lg" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Rental%20shop">Book a call</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= THE IDEA ================= -->
+    <section class="container">
+      <div class="section-head reveal">
+        <h2>The idea</h2>
+      </div>
+      <div class="two-col reveal">
+        <p>Every bike in your fleet already carries a delivery bag. We swap that bag for one with a built-in advertising screen — same insulation, same size, same experience for your riders — except now, every hour that bike is out on the road, it's also earning advertising revenue.</p>
+        <p>You're not adding a new product to sell or a new service to manage. You're upgrading an item your riders already use into one that generates income while it's doing exactly what it always did.</p>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section class="how-it-works">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>How it works</h2>
+        </div>
+        <div class="two-col reveal">
+          <p>Local businesses pay to advertise on your fleet's screens. That revenue is pooled across your fleet and paid out based on how many hours your bikes are actually out and moving — the more your fleet is on the road, the more it earns. An idle bike earns nothing, so there's no cost or downside to bikes sitting unused; a busy fleet is simply a fleet that earns.</p>
+          <p>We handle everything on the advertiser side — sales, campaigns, billing. You don't need to do anything different day to day. The screens run themselves; the earnings show up.</p>
+        </div>
+
+        <!-- 3-step mechanism graphic. Connecting line draws in on scroll
+             using the same stroke-dasharray/dashoffset technique as the
+             advertiser page's street-loop (Codrops SVG line-draw family),
+             here run once left-to-right rather than looped — see
+             js/shop.js and .flow-line in css/shop.css. -->
+        <div class="flow reveal" id="flow-diagram">
+          <svg class="flow-line-svg" viewBox="0 0 700 4" preserveAspectRatio="none" aria-hidden="true">
+            <path class="flow-line" d="M0,2 H700" />
+          </svg>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <span class="flow-icon">
+                <svg viewBox="0 0 40 40" fill="none"><circle cx="12" cy="30" r="5" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="30" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 30 L18 16 H26 L30 30 M18 16 L22 22 H30" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+              </span>
+              <span class="flow-num mono">01</span>
+              <h3>Bike goes out</h3>
+              <p>A rider heads off on a normal delivery run, ad-equipped bag and all.</p>
+            </div>
+            <div class="flow-step">
+              <span class="flow-icon">
+                <svg viewBox="0 0 40 40" fill="none"><rect x="9" y="11" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M15 31h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <span class="flow-num mono">02</span>
+              <h3>Screen shows local ads</h3>
+              <p>The screen rotates ads from businesses in the area, the whole ride.</p>
+            </div>
+            <div class="flow-step">
+              <span class="flow-icon">
+                <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="11" stroke="currentColor" stroke-width="2"/><path d="M20 14v12M16.5 17.2c0-1.8 1.6-3.2 3.5-3.2s3.5 1.2 3.5 2.8c0 3.6-7 1.8-7 5.4 0 1.6 1.6 2.8 3.5 2.8s3.5-1.4 3.5-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              <span class="flow-num mono">03</span>
+              <h3>Revenue paid to you</h3>
+              <p>Paid out based on hours ridden — the busier your fleet, the more it earns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FINANCIAL STRUCTURE ================= -->
+    <section class="finance">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>The financial structure — and it's negotiable</h2>
+          <p class="lede">There are two ways to get started, and the split depends on who covers the cost of the screens.</p>
+        </div>
+
+        <div class="finance-cards reveal-stagger">
+          <div class="finance-card">
+            <p class="eyebrow">Option A</p>
+            <h3>You buy the screens upfront</h3>
+            <p>You keep the larger share of the advertising revenue they generate. Higher upfront cost, bigger ongoing return.</p>
+          </div>
+          <div class="finance-card">
+            <p class="eyebrow">Option B</p>
+            <h3>We supply the screens</h3>
+            <p>We take on the hardware cost and risk, and keep the larger share in return. Zero upfront cost to you, smaller ongoing return.</p>
+          </div>
+        </div>
+
+        <p class="finance-note reveal">And it's not limited to those two extremes — the structure scales: the more of the screen cost you're willing to cover, the more of the ongoing ad revenue you keep. We'll work out the exact split with you based on what makes sense for your business.</p>
+
+        <!-- The negotiability slider: one range input driving two linked
+             fill bars (cost covered / revenue kept), with the two named
+             options marked as endpoints on the same spectrum. No specific
+             Codrops range-slider demo turned up a good fit for this one,
+             so per the brief's fallback this is a plain styled
+             input[type=range] + CSS custom properties — see js/shop.js. -->
+        <div class="split-slider reveal" id="split-slider">
+          <div class="split-bars">
+            <div class="split-bar-row">
+              <span class="split-bar-label">You cover</span>
+              <div class="split-bar-track">
+                <div class="split-bar-fill cost" id="split-cost-fill"></div>
+              </div>
+              <span class="split-bar-value mono" id="split-cost-value">50%</span>
+            </div>
+            <div class="split-bar-row">
+              <span class="split-bar-label">You keep</span>
+              <div class="split-bar-track">
+                <div class="split-bar-fill revenue" id="split-rev-fill"></div>
+              </div>
+              <span class="split-bar-value mono" id="split-rev-value">53%</span>
+            </div>
+          </div>
+
+          <div class="split-control">
+            <input type="range" min="0" max="100" value="50" id="split-range" aria-label="Percentage of screen cost you cover" />
+            <div class="split-endpoints">
+              <span><strong>We supply the screens</strong><br />$0 upfront</span>
+              <span class="split-endpoint-right"><strong>You buy the screens</strong><br />full upfront</span>
+            </div>
+          </div>
+          <p class="split-footnote">Illustrative only — of screen cost vs. of ad revenue. Exact split negotiated per shop.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHAT IT MEANS ================= -->
+    <section class="container">
+      <div class="section-head reveal">
+        <h2>What this means for your business</h2>
+      </div>
+      <div class="two-col reveal">
+        <p>The revenue your fleet earns doesn't have to just sit as profit — many shops use it to fund a discounted rental rate on ad-equipped bikes. That means you can offer riders a cheaper rental tier than your competitors, funded by advertisers rather than out of your own margin — a real point of difference in a market where riders compare rental prices closely.</p>
+        <p>How you use the revenue is entirely up to you — keep it, discount rent with it, or split the difference. We just make sure it lands in your account.</p>
+      </div>
+    </section>
+
+    <!-- ================= TRANSPARENCY ================= -->
+    <section class="transparency">
+      <div class="container">
+        <div class="transparency-card reveal">
+          <p class="eyebrow">Full transparency, no guarantees</p>
+          <p class="lede" style="margin-top:6px;">We won't promise you a fixed dollar figure — anyone who does hasn't accounted for the fact that ad revenue depends on advertiser demand, which takes time to build. What we will guarantee is exactly how the payout is calculated, and full visibility into your own fleet's data — hours ridden, revenue generated, rate paid — checkable against your own records at any time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GETTING STARTED / CTA ================= -->
+    <section class="closing">
+      <div class="container closing-grid">
+        <div class="reveal">
+          <h2>Getting started</h2>
+          <p class="lede">You don't need to commit your whole fleet, sign a long contract, or take our word for how it performs. We start with a small trial on a handful of bikes so you can see real numbers from your own fleet before deciding how far to take it.</p>
+        </div>
+        <div class="closing-cta reveal">
+          <p class="closing-question">Want to see what your fleet could earn?</p>
+          <a class="btn btn-primary btn-lg" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Rental%20shop">Book a call</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 PedalPanel &middot; a Leddrive Media company</span>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a> &nbsp;&middot;&nbsp;
+        <a href="advertiser.html">For advertisers</a> &nbsp;&middot;&nbsp;
+        <a href="mailto:hello@pedalpanel.com.au">hello@pedalpanel.com.au</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/reveal.js"></script>
+  <script src="js/buttons.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>
