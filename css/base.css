@@ -668,3 +668,165 @@ section {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* ---------- Lead-capture dialog ----------
+   "Book a call" opens this instead of a mailto: link. Uses the native
+   <dialog> element for the backdrop, Escape-to-close and focus handling
+   for free, animated in with the modern @starting-style + transition
+   pattern (platform CSS, not a library) — falls back to appearing
+   instantly on browsers that don't support it. See js/lead-form.js. */
+
+.lead-dialog {
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 34px 30px;
+  max-width: 440px;
+  width: calc(100% - 48px);
+  background: var(--paper);
+  box-shadow: 0 40px 80px -30px rgba(20, 20, 26, 0.45);
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease), overlay 0.28s allow-discrete, display 0.28s allow-discrete;
+}
+
+.lead-dialog[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@starting-style {
+  .lead-dialog[open] {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+
+.lead-dialog::backdrop {
+  background: rgba(18, 18, 24, 0.55);
+  opacity: 0;
+  transition: opacity 0.28s var(--ease), overlay 0.28s allow-discrete, display 0.28s allow-discrete;
+}
+
+.lead-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .lead-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lead-dialog,
+  .lead-dialog::backdrop {
+    transition: none;
+  }
+}
+
+.lead-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.lead-close:hover {
+  background: var(--paper-alt);
+  color: var(--ink);
+}
+
+.lead-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lead-form h3,
+.lead-success h3 {
+  font-size: 1.35rem;
+  margin-top: 6px;
+}
+
+.lead-form-sub {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.lead-field {
+  margin-top: 18px;
+}
+
+.lead-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.lead-optional {
+  font-weight: 400;
+  color: var(--ink-faint);
+}
+
+.lead-field input,
+.lead-field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--paper-line);
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+}
+
+.lead-field input:focus,
+.lead-field textarea:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px var(--pink-tint);
+}
+
+.lead-form-error {
+  margin-top: 16px;
+  font-size: 0.86rem;
+  color: var(--pink-deep);
+}
+
+.lead-submit {
+  width: 100%;
+  margin-top: 22px;
+}
+
+.lead-success {
+  text-align: center;
+}
+
+.lead-success p {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.lead-success a {
+  color: var(--pink-deep);
+}
+
+.lead-success .btn {
+  margin-top: 22px;
+}

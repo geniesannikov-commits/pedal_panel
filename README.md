@@ -17,7 +17,8 @@ css/
 js/
   reveal.js         Shared IntersectionObserver scroll-reveal
   buttons.js        Shared magnetic/cursor-fill CTA hover
-  advertiser.js       Street-loop line-draw + loop trigger, budget tabs
+  lead-form.js        "Book a call" dialog — submits to Supabase (see below)
+  advertiser.js       Diagram interactions, budget tabs
   shop.js              3-step flow line-draw, financial-structure slider
 assets/
   favicon.svg
@@ -52,6 +53,64 @@ comments at each usage site for the specific reference:
 - Financial-structure slider (shop page) — no specific Codrops range-slider
   demo was a clean fit, so per the project brief this is a plain styled
   `input[type=range]` driving two linked fill bars.
+
+## Lead-capture form (Supabase)
+
+"Book a call" opens an on-site dialog (`.lead-dialog` in `advertiser.html`
+and `shop.html`) instead of a mailto: link. Submissions insert a row
+directly into a Supabase (Postgres) table from the browser — no backend
+server needed. Until it's configured, the form quietly falls back to the
+old pre-filled mailto so the CTA still works.
+
+**One-time setup:**
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. In the Supabase dashboard, open **SQL Editor** and run:
+
+   ```sql
+   create table public.leads (
+     id uuid primary key default gen_random_uuid(),
+     created_at timestamptz not null default now(),
+     audience text not null check (audience in ('advertiser', 'shop')),
+     page text,
+     name text not null,
+     email text not null,
+     phone text,
+     message text
+   );
+
+   alter table public.leads enable row level security;
+
+   create policy "Public can submit leads"
+   on public.leads
+   for insert
+   to anon
+   with check (true);
+   ```
+
+   This intentionally creates an *insert-only* policy for the public
+   `anon` role — the public key can add rows but can never read, edit,
+   or delete them. You view submissions yourself via the Supabase
+   dashboard's **Table Editor** (or Authentication + a proper SELECT
+   policy, later, if you want an in-app admin view).
+
+3. In **Project Settings → API**, copy the **Project URL** and the
+   **anon / public** key (not the `service_role` key — that one must
+   never appear in client-side code).
+4. Paste both into the two constants at the top of `js/lead-form.js`
+   (`SUPABASE_URL`, `SUPABASE_ANON_KEY`), commit, and push.
+
+**Spam:** the form has a hidden honeypot field (`#lead-hp`) — real users
+never see or fill it, so a filled honeypot is treated as a bot and
+silently dropped client-side without hitting Supabase. If spam becomes a
+real problem later, the next step up is a Supabase Edge Function that
+checks a CAPTCHA token (e.g. Cloudflare Turnstile, free) before
+inserting.
+
+**Free-tier note:** Supabase pauses a free project after ~1 week with no
+API activity — a quiet site could need a manual "restore" click in the
+dashboard the first time. Real traffic hitting the form (or anyone
+visiting the site, once analytics/other calls exist) keeps it awake.
 
 ## Deployment
 

@@ -20,7 +20,7 @@
       <ul class="nav-links">
         <li class="nav-audience">Advertiser</li>
         <li><a href="shop.html">Run a rental shop instead?</a></li>
-        <li><a class="btn btn-primary" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Advertiser">Book a call</a></li>
+        <li><button type="button" class="btn btn-primary" data-open-lead-form data-audience="advertiser">Book a call</button></li>
       </ul>
     </div>
   </header>
@@ -34,7 +34,7 @@
           <p class="eyebrow">For local advertisers</p>
           <h1>A local billboard that follows your customers home.</h1>
           <p class="lede">Your ad, on screens riding through your neighbourhood, every day — no design agency, no six-figure minimum, no lock-in.</p>
-          <a class="btn btn-primary btn-lg" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Advertiser">Book a call</a>
+          <button type="button" class="btn btn-primary btn-lg" data-open-lead-form data-audience="advertiser">Book a call</button>
         </div>
 
         <!-- Product visual: placeholder device-frame mockup, ready to swap
@@ -305,7 +305,7 @@
         </div>
         <div class="closing-cta reveal">
           <p class="closing-question">Ready to get your business in front of your neighbourhood?</p>
-          <a class="btn btn-primary btn-lg" href="mailto:hello@pedalpanel.com.au?subject=Book%20a%20call%20-%20Advertiser">Book a call</a>
+          <button type="button" class="btn btn-primary btn-lg" data-open-lead-form data-audience="advertiser">Book a call</button>
         </div>
       </div>
     </section>
@@ -323,8 +323,60 @@
     </div>
   </footer>
 
+  <!-- Lead-capture dialog — "Book a call" opens this instead of a mailto:
+       link. See css/base.css (.lead-dialog) and js/lead-form.js. -->
+  <dialog id="lead-dialog" class="lead-dialog">
+    <button type="button" class="lead-close" data-close-lead-form aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+
+    <form id="lead-form" class="lead-form">
+      <p class="eyebrow" id="lead-form-eyebrow">Book a call</p>
+      <h3>Let's talk.</h3>
+      <p class="lead-form-sub">Tell us a bit about your business and we'll get back to you within a day.</p>
+
+      <div class="lead-field">
+        <label for="lead-name">Name</label>
+        <input type="text" id="lead-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="lead-field">
+        <label for="lead-email">Email</label>
+        <input type="email" id="lead-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="lead-field">
+        <label for="lead-phone">Phone <span class="lead-optional">(optional)</span></label>
+        <input type="tel" id="lead-phone" name="phone" autocomplete="tel" />
+      </div>
+      <div class="lead-field">
+        <label for="lead-message">What should we know? <span class="lead-optional">(optional)</span></label>
+        <textarea id="lead-message" name="message" rows="3"></textarea>
+      </div>
+
+      <!-- Honeypot: hidden from real users; bots that fill every field
+           trip this and get a silent "success" instead of a real submit. -->
+      <div class="lead-field lead-honeypot visually-hidden">
+        <label for="lead-hp">Leave this field blank</label>
+        <input type="text" id="lead-hp" name="hp" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <p class="lead-form-error" id="lead-form-error" role="alert" hidden></p>
+
+      <button type="submit" class="btn btn-primary btn-lg lead-submit">
+        <span class="lead-submit-label">Send</span>
+      </button>
+    </form>
+
+    <div class="lead-success" id="lead-success" hidden>
+      <p class="eyebrow">Thanks</p>
+      <h3>We'll be in touch.</h3>
+      <p>We usually reply within a business day. In the meantime, feel free to email us directly at <a href="mailto:hello@pedalpanel.com.au">hello@pedalpanel.com.au</a>.</p>
+      <button type="button" class="btn btn-ghost" data-close-lead-form>Close</button>
+    </div>
+  </dialog>
+
   <script src="js/reveal.js"></script>
   <script src="js/buttons.js"></script>
   <script src="js/advertiser.js"></script>
+  <script src="js/lead-form.js"></script>
 </body>
 </html>
