@@ -14,7 +14,7 @@
 (function () {
   var SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL"; // e.g. "https://xxxxxxxx.supabase.co"
   var SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-  var FALLBACK_EMAIL = "hello@pedalpanel.com.au";
+  var FALLBACK_EMAIL = "admin@pedalpanel.com";
 
   var isConfigured =
     SUPABASE_URL.indexOf("YOUR_SUPABASE") === -1 &&
