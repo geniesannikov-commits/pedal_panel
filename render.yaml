@@ -9,6 +9,9 @@ services:
     buildCommand: ""
     staticPublishPath: .
     pullRequestPreviewsEnabled: false
+    domains:
+      - pedalpanel.com
+      - www.pedalpanel.com
     routes:
       - type: rewrite
         source: /advertiser
