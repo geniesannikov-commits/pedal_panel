@@ -12,8 +12,8 @@
  * "Send" falls back to a pre-filled mailto so the CTA still works.
  */
 (function () {
-  var SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL"; // e.g. "https://xxxxxxxx.supabase.co"
-  var SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+  var SUPABASE_URL = "https://xovsvcazxewmajvzgxqu.supabase.co";
+  var SUPABASE_ANON_KEY = "sb_publishable_BB47OM2IZvH2vUk3VLO2GQ_IBNRb6du";
   var FALLBACK_EMAIL = "admin@pedalpanel.com";
 
   var isConfigured =
