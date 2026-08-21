@@ -17,7 +17,7 @@ css/
 js/
   reveal.js         Shared IntersectionObserver scroll-reveal
   buttons.js        Shared magnetic/cursor-fill CTA hover
-  lead-form.js        "Book a call" dialog — submits to Supabase (see below)
+  lead-form.js        "Book a call" dialog — submits via Web3Forms (see below)
   advertiser.js       Diagram interactions, budget tabs
   shop.js              3-step flow line-draw, financial-structure slider
 assets/
@@ -54,18 +54,31 @@ comments at each usage site for the specific reference:
   demo was a clean fit, so per the project brief this is a plain styled
   `input[type=range]` driving two linked fill bars.
 
-## Lead-capture form (Supabase)
+## Lead-capture form
 
 "Book a call" opens an on-site dialog (`.lead-dialog` in `advertiser.html`
-and `shop.html`) instead of a mailto: link. Submissions insert a row
-directly into a Supabase (Postgres) table from the browser — no backend
-server needed. Until it's configured, the form quietly falls back to the
-old pre-filled mailto so the CTA still works.
+and `shop.html`) instead of a mailto: link. `js/lead-form.js` tries a
+submission path in priority order — see the comment at the top of that
+file for the current status of each:
 
-**One-time setup:**
+1. **Web3Forms** (active once configured) — the browser POSTs straight to
+   Web3Forms' API, which emails the submission to `admin@pedalpanel.com`
+   server-side. To the visitor this looks like an ordinary form submit —
+   no mail client opens, they never leave the page. Free tier (250
+   submissions/month), no backend or database of our own.
 
-1. Create a free project at [supabase.com](https://supabase.com).
-2. In the Supabase dashboard, open **SQL Editor** and run:
+   **Setup (~2 min):** go to [web3forms.com](https://web3forms.com),
+   enter `admin@pedalpanel.com`, and it emails you a free **Access Key**
+   instantly (no account needed). Paste it into `WEB3FORMS_ACCESS_KEY` at
+   the top of `js/lead-form.js`, commit, and push.
+
+2. **Supabase** (currently disabled, `SUPABASE_ENABLED = false`) — inserts
+   a row directly into a Postgres table instead of sending an email. The
+   table + RLS policy are correct (verified directly in Postgres), but
+   this project's REST/Data API gateway is rejecting the same insert
+   regardless of key type — a platform-side issue, not a config problem
+   here. Flip `SUPABASE_ENABLED` to `true` once that's resolved with
+   Supabase; the table/policy SQL that was run is:
 
    ```sql
    create table public.leads (
@@ -88,29 +101,15 @@ old pre-filled mailto so the CTA still works.
    with check (true);
    ```
 
-   This intentionally creates an *insert-only* policy for the public
-   `anon` role — the public key can add rows but can never read, edit,
-   or delete them. You view submissions yourself via the Supabase
-   dashboard's **Table Editor** (or Authentication + a proper SELECT
-   policy, later, if you want an in-app admin view).
-
-3. In **Project Settings → API**, copy the **Project URL** and the
-   **anon / public** key (not the `service_role` key — that one must
-   never appear in client-side code).
-4. Paste both into the two constants at the top of `js/lead-form.js`
-   (`SUPABASE_URL`, `SUPABASE_ANON_KEY`), commit, and push.
+3. **mailto** (last resort) — if neither of the above is configured, the
+   CTA falls back to a pre-filled mailto to `admin@pedalpanel.com` so it
+   always does *something* even with zero setup.
 
 **Spam:** the form has a hidden honeypot field (`#lead-hp`) — real users
 never see or fill it, so a filled honeypot is treated as a bot and
-silently dropped client-side without hitting Supabase. If spam becomes a
-real problem later, the next step up is a Supabase Edge Function that
-checks a CAPTCHA token (e.g. Cloudflare Turnstile, free) before
-inserting.
-
-**Free-tier note:** Supabase pauses a free project after ~1 week with no
-API activity — a quiet site could need a manual "restore" click in the
-dashboard the first time. Real traffic hitting the form (or anyone
-visiting the site, once analytics/other calls exist) keeps it awake.
+silently dropped client-side without hitting any of the above. Web3Forms
+also has its own spam filtering (hCaptcha, etc.) available on their
+dashboard if needed later.
 
 ## Deployment
 

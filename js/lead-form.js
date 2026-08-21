@@ -1,32 +1,36 @@
 /**
  * Lead-capture dialog: "Book a call" opens this instead of a mailto:
- * link. When enabled, submissions insert a row into Supabase (Postgres)
- * via a direct REST call — no SDK, no custom backend server needed.
- * Native <dialog> (see css/base.css .lead-dialog) gives us focus
+ * link. Native <dialog> (see css/base.css .lead-dialog) gives us focus
  * handling, Escape-to-close, and the ::backdrop for free.
  *
- * SUPABASE STATUS: disabled for now. The table + RLS policy are correct
- * (verified directly in Postgres via `set role anon; insert ...` — that
- * succeeds), but this project's REST/Data API gateway rejects the same
- * insert as an RLS violation regardless of key type, and survived a
- * project restart. That's a platform-side issue open with Supabase, not
- * a config problem here — see chat history / open a support ticket
- * referencing: identical insert succeeds via SQL editor's `set role
- * anon`, fails via /rest/v1/leads with 42501 for both the new
- * publishable key and the legacy anon JWT key.
- *
- * Until that's resolved, every submission uses the mailto fallback
- * below instead — flip SUPABASE_ENABLED to true to re-enable the direct
- * Supabase path once the gateway issue is fixed (credentials are
- * already correct and left in place).
+ * Submission path, in priority order:
+ *   1. Web3Forms — a form-backend relay: the browser POSTs straight to
+ *      their API, they email it to FALLBACK_EMAIL server-side. To the
+ *      visitor this looks like an ordinary form submit (no mail client
+ *      popup, stays on the page). Free tier, no backend of our own.
+ *      Enable by setting WEB3FORMS_ACCESS_KEY below (get one free at
+ *      web3forms.com).
+ *   2. Supabase — disabled for now. The table + RLS policy are correct
+ *      (verified directly in Postgres via `set role anon; insert ...` —
+ *      that succeeds), but this project's REST/Data API gateway rejects
+ *      the same insert as an RLS violation regardless of key type, and
+ *      survived a project restart. That's a platform-side issue open
+ *      with Supabase, not a config problem here. Flip SUPABASE_ENABLED
+ *      to true to re-enable once that's fixed (credentials are already
+ *      correct and left in place).
+ *   3. mailto — last-resort fallback if neither above is configured, so
+ *      the CTA always does *something* even with zero setup.
  */
 (function () {
+  var WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // get one free at web3forms.com
+
   var SUPABASE_ENABLED = false;
   var SUPABASE_URL = "https://xovsvcazxewmajvzgxqu.supabase.co";
   var SUPABASE_ANON_KEY = "sb_publishable_BB47OM2IZvH2vUk3VLO2GQ_IBNRb6du";
+
   var FALLBACK_EMAIL = "admin@pedalpanel.com";
 
-  var isConfigured = SUPABASE_ENABLED;
+  var isWeb3FormsConfigured = WEB3FORMS_ACCESS_KEY.indexOf("YOUR_WEB3FORMS") === -1;
 
   var dialog = document.getElementById("lead-dialog");
   if (!dialog) return;
@@ -74,6 +78,74 @@
     if (e.target === dialog) dialog.close();
   });
 
+  var showSuccess = function () {
+    form.hidden = true;
+    successEl.hidden = false;
+  };
+
+  var setBusy = function (busy) {
+    submitBtn.disabled = busy;
+    submitLabel.textContent = busy ? "Sending…" : "Send";
+  };
+
+  var mailtoFallback = function (payload) {
+    var subject = encodeURIComponent(
+      "Book a call - " + (payload.audience === "shop" ? "Rental shop" : "Advertiser")
+    );
+    var bodyLines = ["Name: " + payload.name, "Email: " + payload.email];
+    if (payload.phone) bodyLines.push("Phone: " + payload.phone);
+    if (payload.message) bodyLines.push("Message: " + payload.message);
+    window.location.href =
+      "mailto:" + FALLBACK_EMAIL + "?subject=" + subject + "&body=" + encodeURIComponent(bodyLines.join("\n"));
+  };
+
+  var submitToWeb3Forms = function (payload) {
+    setBusy(true);
+    return fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: "Book a call - " + (payload.audience === "shop" ? "Rental shop" : "Advertiser"),
+        from_name: payload.name + " (via pedalpanel.com)",
+        audience: payload.audience,
+        page: payload.page,
+        name: payload.name,
+        email: payload.email,
+        phone: payload.phone || "(not provided)",
+        message: payload.message || "(not provided)",
+      }),
+    })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          if (!res.ok || !data.success) throw new Error("Web3Forms error: " + (data.message || res.status));
+        });
+      })
+      .finally(function () {
+        setBusy(false);
+      });
+  };
+
+  var submitToSupabase = function (payload) {
+    setBusy(true);
+    return fetch(SUPABASE_URL + "/rest/v1/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: "Bearer " + SUPABASE_ANON_KEY,
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("Request failed: " + res.status);
+      })
+      .finally(function () {
+        setBusy(false);
+      });
+  };
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     errorEl.hidden = true;
@@ -81,8 +153,7 @@
     // Honeypot: a hidden field real users never see or fill. If it has a
     // value, treat it as a bot and quietly "succeed" without submitting.
     if (form.hp.value) {
-      form.hidden = true;
-      successEl.hidden = false;
+      showSuccess();
       return;
     }
 
@@ -95,46 +166,24 @@
       message: form.message.value.trim() || null,
     };
 
-    if (!isConfigured) {
-      // Supabase isn't wired up yet — fall back to a pre-filled mailto
-      // so the CTA still works while setup is pending.
-      var subject = encodeURIComponent(
-        "Book a call - " + (payload.audience === "shop" ? "Rental shop" : "Advertiser")
-      );
-      var bodyLines = ["Name: " + payload.name, "Email: " + payload.email];
-      if (payload.phone) bodyLines.push("Phone: " + payload.phone);
-      if (payload.message) bodyLines.push("Message: " + payload.message);
-      window.location.href =
-        "mailto:" + FALLBACK_EMAIL + "?subject=" + subject + "&body=" + encodeURIComponent(bodyLines.join("\n"));
-      return;
+    if (isWeb3FormsConfigured) {
+      submitToWeb3Forms(payload)
+        .then(showSuccess)
+        .catch(function () {
+          errorEl.textContent =
+            "Something went wrong — mind emailing us directly at " + FALLBACK_EMAIL + "?";
+          errorEl.hidden = false;
+        });
+    } else if (SUPABASE_ENABLED) {
+      submitToSupabase(payload)
+        .then(showSuccess)
+        .catch(function () {
+          errorEl.textContent =
+            "Something went wrong — mind emailing us directly at " + FALLBACK_EMAIL + "?";
+          errorEl.hidden = false;
+        });
+    } else {
+      mailtoFallback(payload);
     }
-
-    submitBtn.disabled = true;
-    submitLabel.textContent = "Sending…";
-
-    fetch(SUPABASE_URL + "/rest/v1/leads", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: "Bearer " + SUPABASE_ANON_KEY,
-        Prefer: "return=minimal",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error("Request failed: " + res.status);
-        form.hidden = true;
-        successEl.hidden = false;
-      })
-      .catch(function () {
-        errorEl.textContent =
-          "Something went wrong — mind emailing us directly at " + FALLBACK_EMAIL + "?";
-        errorEl.hidden = false;
-      })
-      .finally(function () {
-        submitBtn.disabled = false;
-        submitLabel.textContent = "Send";
-      });
   });
 })();
