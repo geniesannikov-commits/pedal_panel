@@ -10,6 +10,23 @@
     var(--paper);
 }
 
+/* Mirrors .adv-hero-grid in css/advertiser.css: single column on
+   mobile, text + visual side by side from 900px up, so the two hero
+   sections read as the same layout system. */
+.shop-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .shop-hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+  }
+}
+
 .shop-hero-inner {
   max-width: 780px;
 }

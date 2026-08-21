@@ -37,35 +37,15 @@
           <button type="button" class="btn btn-primary btn-lg" data-open-lead-form data-audience="advertiser">Book a call</button>
         </div>
 
-        <!-- Product visual: placeholder device-frame mockup, ready to swap
-             for the real bag/screen phone footage. Ad rotation is a plain
-             CSS opacity crossfade (no library needed for something this
-             simple) — echoes the "rotation alongside a few other
-             advertisers" idea from the pricing copy below. -->
+        <!-- Product visual: 3D rotating triple-screen delivery bag
+             (js/triple-screen-box.js). Loading is gated behind an
+             IntersectionObserver (js/hero-3d.js) so three.js isn't
+             fetched/executed until this scrolls near-viewport — the
+             .hero-3d-placeholder box fills the same slot immediately so
+             there's no layout shift while that's pending. -->
         <div class="adv-hero-visual reveal">
-          <div class="bag-mock">
-            <div class="bag-mock-strap"></div>
-            <div class="bag-mock-body">
-              <div class="bag-mock-screen">
-                <div class="ad-slide ad-slide-1">
-                  <span class="ad-tag mono">01 / 03</span>
-                  <span class="ad-brand">Corner&nbsp;Coffee&nbsp;Co.</span>
-                  <span class="ad-line">Flat white, $4.50 &mdash; Newtown</span>
-                </div>
-                <div class="ad-slide ad-slide-2">
-                  <span class="ad-tag mono">02 / 03</span>
-                  <span class="ad-brand">Marrick&nbsp;Physio</span>
-                  <span class="ad-line">New patients welcome this week</span>
-                </div>
-                <div class="ad-slide ad-slide-3">
-                  <span class="ad-tag mono">03 / 03</span>
-                  <span class="ad-brand">The&nbsp;Local&nbsp;Locksmith</span>
-                  <span class="ad-line">24/7 &middot; 10 min from you</span>
-                </div>
-              </div>
-              <div class="bag-mock-vents"></div>
-            </div>
-            <p class="bag-mock-caption mono">live rotation — your ad here</p>
+          <div class="hero-3d" data-hero-3d aria-hidden="true">
+            <div class="hero-3d-placeholder"></div>
           </div>
         </div>
       </div>
@@ -438,5 +418,6 @@
   <script src="js/buttons.js"></script>
   <script src="js/advertiser.js"></script>
   <script src="js/lead-form.js"></script>
+  <script src="js/hero-3d.js"></script>
 </body>
 </html>

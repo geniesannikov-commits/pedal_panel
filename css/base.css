@@ -660,6 +660,40 @@ section {
   color: var(--ink-soft);
 }
 
+/* ---------- Hero 3D visual ----------
+   Container for the Three.js triple-screen-box scene (see
+   js/hero-3d.js + js/triple-screen-box.js), shared by the advertiser and
+   shop hero sections. Fixed aspect-ratio so the box reserves its layout
+   space immediately — no shift when the canvas mounts later. The
+   placeholder sits underneath the canvas in DOM order; position:absolute
+   on both means the canvas (appended second, once the module loads)
+   simply paints over it. If the module never loads (blocked script,
+   offline, WebGL unavailable), the placeholder is what's left showing —
+   a plain gradient card, not a broken box. */
+
+.hero-3d {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4 / 3;
+  margin-inline: auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.hero-3d-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(155deg, var(--ink) 0%, #24242e 55%, var(--pink-deep) 130%);
+}
+
+.hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
