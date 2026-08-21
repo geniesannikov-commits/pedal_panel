@@ -18,7 +18,7 @@
 
 @media (min-width: 900px) {
   .adv-hero-grid {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 0.75fr 1.25fr;
     gap: 56px;
   }
 }

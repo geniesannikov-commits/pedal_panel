@@ -663,28 +663,36 @@ section {
 /* ---------- Hero 3D visual ----------
    Container for the Three.js triple-screen-box scene (see
    js/hero-3d.js + js/triple-screen-box.js), shared by the advertiser and
-   shop hero sections. Fixed aspect-ratio so the box reserves its layout
-   space immediately — no shift when the canvas mounts later. The
-   placeholder sits underneath the canvas in DOM order; position:absolute
-   on both means the canvas (appended second, once the module loads)
-   simply paints over it. If the module never loads (blocked script,
-   offline, WebGL unavailable), the placeholder is what's left showing —
-   a plain gradient card, not a broken box. */
+   shop hero sections. No card styling here on purpose — no background,
+   border, radius or shadow on the container itself — the box should
+   read as an object floating on the page, not a framed graphic; the
+   model's own modeled shadow plane (baked into the scene) is what
+   grounds it. Fixed aspect-ratio still reserves the layout space
+   immediately so there's no shift when the canvas mounts later.
+
+   640px is the point at which this stops growing: it's also roughly
+   what the grid column resolves to at the .adv-hero-grid/.shop-hero-grid
+   container's own max-width (1160px), so the cap and the grid-derived
+   width meet cleanly rather than the box being artificially capped
+   below what the layout would otherwise give it.
+
+   Resizing this container doesn't require retuning the scene's camera
+   or shadow: aspect-ratio holds the canvas at a constant 4:3, so
+   camera.aspect (see js/triple-screen-box.js) never actually changes as
+   the container grows — only pixel density does. The framing, and the
+   shadow plane's position under the model, stay identical at any size. */
 
 .hero-3d {
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: 640px;
   aspect-ratio: 4 / 3;
   margin-inline: auto;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
 }
 
 .hero-3d-placeholder {
   position: absolute;
   inset: 0;
-  background: linear-gradient(155deg, var(--ink) 0%, #24242e 55%, var(--pink-deep) 130%);
 }
 
 .hero-3d-canvas {
