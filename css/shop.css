@@ -628,16 +628,32 @@
     height: 30px;
   }
 
+  /* Let the two endpoint <span>s become direct flex items of
+     .split-control (instead of a wrapped pair below the slider) so each
+     one can be pinned to the end of the vertical track it actually
+     represents — "You buy the screens" is the top/max end, "We supply
+     the screens" is the bottom/min end, matching the fill direction set
+     above. Without this they were just two lines stacked in DOM order,
+     both reading as if they applied to the same end. */
   .split-endpoints {
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    text-align: center;
-    font-size: 0.86rem;
+    display: contents;
+  }
+
+  .split-control input[type="range"] {
+    order: 2;
+  }
+
+  .split-endpoints span:first-child {
+    order: 3;
   }
 
   .split-endpoint-right {
+    order: 1;
+  }
+
+  .split-endpoints span {
     text-align: center;
+    font-size: 0.86rem;
   }
 }
 
