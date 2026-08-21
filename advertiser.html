@@ -190,17 +190,21 @@
 
         <div class="budget-card reveal">
           <p class="eyebrow" style="margin-bottom:20px;">Illustrative example</p>
+          <!-- Plays/day is derived, not hand-typed: data-budget is the only
+               input, js/advertiser.js computes slot-hours and plays from
+               the locked $2/slot-hour, 120-plays/slot-hour constants so
+               this stays correct if the budget tiers below ever change. -->
           <div class="budget-tabs" role="tablist" aria-label="Example daily budget">
-            <button type="button" class="budget-tab" data-budget="20" data-low="45" data-high="70">$20/day</button>
-            <button type="button" class="budget-tab is-active" data-budget="40" data-low="90" data-high="140">$40/day</button>
-            <button type="button" class="budget-tab" data-budget="80" data-low="180" data-high="280">$80/day</button>
+            <button type="button" class="budget-tab" data-budget="20">$20/day</button>
+            <button type="button" class="budget-tab is-active" data-budget="40">$40/day</button>
+            <button type="button" class="budget-tab" data-budget="80">$80/day</button>
           </div>
           <div class="budget-output">
             <span class="budget-amount mono">$<span id="budget-amount">40</span><span class="budget-unit">/day</span></span>
             <span class="budget-arrow" aria-hidden="true">&asymp;</span>
-            <span class="budget-plays"><span id="budget-low">90</span>&ndash;<span id="budget-high">140</span> <span class="budget-plays-label">plays</span></span>
+            <span class="budget-plays"><span id="budget-plays">2,400</span> <span class="budget-plays-label">plays/day</span></span>
           </div>
-          <p class="budget-footnote">Based on ~90&ndash;140 plays per screen-hour of active coverage. Actual plays depend on live rider activity in your area.</p>
+          <p class="budget-footnote">Based on $2 per slot-hour and 120 plays per slot-hour of active coverage. Actual plays depend on live rider activity in your area.</p>
         </div>
       </div>
     </section>

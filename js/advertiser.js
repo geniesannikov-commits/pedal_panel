@@ -35,10 +35,25 @@
     }
   }
 
+  // Locked pricing spec: $2 per slot-hour, 120 plays per slot-hour
+  // (6-second slots, 5 slots per loop). Plays/day = (budget / SLOT_HOUR_RATE)
+  // * PLAYS_PER_SLOT_HOUR — computed here rather than hand-typed per tab, so
+  // it stays correct if the $20/$40/$80 tiers below ever change.
+  var SLOT_HOUR_RATE = 2;
+  var PLAYS_PER_SLOT_HOUR = 120;
+
   var tabs = document.querySelectorAll(".budget-tab");
   var amountEl = document.getElementById("budget-amount");
-  var lowEl = document.getElementById("budget-low");
-  var highEl = document.getElementById("budget-high");
+  var playsEl = document.getElementById("budget-plays");
+
+  var playsForBudget = function (budget) {
+    var slotHours = budget / SLOT_HOUR_RATE;
+    return Math.round(slotHours * PLAYS_PER_SLOT_HOUR);
+  };
+
+  var formatPlays = function (n) {
+    return n.toLocaleString("en-AU");
+  };
 
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
@@ -46,9 +61,9 @@
         t.classList.remove("is-active");
       });
       tab.classList.add("is-active");
-      amountEl.textContent = tab.dataset.budget;
-      lowEl.textContent = tab.dataset.low;
-      highEl.textContent = tab.dataset.high;
+      var budget = Number(tab.dataset.budget);
+      amountEl.textContent = budget;
+      playsEl.textContent = formatPlays(playsForBudget(budget));
     });
   });
 
