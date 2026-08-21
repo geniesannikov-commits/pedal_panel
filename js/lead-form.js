@@ -1,24 +1,32 @@
 /**
  * Lead-capture dialog: "Book a call" opens this instead of a mailto:
- * link. On submit it inserts a row into Supabase (Postgres) via a
- * direct REST call — no SDK needed for a simple insert-only form, and
- * no custom backend server required beyond Supabase itself. Native
- * <dialog> (see css/base.css .lead-dialog) gives us focus handling,
- * Escape-to-close, and the ::backdrop for free.
+ * link. When enabled, submissions insert a row into Supabase (Postgres)
+ * via a direct REST call — no SDK, no custom backend server needed.
+ * Native <dialog> (see css/base.css .lead-dialog) gives us focus
+ * handling, Escape-to-close, and the ::backdrop for free.
  *
- * SETUP — replace the two placeholder constants below with your
- * Supabase project's URL and anon (public) key once you've created the
- * project and run the table/RLS SQL in README.md. Until they're set,
- * "Send" falls back to a pre-filled mailto so the CTA still works.
+ * SUPABASE STATUS: disabled for now. The table + RLS policy are correct
+ * (verified directly in Postgres via `set role anon; insert ...` — that
+ * succeeds), but this project's REST/Data API gateway rejects the same
+ * insert as an RLS violation regardless of key type, and survived a
+ * project restart. That's a platform-side issue open with Supabase, not
+ * a config problem here — see chat history / open a support ticket
+ * referencing: identical insert succeeds via SQL editor's `set role
+ * anon`, fails via /rest/v1/leads with 42501 for both the new
+ * publishable key and the legacy anon JWT key.
+ *
+ * Until that's resolved, every submission uses the mailto fallback
+ * below instead — flip SUPABASE_ENABLED to true to re-enable the direct
+ * Supabase path once the gateway issue is fixed (credentials are
+ * already correct and left in place).
  */
 (function () {
+  var SUPABASE_ENABLED = false;
   var SUPABASE_URL = "https://xovsvcazxewmajvzgxqu.supabase.co";
   var SUPABASE_ANON_KEY = "sb_publishable_BB47OM2IZvH2vUk3VLO2GQ_IBNRb6du";
   var FALLBACK_EMAIL = "admin@pedalpanel.com";
 
-  var isConfigured =
-    SUPABASE_URL.indexOf("YOUR_SUPABASE") === -1 &&
-    SUPABASE_ANON_KEY.indexOf("YOUR_SUPABASE") === -1;
+  var isConfigured = SUPABASE_ENABLED;
 
   var dialog = document.getElementById("lead-dialog");
   if (!dialog) return;
