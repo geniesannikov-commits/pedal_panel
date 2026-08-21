@@ -554,6 +554,142 @@
   background: var(--pink-deep);
 }
 
+/* ---------- Comparison cards (mobile) ----------
+   Swipeable card-per-competitor carousel that replaces the wide table
+   below 640px, rather than shrinking the table to fit. Scroll-snap only —
+   no carousel library. The next card is left peeking in on the right
+   (flex-basis < 100%, container padding trims to reveal a sliver) and a
+   "swipe to compare" hint + dot row make the drag affordance obvious on
+   first glance, so it doesn't read as a single static card. Active dot is
+   updated by js/advertiser.js as the track scrolls. ------------------ */
+
+.compare-cards {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .compare-table-wrap {
+    display: none;
+  }
+
+  .compare-cards {
+    display: block;
+    margin-top: 32px;
+  }
+}
+
+.compare-cards-hint {
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+}
+
+.compare-cards-track {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.compare-cards-track::-webkit-scrollbar {
+  display: none;
+}
+
+.compare-card {
+  flex: 0 0 82%;
+  scroll-snap-align: start;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+}
+
+/* The 18% left uncovered by the 82% card width is the "peek" — the next
+   card's edge stays visible at the right of the viewport as a visual cue
+   that there's more to swipe to. */
+.compare-cards-track {
+  padding-right: 18%;
+}
+
+.compare-card-pp {
+  border-color: var(--pink);
+  background: var(--pink-tint-2);
+}
+
+.compare-card-eyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+
+.compare-card-pp .compare-card-eyebrow {
+  color: var(--pink-deep);
+}
+
+.compare-card dl {
+  margin: 0;
+}
+
+.compare-card-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--paper-line);
+  font-size: 0.88rem;
+}
+
+.compare-card-row:last-child {
+  border-bottom: none;
+}
+
+.compare-card-row dt {
+  color: var(--ink-faint);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.compare-card-row dd {
+  margin: 0;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+.compare-card-pp .compare-card-row dd {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.compare-cards-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.compare-cards-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--paper-line);
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.compare-cards-dots span.is-active {
+  background: var(--pink);
+  transform: scale(1.35);
+}
+
 /* ---------- Closing ---------- */
 
 .closing-grid {
@@ -586,4 +722,30 @@
   font-family: var(--font-display);
   font-size: 1.15rem;
   margin-bottom: 20px;
+}
+
+/* ---------- Mobile polish for small standalone visuals ----------
+   These sections are already single, self-contained visuals in a
+   text-and-visual grid that naturally stacks on mobile — no structural
+   redesign needed, just tightening sizes so they don't dominate a narrow
+   viewport, and making the budget numbers read as the hero element. */
+
+@media (max-width: 480px) {
+  .coverage-map {
+    max-width: 240px;
+  }
+
+  .budget-output {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .budget-amount {
+    font-size: 2.4rem;
+  }
+
+  .budget-arrow {
+    display: none;
+  }
 }

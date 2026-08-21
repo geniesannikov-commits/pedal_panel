@@ -322,6 +322,49 @@
   line-height: 1.55;
 }
 
+/* Below 760px the steps already stack (see .flow-steps above) and the
+   horizontal connecting line is hidden (see .flow-line-svg above) — but a
+   bare vertical stack of cards loses the "this is a sequence" read the
+   line gave it on desktop. Add a cheap vertical connector (a plain
+   border, not another SVG) running behind the icons instead. */
+@media (max-width: 759px) {
+  .flow-steps {
+    gap: 0;
+  }
+
+  .flow-step {
+    padding-left: 66px;
+  }
+
+  .flow-step + .flow-step {
+    margin-top: 28px;
+  }
+
+  .flow-step::before {
+    content: "";
+    position: absolute;
+    left: 41px;
+    top: 66px;
+    bottom: -28px;
+    width: 2px;
+    background: var(--paper-line);
+  }
+
+  .flow-step:last-child::before {
+    display: none;
+  }
+
+  .flow-icon {
+    position: absolute;
+    left: 22px;
+    top: 26px;
+  }
+
+  .flow-num {
+    margin-top: 0;
+  }
+}
+
 /* ---------- Financial structure ---------- */
 
 .finance-cards {
@@ -491,6 +534,111 @@
   margin-top: 20px;
   font-size: 0.8rem;
   color: var(--ink-faint);
+}
+
+/* ---------- Negotiability slider (mobile) ----------
+   Desktop is a wide horizontal bar with two linked fill tracks. On a
+   narrow, tall viewport a horizontal drag has very little room, and the
+   fill bars shrink to the point they stop reading as data — so mobile
+   drops the bars and makes the two percentages the hero, with a genuinely
+   vertical range input beneath them (dragged up/down, matching the
+   viewport's own long axis) instead of a shrunk horizontal one. Same
+   #split-range input and js/shop.js logic drive both layouts — only the
+   CSS orientation changes.
+
+   Vertical-range support note: writing-mode + direction is the current
+   spec-track way to orient a range input vertically and is what Safari
+   and Chromium document going forward; -webkit-appearance: slider-vertical
+   is kept alongside it as a legacy WebKit fallback for older engine
+   versions. touch-action: none stops the vertical drag gesture from being
+   captured as page-scroll instead of a thumb-drag. This combination is
+   believed correct on current iOS Safari and Android Chrome, but vertical
+   range-input handling has a history of engine-specific quirks — spot-check
+   on an actual iOS Safari and Android Chrome device before shipping, not
+   just a resized desktop browser. */
+@media (max-width: 640px) {
+  .split-slider {
+    padding: 26px 20px 24px;
+  }
+
+  .split-bars {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .split-bar-row {
+    grid-template-columns: none;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .split-bar-track {
+    display: none;
+  }
+
+  .split-bar-label {
+    font-size: 0.8rem;
+  }
+
+  .split-bar-value {
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+  }
+
+  #split-rev-value {
+    color: var(--pink-deep);
+  }
+
+  .split-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding-top: 28px;
+  }
+
+  .split-control input[type="range"] {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    -webkit-appearance: slider-vertical;
+    appearance: none;
+    width: 8px;
+    height: 200px;
+    margin: 0;
+    touch-action: none;
+    background: linear-gradient(to top, var(--ink) 0%, var(--ink) var(--pct, 50%), var(--pink) var(--pct, 50%), var(--pink) 100%);
+  }
+
+  /* Bigger thumb than the desktop 22px — a finger needs a larger, more
+     forgiving hit target than a mouse cursor does. */
+  .split-control input[type="range"]::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+  }
+
+  .split-control input[type="range"]::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+  }
+
+  .split-endpoints {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+    font-size: 0.86rem;
+  }
+
+  .split-endpoint-right {
+    text-align: center;
+  }
 }
 
 /* ---------- Transparency ---------- */

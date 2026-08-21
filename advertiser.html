@@ -293,6 +293,62 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Mobile-only equivalent of the table above: a swipeable
+             card-per-competitor carousel (scroll-snap, no library). The
+             next card peeks in on the right and a dot row + "swipe" hint
+             signal it's draggable, since a single full-bleed card could
+             otherwise read as static. Kept in sync with the table content
+             above — same 5 rows, same order, PedalPanel first. See
+             js/advertiser.js for the active-dot tracking. -->
+        <div class="compare-cards reveal" id="compare-cards">
+          <p class="compare-cards-hint mono" aria-hidden="true">swipe to compare &rarr;</p>
+          <ul class="compare-cards-track" id="compare-cards-track">
+            <li class="compare-card compare-card-pp">
+              <p class="compare-card-eyebrow mono">PedalPanel</p>
+              <dl>
+                <div class="compare-card-row"><dt>Cost</dt><dd><span class="dot"></span>Low, you set it</dd></div>
+                <div class="compare-card-row"><dt>Lock-in</dt><dd><span class="dot"></span>None</dd></div>
+                <div class="compare-card-row"><dt>Physical presence</dt><dd><span class="dot"></span>Yes, moving</dd></div>
+                <div class="compare-card-row"><dt>Local targeting</dt><dd><span class="dot"></span>Hyperlocal</dd></div>
+                <div class="compare-card-row"><dt>Setup effort</dt><dd><span class="dot"></span>Minimal</dd></div>
+              </dl>
+            </li>
+            <li class="compare-card">
+              <p class="compare-card-eyebrow mono">Billboard</p>
+              <dl>
+                <div class="compare-card-row"><dt>Cost</dt><dd><span class="dot"></span>High, fixed</dd></div>
+                <div class="compare-card-row"><dt>Lock-in</dt><dd><span class="dot"></span>Months+</dd></div>
+                <div class="compare-card-row"><dt>Physical presence</dt><dd><span class="dot"></span>Yes, fixed</dd></div>
+                <div class="compare-card-row"><dt>Local targeting</dt><dd><span class="dot"></span>One spot</dd></div>
+                <div class="compare-card-row"><dt>Setup effort</dt><dd><span class="dot"></span>Agency + design</dd></div>
+              </dl>
+            </li>
+            <li class="compare-card">
+              <p class="compare-card-eyebrow mono">Social ads</p>
+              <dl>
+                <div class="compare-card-row"><dt>Cost</dt><dd><span class="dot"></span>Low</dd></div>
+                <div class="compare-card-row"><dt>Lock-in</dt><dd><span class="dot"></span>None</dd></div>
+                <div class="compare-card-row"><dt>Physical presence</dt><dd><span class="dot"></span>No</dd></div>
+                <div class="compare-card-row"><dt>Local targeting</dt><dd><span class="dot"></span>Broad radius</dd></div>
+                <div class="compare-card-row"><dt>Setup effort</dt><dd><span class="dot"></span>Creative + ad ops</dd></div>
+              </dl>
+            </li>
+            <li class="compare-card">
+              <p class="compare-card-eyebrow mono">Print / letterbox</p>
+              <dl>
+                <div class="compare-card-row"><dt>Cost</dt><dd><span class="dot"></span>Medium</dd></div>
+                <div class="compare-card-row"><dt>Lock-in</dt><dd><span class="dot"></span>Per run</dd></div>
+                <div class="compare-card-row"><dt>Physical presence</dt><dd><span class="dot"></span>Briefly</dd></div>
+                <div class="compare-card-row"><dt>Local targeting</dt><dd><span class="dot"></span>Local</dd></div>
+                <div class="compare-card-row"><dt>Setup effort</dt><dd><span class="dot"></span>Print + drop</dd></div>
+              </dl>
+            </li>
+          </ul>
+          <div class="compare-cards-dots" id="compare-cards-dots" aria-hidden="true">
+            <span class="is-active"></span><span></span><span></span><span></span>
+          </div>
+        </div>
       </div>
     </section>
 
