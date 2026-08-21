@@ -10,20 +10,22 @@
     var(--paper);
 }
 
-/* Wider than the shared .container's 1160px cap, scoped to this section
-   only. With the 1:1 grid split below, both columns grow together as the
-   viewport widens — this lets the visual keep growing toward its own
-   640px cap (see .hero-3d in base.css) on large screens instead of being
-   stuck at 512px forever, while the extra room also keeps the headline's
-   forced line-breaks safely on one line each. See the .shop-hero-grid
-   and h1 comments below for why 1:1 specifically. */
-.shop-hero .container {
-  max-width: 1600px;
-}
-
 /* Mirrors .adv-hero-grid in css/advertiser.css: single column on
-   mobile, text + visual side by side from 900px up, so the two hero
-   sections read as the same layout system. */
+   mobile, text + visual side by side from the breakpoint up, so the two
+   hero sections read as the same layout system. The breakpoint itself is
+   1024px rather than the advertiser page's 900px, and the split is 1:1
+   rather than 0.75fr/1.25fr — the forced 4-line headline break below
+   needs more column width than a narrower breakpoint + text-minority
+   ratio can give it without the font shrinking too far (each line was
+   sub-wrapping again inside its own <br> segment at 900px/0.75fr, and
+   fixing that by shrinking the font instead left the headline reading
+   too small with a lot of dead space next to the visual). Raising the
+   breakpoint means 900-1023px just gets the mobile single-column stack
+   instead of a cramped two-column squeeze — a cleaner trade than either
+   of those. Verified against the real Space Grotesk font: 1fr/1fr from
+   1024px + the 2.85rem font cap below keeps all 4 lines on one line each,
+   with real margin to spare, right up to the shared container's 1160px
+   cap. */
 .shop-hero-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -31,16 +33,8 @@
   align-items: center;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1024px) {
   .shop-hero-grid {
-    /* 1:1 rather than the advertiser page's 0.75fr/1.25fr — the forced
-       4-line headline break below needs a wider text column than that
-       ratio gives it (each line was sub-wrapping again inside its own
-       <br> segment). Measured against the real Space Grotesk font:
-       1fr/1fr + the 2.6rem font cap below is the combination that keeps
-       all 4 lines on one line each from 900px up through the container's
-       1160px max, without shrinking the visual back down anywhere near
-       its original size. */
     grid-template-columns: 1fr 1fr;
     gap: 56px;
   }
@@ -51,11 +45,12 @@
 }
 
 .shop-hero-inner h1 {
-  /* Capped lower than a typical hero max (was 3.5rem) specifically so
-     each of the 4 forced-break lines below fits on one line at the
-     1:1 grid column width above, verified against the real font rather
-     than a fallback — see the .shop-hero-grid comment. */
-  font-size: clamp(2.1rem, 5vw, 2.4rem);
+  /* Capped lower than the advertiser page's hero (3.5rem) but still a
+     proper hero size — 2.85rem, not shrunk further, since the 1024px
+     breakpoint above already does most of the work of keeping the 4
+     forced-break lines each on one line. See the .shop-hero-grid
+     comment. */
+  font-size: clamp(2.1rem, 5vw, 2.85rem);
   max-width: 34ch;
 }
 
