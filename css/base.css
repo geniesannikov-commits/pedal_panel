@@ -660,28 +660,6 @@ section {
   color: var(--ink-soft);
 }
 
-/* Below ~480px the three-part swap row (bag / arrow / bag) gets too
-   cramped to shrink further and stay legible. Restack it as a vertical
-   before-arrow-after sequence instead — same three elements, arrow
-   rotated to point down — rather than continuing to shrink a horizontal
-   row that was designed for the width the desktop card has. */
-@media (max-width: 480px) {
-  .swap-row {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .swap-arrow {
-    flex-direction: row;
-    gap: 8px;
-    padding-bottom: 0;
-  }
-
-  .swap-arrow svg {
-    transform: rotate(90deg);
-  }
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
