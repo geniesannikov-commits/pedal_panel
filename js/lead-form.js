@@ -22,7 +22,7 @@
  *      the CTA always does *something* even with zero setup.
  */
 (function () {
-  var WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // get one free at web3forms.com
+  var WEB3FORMS_ACCESS_KEY = "6c5db2b1-7811-41fc-b254-02caed64bd47";
 
   var SUPABASE_ENABLED = false;
   var SUPABASE_URL = "https://xovsvcazxewmajvzgxqu.supabase.co";
