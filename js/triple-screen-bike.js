@@ -494,24 +494,18 @@ function build(THREE, mount) {
   fillLight.position.set(-4, 2, -3);
   scene.add(fillLight);
 
-  var shadowCanvas = document.createElement("canvas");
-  shadowCanvas.width = 256;
-  shadowCanvas.height = 256;
-  var sctx = shadowCanvas.getContext("2d");
-  var grad = sctx.createRadialGradient(128, 128, 10, 128, 128, 128);
-  grad.addColorStop(0, "rgba(20,20,26,0.30)");
-  grad.addColorStop(0.6, "rgba(20,20,26,0.14)");
-  grad.addColorStop(1, "rgba(20,20,26,0)");
-  sctx.fillStyle = grad;
-  sctx.fillRect(0, 0, 256, 256);
-  var shadowTex = new THREE.CanvasTexture(shadowCanvas);
-  var shadowMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(6.5, 4),
-    new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })
-  );
-  shadowMesh.rotation.x = -Math.PI / 2;
-  shadowMesh.position.y = 0.002;
-  scene.add(shadowMesh);
+  // No ground-shadow plane here (the demo had one, sized 6.5x4 units for
+  // its own looser camera). With fitCameraToRig()'s much tighter framing,
+  // that plane's edge fell inside the visible frame before its gradient
+  // faded to alpha 0 — instead of a soft contact shadow it read as a
+  // faint grey rectangle across the bottom of the canvas, visibly
+  // mismatched against the page's white background (confirmed by
+  // compositing the render over a contrasting color: a solid ~15-35
+  // alpha band ran the full width of the bottom edge). Retuning the
+  // plane's size to this specific camera fit would just as easily break
+  // again on the next framing change, so the scene renders on true
+  // transparency instead — nothing here to fall out of sync with the
+  // page background.
 
   var rig = new THREE.Group();
   var bike = buildBike(THREE);
