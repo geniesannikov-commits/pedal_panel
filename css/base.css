@@ -661,8 +661,8 @@ section {
 }
 
 /* ---------- Hero 3D visual ----------
-   Container for the Three.js triple-screen-box scene (see
-   js/hero-3d.js + js/triple-screen-box.js), shared by the advertiser and
+   Container for the Three.js triple-screen-bike scene (see
+   js/hero-3d.js + js/triple-screen-bike.js), shared by the advertiser and
    shop hero sections. No card styling here on purpose — no background,
    border, radius or shadow on the container itself — the box should
    read as an object floating on the page, not a framed graphic; the
@@ -678,7 +678,7 @@ section {
 
    Resizing this container doesn't require retuning the scene's camera
    or shadow: aspect-ratio holds the canvas at a constant 4:3, so
-   camera.aspect (see js/triple-screen-box.js) never actually changes as
+   camera.aspect (see js/triple-screen-bike.js) never actually changes as
    the container grows — only pixel density does. The framing, and the
    shadow plane's position under the model, stay identical at any size. */
 

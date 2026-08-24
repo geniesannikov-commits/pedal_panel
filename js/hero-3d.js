@@ -5,7 +5,7 @@
  * class toggle: nothing under [data-hero-3d] fetches three.js or creates
  * a renderer until the container is about to scroll into view. Each
  * container already holds a static .hero-3d-placeholder box (see
- * css/base.css); the canvas js/triple-screen-box.js appends stacks on
+ * css/base.css); the canvas js/triple-screen-bike.js appends stacks on
  * top of it once ready, so there's no layout shift and a harmless
  * placeholder stays visible if the module fails to load.
  */
@@ -14,7 +14,7 @@
   if (!containers.length) return;
 
   var load = function (el) {
-    import("./triple-screen-box.js")
+    import("./triple-screen-bike.js")
       .then(function (mod) {
         return mod.init(el);
       })
