@@ -30,7 +30,7 @@
 
 var THREE_CDN = "https://esm.sh/three@0.128.0";
 
-var FRAME_COLOR = 0xdadad6;
+var FRAME_COLOR = 0x14141a; // all-black frame (was a light grey-white in the first pass)
 var BLACK = 0x16161a;
 var DARKGREY = 0x2b2b30;
 
@@ -140,8 +140,8 @@ function buildBike(THREE) {
   var rearAxle = new THREE.Vector3(0, 0.341, 0);
   var frontAxle = new THREE.Vector3(1.325, 0.359, 0);
   var bb = new THREE.Vector3(0.539, 0.310, 0);
-  var seatTop = new THREE.Vector3(0.3325, 0.9275, 0);
-  var seatTubeBottom = new THREE.Vector3(0.3675, 0.42, 0);
+  var seatTop = new THREE.Vector3(0.41, 0.9275, 0);
+  var seatTubeBottom = new THREE.Vector3(0.49, 0.55, 0);
   var headTop = new THREE.Vector3(1.0465, 0.945, 0);
   var headBottom = new THREE.Vector3(1.085, 0.656, 0);
   var rackFrontMount = new THREE.Vector3(0.1925, 0.814, 0);
@@ -179,16 +179,55 @@ function buildBike(THREE) {
   );
   group.add(battery);
 
-  group.add(makeTubeBetween(THREE, rearAxle, seatTubeBottom, 0.02, frameMat));
-  group.add(makeTubeBetween(THREE, rearAxle, bb, 0.02, frameMat));
+  // Rear triangle as a real wishbone: two tubes on each side of the wheel,
+  // meeting at dropout points on either side of the hub, rather than one
+  // tube running straight through the wheel's center. A separate thin rod
+  // stands in for the actual rear axle, spanning between the two dropouts.
+  var dropoutHalfWidth = 0.065;
+  var rearDropoutL = new THREE.Vector3(rearAxle.x, rearAxle.y, -dropoutHalfWidth);
+  var rearDropoutR = new THREE.Vector3(rearAxle.x, rearAxle.y, dropoutHalfWidth);
+  [rearDropoutL, rearDropoutR].forEach(function (dropout) {
+    group.add(makeTubeBetween(THREE, dropout, seatTubeBottom, 0.02, frameMat));
+    group.add(makeTubeBetween(THREE, dropout, bb, 0.02, frameMat));
+  });
+  var rearAxleRod = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, dropoutHalfWidth * 2 + 0.02, 10), blackMat);
+  rearAxleRod.rotation.x = Math.PI / 2;
+  rearAxleRod.position.copy(rearAxle);
+  group.add(rearAxleRod);
+
+  // Seat tube: connects the wishbone's upper junction down to the bottom
+  // bracket (where the pedals mount), completing the triangle.
+  group.add(makeTubeBetween(THREE, seatTubeBottom, bb, 0.019, frameMat));
 
   group.add(makeTubeBetween(THREE, headTop, headBottom, 0.028, frameMat));
   group.add(makeTubeBetween(THREE, headBottom, frontAxle, 0.024, frameMat));
 
   group.add(makeTubeBetween(THREE, seatTubeBottom, seatTop, 0.017, blackMat));
-  var saddle = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.045, 0.14), blackMat);
-  saddle.position.set(seatTop.x - 0.04, seatTop.y + 0.02, 0);
-  saddle.rotation.z = -0.05;
+
+  // Saddle: a real tapered profile (narrow nose forward, raised "step"
+  // where the rails clamp, wider rounded rear) instead of a plain box.
+  // The shape is built with its local origin AT the step/clamp point, so
+  // it mounts exactly where the seatpost meets it — no backward offset
+  // needed.
+  var saddleShape = new THREE.Shape();
+  saddleShape.moveTo(0.115, 0.010);   // nose tip (forward)
+  saddleShape.lineTo(0.085, 0.025);
+  saddleShape.lineTo(0.045, 0.032);
+  saddleShape.lineTo(0.000, 0.045);   // the step — clamp point sits here
+  saddleShape.lineTo(-0.030, 0.040);
+  saddleShape.lineTo(-0.080, 0.038);
+  saddleShape.lineTo(-0.140, 0.034);
+  saddleShape.lineTo(-0.165, 0.018);  // rear tip
+  saddleShape.lineTo(-0.165, -0.006);
+  saddleShape.lineTo(-0.080, -0.008); // flat-ish underside back to the nose
+  saddleShape.lineTo(0.000, -0.007);
+  saddleShape.lineTo(0.085, -0.004);
+  saddleShape.lineTo(0.115, 0.010);
+
+  var saddleWidth = 0.12;
+  var saddleGeo = new THREE.ExtrudeGeometry(saddleShape, { depth: saddleWidth, bevelEnabled: true, bevelThickness: 0.006, bevelSize: 0.006, bevelSegments: 2 });
+  var saddle = new THREE.Mesh(saddleGeo, blackMat);
+  saddle.position.set(seatTop.x, seatTop.y, -saddleWidth / 2);
   group.add(saddle);
 
   var stemTop = new THREE.Vector3(headTop.x - 0.01, headTop.y + 0.10, 0);
@@ -232,7 +271,7 @@ function buildBike(THREE) {
   var rackFrontX = -0.29;
   var rackBackX = 0.19;
   var deckMat = new THREE.MeshStandardMaterial({ color: 0xcfa76a, roughness: 0.7 });
-  var railMat = new THREE.MeshStandardMaterial({ color: 0xd8d8d4, roughness: 0.5, metalness: 0.4 });
+  var railMat = new THREE.MeshStandardMaterial({ color: 0x14141a, roughness: 0.5, metalness: 0.4 });
 
   var deck = new THREE.Mesh(new THREE.BoxGeometry(rackBackX - rackFrontX, 0.012, 0.24), deckMat);
   deck.position.set((rackFrontX + rackBackX) / 2, rackTopY, 0);
@@ -522,7 +561,7 @@ function build(THREE, mount) {
 
   var localBottom = -0.17 / 2 - 1.95 / 2; // matches lidH/bodyH inside buildBag
   bagGroup.position.set(
-    bike.userData.rackCenterX - 0.08,
+    bike.userData.rackCenterX - 0.045,
     bike.userData.rackTopY + (-localBottom) * BAG_SCALE,
     0
   );
