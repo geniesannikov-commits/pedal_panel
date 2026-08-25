@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/base.css?v=20260821a" />
-  <link rel="stylesheet" href="css/advertiser.css?v=20260821a" />
+  <link rel="stylesheet" href="css/base.css?v=20260825a" />
+  <link rel="stylesheet" href="css/advertiser.css?v=20260825a" />
 </head>
 <body>
 
@@ -124,38 +124,144 @@
       </div>
     </section>
 
-    <!-- ================= COVERAGE ================= -->
-    <section class="coverage">
-      <div class="container coverage-grid">
-        <div class="section-head reveal" style="margin-bottom:0;">
-          <h2>Where your ad actually runs</h2>
-          <p class="lede">Right now, PedalPanel coverage is built around individual e-bike rental shops — each shop's fleet of riders lives and delivers around that shop's local area. When you buy a campaign with us, your ad runs across the riders based out of shops in your chosen neighbourhood, which naturally keeps your ad hyperlocal to where your actual customers are.</p>
-          <p class="lede">As we sign on more rental shops across Sydney, coverage grows suburb by suburb — with the long-term goal of full city-wide coverage. You're getting in on hyperlocal advertising at its most targeted, before it scales city-wide.</p>
+    <!-- ================= REACH / CITY-WIDE ================= -->
+    <!-- Replaces the old shop-anchored "Where your ad actually runs"
+         section: campaigns run city-wide by default now, so the visual is
+         a cost-to-be-everywhere strip rather than a shop-radius map. Bars
+         grow in on scroll through the same helper that drives
+         #cost-preview (js/advertiser.js). Deliberately lighter than the
+         full comparison table further down — this section is the premise,
+         that one is the proof — so it carries two traits per row, not five,
+         and no card chrome (the two sections above already end in white
+         cards; this one sits flat on the page as a data strip). -->
+    <section class="reach">
+      <div class="container reach-grid">
+        <div class="anchor-text reveal">
+          <p class="eyebrow">Reach</p>
+          <h2>City-wide, like never before</h2>
+          <p class="statement">Physical advertising was never built to scale across a whole city. Now it is.</p>
+          <p>Getting a physical presence across Sydney used to mean a billboard network — a different contract, a different price, in every suburb you wanted to appear in. The only thing that ever scaled city-wide affordably was digital: a Meta or Google campaign with a radius dial. PedalPanel is the first time those two things aren't a trade-off.</p>
+          <p>Your ad rides across the whole city by default — every active rider, every neighbourhood the fleet delivers into, all day. It's the reach of a digital city-wide buy, except it's physical, it's moving through real streets, and people see it more than once. That repetition is the part a scrollable ad can't do.</p>
         </div>
 
-        <!-- Stylised, illustrative coverage-cluster graphic — not a real
-             live map. A soft pulse on the reach ring is a plain CSS
-             keyframe (reduced-motion respected via base.css), reveal-in
-             handled by the shared IntersectionObserver utility. -->
-        <div class="coverage-map reveal" aria-hidden="true">
-          <svg viewBox="0 0 320 320" width="100%" height="100%">
-            <g class="cov-grid" stroke="currentColor">
-              <path d="M0,80 H320 M0,160 H320 M0,240 H320"/>
-              <path d="M80,0 V320 M160,0 V320 M240,0 V320"/>
-            </g>
-            <circle class="cov-ring cov-ring-1" cx="160" cy="160" r="60"/>
-            <circle class="cov-ring cov-ring-2" cx="160" cy="160" r="100"/>
-            <circle class="cov-ring cov-ring-3" cx="160" cy="160" r="140"/>
-            <g class="cov-dots">
-              <circle cx="120" cy="120" r="3.5"/>
-              <circle cx="200" cy="130" r="3.5"/>
-              <circle cx="140" cy="200" r="3.5"/>
-              <circle cx="205" cy="195" r="3.5"/>
-              <circle cx="95" cy="175" r="3.5"/>
-            </g>
-            <circle class="cov-shop" cx="160" cy="160" r="7"/>
-          </svg>
-          <p class="coverage-map-label mono">shop &rarr; hyperlocal reach</p>
+        <!-- Each .scale-row is a 3-area grid ("name tier" / "track" /
+             "traits") on desktop and a single-line grid ("name track tier")
+             on mobile — a different composition, not a squeezed one. Cost
+             is symbolic ($–$$$$) on purpose: no invented dollar figures. -->
+        <figure class="reach-scale reveal" id="reach-scale">
+          <p class="reach-scale-label mono">Rough cost to be everywhere</p>
+
+          <div class="scale-row">
+            <span class="scale-name">Billboard network</span>
+            <span class="scale-tier mono">$$$$</span>
+            <span class="scale-track"><span class="scale-bar" data-w="94%"></span></span>
+            <ul class="scale-traits"><li>physical</li></ul>
+          </div>
+
+          <div class="scale-row">
+            <span class="scale-name">Digital city-wide <span class="scale-name-sub">(social/search)</span></span>
+            <span class="scale-tier mono">$</span>
+            <span class="scale-track"><span class="scale-bar" data-w="24%"></span></span>
+            <ul class="scale-traits"><li>city-wide</li></ul>
+          </div>
+
+          <div class="scale-row scale-row-pp">
+            <span class="scale-name">PedalPanel</span>
+            <span class="scale-tier mono">$–$$</span>
+            <span class="scale-track"><span class="scale-bar scale-bar-pp" data-w="40%"></span></span>
+            <ul class="scale-traits"><li>physical</li><li>city-wide</li></ul>
+          </div>
+
+          <figcaption class="scale-caption">Reach without the billboard contract.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= ZONES / GEOFENCING ================= -->
+    <!-- Two beats in one wrapper: the mechanism (zone selection, with the
+         real map component still to come) and where it's headed
+         (hyper-local, honestly framed as fleet-dependent). Kept in one
+         <section> so the second reads as "and here's where this goes"
+         rather than a third independent pitch. Its own backdrop is a line
+         grid — map-like, and distinct from the dot grid .anchor-bg uses
+         elsewhere on the page. -->
+    <section class="zones">
+      <div class="zones-bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="zones-grid">
+          <div class="zones-copy reveal">
+            <p class="eyebrow">Precision</p>
+            <h2>Pick where your ad shows up</h2>
+            <p>City-wide is the default, but it isn't the only option. Every campaign can be pointed at specific zones — select the areas where you want your ad eligible to appear, and it plays only to riders passing through them. Right now, zones are large — think North Sydney, Chatswood and surrounds, the CBD down through Darling Harbour to Central, Kings Cross and the east, or the south — a handful of broad districts covering the whole city. As our fleet grows, each one splits into smaller, more precise areas — a live map, not a fixed one.</p>
+
+            <!-- Restates the districts named above as scannable chips; wraps
+                 on desktop, becomes an edge-to-edge swipe strip on mobile
+                 (tonal echo of the .compare-cards carousel below, without
+                 duplicating its full card treatment). aria-hidden because
+                 it's a visual restatement of the paragraph above it. -->
+            <ul class="zone-chips" aria-hidden="true">
+              <li>North Sydney + Chatswood</li>
+              <li>CBD &rarr; Darling Harbour &rarr; Central</li>
+              <li>Kings Cross + the east</li>
+              <li>The south</li>
+            </ul>
+
+            <div class="zones-founding">
+              <h3>Help draw the map</h3>
+              <p>The zone map is still being drawn. Advertisers who come on now aren't just getting in early — they're some of the first campaigns to help shape where those boundaries land as the map sharpens.</p>
+            </div>
+          </div>
+
+          <!-- TODO: interactive zone map component to be inserted here -->
+          <!-- Placeholder only — deliberately styled as unfinished (dashed
+               border, hatched muted fill). Holds a 4:3 / 340px-min box so
+               the page doesn't reflow when the real component lands. -->
+          <div class="zone-map-placeholder reveal" aria-hidden="true">
+            <span class="zone-map-tag mono">placeholder</span>
+            <span class="zone-map-label mono">Interactive zone map — component pending</span>
+          </div>
+        </div>
+
+        <!-- Second beat: the honest limitation. Static and small on
+             purpose — a footnote illustration, not another demo — and
+             flipped to visual-left so it doesn't repeat the copy-left
+             arrangement of the beat above it. -->
+        <div class="zones-next reveal">
+          <figure class="zones-next-figure" aria-hidden="true">
+            <svg class="zone-split" viewBox="0 0 268 132" width="100%" height="100%">
+              <defs>
+                <clipPath id="zn-clip">
+                  <polygon points="12,38 44,12 92,18 110,56 86,104 36,98" />
+                </clipPath>
+              </defs>
+              <g class="zn-stage zn-stage-a">
+                <polygon class="zn-shape" points="12,38 44,12 92,18 110,56 86,104 36,98" />
+              </g>
+              <path class="zn-arrow" d="M124 58 h20 m-7 -5 l7 5 -7 5" />
+              <g class="zn-stage zn-stage-b" transform="translate(158,0)">
+                <polygon class="zn-shape" points="12,38 44,12 92,18 110,56 86,104 36,98" />
+                <g class="zn-cuts" clip-path="url(#zn-clip)">
+                  <path d="M58 8 L48 112" />
+                  <path d="M4 60 L116 50" />
+                  <g class="zn-cuts-fine">
+                    <path d="M28 16 L34 108" />
+                    <path d="M84 12 L92 102" />
+                    <path d="M6 84 L114 76" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <figcaption class="zone-split-caps mono">
+              <span>today</span>
+              <span>as the fleet fills in</span>
+            </figcaption>
+          </figure>
+
+          <div class="zones-next-copy">
+            <h2>Hyper-local — on the way</h2>
+            <p>Zone precision follows fleet density, not the other way around. The more riders we have on the road in an area, the tighter we can draw the lines without leaving gaps in coverage — so hyper-local targeting isn't a feature we're holding back, it's one that gets unlocked as the fleet fills in.</p>
+            <p>As new rental shops come on board across Sydney, expect zones to keep splitting — suburb-sized today, street-level eventually. Founding advertisers get every upgrade to that map automatically, at no extra cost.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -263,7 +369,7 @@
               </tr>
               <tr>
                 <th scope="row">Local targeting</th>
-                <td class="col-pp"><span class="dot"></span>Hyperlocal</td>
+                <td class="col-pp"><span class="dot"></span>Selectable zones</td>
                 <td><span class="dot"></span>One spot</td>
                 <td><span class="dot"></span>Broad radius</td>
                 <td><span class="dot"></span>Local</td>
@@ -295,7 +401,7 @@
                 <div class="compare-card-row"><dt>Cost</dt><dd><span class="dot"></span>Low, you set it</dd></div>
                 <div class="compare-card-row"><dt>Lock-in</dt><dd><span class="dot"></span>None</dd></div>
                 <div class="compare-card-row"><dt>Physical presence</dt><dd><span class="dot"></span>Yes, moving</dd></div>
-                <div class="compare-card-row"><dt>Local targeting</dt><dd><span class="dot"></span>Hyperlocal</dd></div>
+                <div class="compare-card-row"><dt>Local targeting</dt><dd><span class="dot"></span>Selectable zones</dd></div>
                 <div class="compare-card-row"><dt>Setup effort</dt><dd><span class="dot"></span>Minimal</dd></div>
               </dl>
             </li>
@@ -415,10 +521,10 @@
     </div>
   </dialog>
 
-  <script src="js/reveal.js?v=20260821a"></script>
-  <script src="js/buttons.js?v=20260821a"></script>
-  <script src="js/advertiser.js?v=20260821a"></script>
-  <script src="js/lead-form.js?v=20260821a"></script>
-  <script src="js/hero-3d.js?v=20260821a"></script>
+  <script src="js/reveal.js?v=20260825a"></script>
+  <script src="js/buttons.js?v=20260825a"></script>
+  <script src="js/advertiser.js?v=20260825a"></script>
+  <script src="js/lead-form.js?v=20260825a"></script>
+  <script src="js/hero-3d.js?v=20260825a"></script>
 </body>
 </html>

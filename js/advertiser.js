@@ -1,6 +1,8 @@
 /**
  * Advertiser page interactions:
- * 1. Cost-preview bars (Why this is different) — grow in on scroll.
+ * 1. Bar visuals — the reach/cost strip (City-wide, like never before)
+ *    and the cost preview (Why this is different) both grow their bars
+ *    in from zero when they scroll into view. Same helper drives both.
  * 2. Budget tabs — trivial text swap, no external technique needed.
  * 3. Comparison-card carousel (mobile) — active dot follows scroll
  *    position, rAF-throttled so it doesn't run a handler on every scroll
@@ -8,32 +10,40 @@
  */
 (function () {
 
-  var costPreview = document.getElementById("cost-preview");
-  if (costPreview) {
-    var costBars = costPreview.querySelectorAll(".cost-bar");
+  // Bars sit at width:0 in CSS and animate to their data-w on first
+  // sight; without IntersectionObserver they're just set immediately.
+  var growBarsOnScroll = function (containerId, barSelector) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var bars = container.querySelectorAll(barSelector);
     var growBars = function () {
-      costBars.forEach(function (bar) {
+      bars.forEach(function (bar) {
         bar.style.width = bar.dataset.w;
       });
     };
 
-    if ("IntersectionObserver" in window) {
-      var costObs = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              growBars();
-              costObs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.4 }
-      );
-      costObs.observe(costPreview);
-    } else {
+    if (!("IntersectionObserver" in window)) {
       growBars();
+      return;
     }
-  }
+
+    var obs = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            growBars();
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(container);
+  };
+
+  growBarsOnScroll("reach-scale", ".scale-bar");
+  growBarsOnScroll("cost-preview", ".cost-bar");
 
   // Locked pricing spec: $2 per slot-hour, 120 plays per slot-hour
   // (6-second slots, 5 slots per loop). Plays/day = (budget / SLOT_HOUR_RATE)

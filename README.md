@@ -12,7 +12,7 @@ shop.html           For e-bike rental shop owners
 css/
   base.css          Shared tokens, type, nav, buttons, reveal utility, footer
   landing.css        Landing-only styles
-  advertiser.css      Advertiser-only styles (hero mock, street-loop, coverage map, pricing, comparison table)
+  advertiser.css      Advertiser-only styles (hero mock, street-loop, reach/cost strip, zone map placeholder, pricing, comparison table)
   shop.css             Shop-only styles (3-step flow, financial slider, transparency card)
 js/
   reveal.js         Shared IntersectionObserver scroll-reveal
