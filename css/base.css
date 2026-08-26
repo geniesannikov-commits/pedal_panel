@@ -334,6 +334,11 @@ section {
   font-size: 1rem;
 }
 
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--pink-tint);
+}
+
 /* ---------- Reveal-on-scroll ----------
    IntersectionObserver fade/slide utility, adapted from Codrops' scroll
    tag family (e.g. tympanus.net/codrops/tag/scroll/) — a single restrained
@@ -570,18 +575,15 @@ section {
   color: var(--ink);
 }
 
+/* Static fill only — no blink. PedalPanel is pre-launch, so this dot must
+   never read as an "on-air"/live status light on the ad screen. */
 .swap-live-dot {
   fill: var(--pink);
-  animation: swapBlink 1.8s var(--ease) infinite;
 }
 
 @keyframes swapBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .swap-live-dot { animation: none; }
 }
 
 .swap-caption {
@@ -793,6 +795,11 @@ section {
   color: var(--ink);
 }
 
+.lead-close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--pink-tint);
+}
+
 .lead-close svg {
   width: 18px;
   height: 18px;
@@ -857,6 +864,13 @@ section {
 .lead-submit {
   width: 100%;
   margin-top: 22px;
+}
+
+.lead-form-privacy {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--ink-faint);
 }
 
 .lead-success {

@@ -1,8 +1,7 @@
 /**
  * Advertiser page interactions:
  * 1. Bar visuals — the reach/cost strip (City-wide, like never before)
- *    and the cost preview (Why this is different) both grow their bars
- *    in from zero when they scroll into view. Same helper drives both.
+ *    grows its bars in from zero when it scrolls into view.
  * 2. Budget tabs — trivial text swap, no external technique needed.
  * 3. Comparison-card carousel (mobile) — active dot follows scroll
  *    position, rAF-throttled so it doesn't run a handler on every scroll
@@ -43,7 +42,6 @@
   };
 
   growBarsOnScroll("reach-scale", ".scale-bar");
-  growBarsOnScroll("cost-preview", ".cost-bar");
 
   // Locked pricing spec: $2 per slot-hour, 120 plays per slot-hour
   // (6-second slots, 5 slots per loop). Plays/day = (budget / SLOT_HOUR_RATE)
