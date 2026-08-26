@@ -24,7 +24,12 @@
 }
 
 .adv-hero-copy h1 {
-  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  /* Sized up and lightened from the shared h1-h4 default — Big Shoulders
+     Display is condensed, so it reads smaller than Space Grotesk did at
+     the same size. */
+  font-size: clamp(2.3rem, 5vw, 3.75rem);
+  font-weight: 300;
+  line-height: 0.95;
   max-width: 15ch;
 }
 

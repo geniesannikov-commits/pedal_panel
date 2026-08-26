@@ -26,25 +26,25 @@ colors:
   dark-text-soft: "#9a9aa6"
 typography:
   display:
-    fontFamily: "Space Grotesk, Inter, system-ui, sans-serif"
-    fontSize: "clamp(2.1rem, 4.6vw, 3.4rem)"
-    fontWeight: 600
-    lineHeight: 1.08
-    letterSpacing: "-0.02em"
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "clamp(2.3rem, 5vw, 3.75rem)"
+    fontWeight: 300
+    lineHeight: 0.95
+    letterSpacing: "0.01em"
   headline:
-    fontFamily: "Space Grotesk, Inter, system-ui, sans-serif"
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
     fontSize: "clamp(1.6rem, 3vw, 2.1rem)"
-    fontWeight: 600
-    lineHeight: 1.08
-    letterSpacing: "-0.02em"
+    fontWeight: 500
+    lineHeight: 1.1
+    letterSpacing: "0.01em"
   title:
-    fontFamily: "Space Grotesk, Inter, system-ui, sans-serif"
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
     fontSize: "clamp(1.15rem, 2.1vw, 1.4rem)"
-    fontWeight: 600
+    fontWeight: 500
     lineHeight: 1.4
-    letterSpacing: "-0.02em"
+    letterSpacing: "normal"
   body:
-    fontFamily: "Inter, system-ui, -apple-system, sans-serif"
+    fontFamily: "Public Sans, system-ui, -apple-system, sans-serif"
     fontSize: "1.02rem"
     fontWeight: 400
     lineHeight: 1.65
@@ -56,7 +56,7 @@ typography:
     lineHeight: 1.5
     letterSpacing: "0.08em"
   caption:
-    fontFamily: "Inter, system-ui, -apple-system, sans-serif"
+    fontFamily: "Public Sans, system-ui, -apple-system, sans-serif"
     fontSize: "0.95rem"
     fontWeight: 400
     lineHeight: 1.5
@@ -142,7 +142,8 @@ able to render a limit without embarrassment.
   of named panels
 - Hairline borders (1px `#ebe9ef`) instead of heavy dividers or fills
 - Long, soft, downward shadows that lift objects rather than layering them
-- Mono type for labels and eyebrows; geometric sans for display
+- Mono type for labels and eyebrows; condensed signage-display type for
+  headings, set uppercase
 - A single shared easing curve across every transition on the site
 
 ## Colors
@@ -255,14 +256,21 @@ hue against the paper. This applies to all three chromatic families now:
 
 ## Typography
 
-**Display Font:** Space Grotesk (500/600/700, with Inter and system-ui fallback)
-**Body Font:** Inter (400/500/600/700, with system-ui and -apple-system fallback)
-**Label/Mono Font:** JetBrains Mono (400/500, with SFMono-Regular and Menlo fallback)
+**Display Font:** Big Shoulders Display (300/400/500/600/700, with Arial
+Narrow and sans-serif fallback)
+**Body Font:** Public Sans (400/500/600/700, with system-ui and -apple-system
+fallback)
+**Label/Mono Font:** JetBrains Mono (400/500, with SFMono-Regular and Menlo
+fallback)
 
-**Character:** Space Grotesk's slightly quirky geometric forms carry the display
-voice at tight negative tracking (-0.02em) and near-solid leading (1.08), so
-headlines read as compact blocks rather than airy lines. Inter does all the
-reading work at generous 1.5–1.65 leading. JetBrains Mono appears only in small
+**Character:** Big Shoulders Display was drawn for Chicago's city signage —
+condensed, thin-cut at its lighter weights, built to stack short lines the
+way a street sign stacks. It carries the display voice set uppercase at a
+light positive tracking (0.01em), the opposite move from the old Space
+Grotesk system: a condensed caps face needs room, not compression, or
+letters start colliding. Public Sans does all the reading work underneath at
+generous 1.5–1.65 leading — plain and civic on purpose, so it never competes
+with the display voice above it. JetBrains Mono appears only in small
 uppercase labels, where it signals "this is a machine-readable marker, not
 prose" — the eyebrows and the audience pill.
 
@@ -270,14 +278,15 @@ All three load from Google Fonts with `display=swap` behind a `preconnect` pair.
 
 ### Hierarchy
 
-- **Display** (600, `clamp(2.1rem, 4.6vw, 3.4rem)`, 1.08, -0.02em): Page heroes
-  only. The shop hero runs a slightly tighter cap (`clamp(2.1rem, 5vw, 2.85rem)`)
-  because its headline is longer.
-- **Headline** (600, `clamp(1.6rem, 3vw, 2.1rem)`, 1.08, -0.02em): Major section
-  headings, established by the closing-grid pattern.
-- **Title** (600, `clamp(1.15rem, 2.1vw, 1.4rem)`, 1.4, -0.02em): The
+- **Display** (300, `clamp(2.3rem, 5vw, 3.75rem)`, 0.95, 0.01em, uppercase):
+  Page heroes only. The shop hero runs a slightly tighter cap
+  (`clamp(2.3rem, 5.4vw, 3.15rem)`) because its headline is longer.
+- **Headline** (500, `clamp(1.6rem, 3vw, 2.1rem)`, 1.1, 0.01em, uppercase):
+  Major section headings, established by the closing-grid pattern.
+- **Title** (500, `clamp(1.15rem, 2.1vw, 1.4rem)`, 1.4, normal): The
   `.statement` line — the bold scannable sentence inside anchor sections, set
-  against a 3px pink left rule at a 34ch maximum.
+  in mixed case (it carries a full sentence, not a heading fragment — see the
+  Caps-or-Sentence Rule) against a 3px pink left rule at a 34ch maximum.
 - **Body** (400, `1.02rem`, 1.65): Anchor-section paragraphs, capped at 46ch.
   The lede variant runs slightly larger (`1.08rem`, 1.6) in Ink Soft.
 - **Caption** (400, `0.95rem`, 1.5): The step this system was missing — UI
@@ -290,6 +299,16 @@ All three load from Google Fonts with `display=swap` behind a `preconnect` pair.
   (`0.72rem`, 0.04em) in Ink Faint.
 
 ### Named Rules
+
+**The Caps-or-Sentence Rule.** Display and Headline set uppercase by
+default — Big Shoulders Display is drawn for it, and a short heading phrase
+reads as signage. An element carrying a full sentence rather than a heading
+fragment opts back out to mixed case instead, at Body weight rather than the
+heading's lighter one: the `.statement` line, `.closing-question`, and the
+`.wordmark` brand mark (whose Pascal-case "PedalPanel" needs its capital P to
+keep both halves of the name legible — uppercase would erase that boundary).
+A new display-family element defaults to uppercase; it earns mixed case only
+by being a sentence or a proper name, not by preference.
 
 **The Caption Step Rule.** Text smaller than body but not a mono label uses
 the Caption step (`0.95rem`) as its anchor. A handful of components tune

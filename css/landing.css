@@ -52,18 +52,23 @@ body.landing {
 .landing-mark .wordmark-text {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.3rem;
-  letter-spacing: -0.01em;
+  font-size: 1.35rem;
+  letter-spacing: 0;
 }
 
-/* Now the real h1 (base.css's h1-h4 rule supplies the display font,
-   weight, line-height and tracking) — the page's actual proposition,
-   promoted to the hero-headline treatment the advertiser/shop pages
-   already use for their h1 (display clamp + a narrow ch cap forces the
-   same short, punchy stacked wrap as css/advertiser.css's
-   .adv-hero-copy h1, just centered here instead of left-aligned). */
+/* Now the real h1 (base.css's h1-h4 rule supplies the display font and
+   tracking) — the page's actual proposition, promoted to the
+   hero-headline treatment the advertiser/shop pages already use for
+   their h1 (display clamp + a narrow ch cap forces the same short,
+   punchy stacked wrap as css/advertiser.css's .adv-hero-copy h1, just
+   centered here instead of left-aligned). Weight and line-height are
+   pulled lighter and tighter than the shared h1-h4 default, and the
+   clamp sized up slightly: Big Shoulders Display is condensed, so it
+   reads smaller than Space Grotesk did at the same size. */
 .landing-tagline {
-  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  font-size: clamp(2.3rem, 5vw, 3.75rem);
+  font-weight: 300;
+  line-height: 0.95;
   max-width: 20ch;
   margin-inline: auto;
 }
@@ -183,9 +188,10 @@ body.landing {
 
 .fork-title {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.2rem;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .fork-desc {
