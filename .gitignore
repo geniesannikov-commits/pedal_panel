@@ -6,9 +6,10 @@ node_modules/
 # Shared hooks live in .claude/settings.json.
 .claude/settings.local.json
 
-# Impeccable: runtime artifacts and personal config. Only the shared live
-# config is tracked.
+# Impeccable: runtime artifacts and personal config. Only the shared design
+# sidecar and live config are tracked.
 .impeccable/*
+!.impeccable/design.json
 !.impeccable/live/
 .impeccable/live/*
 !.impeccable/live/config.json
