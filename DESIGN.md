@@ -1,11 +1,19 @@
 ---
 name: PedalPanel
-description: Sydney's e-bike ad network — one signal colour cutting through paper-white.
+description: Sydney's e-bike ad network — signal pink for action, teal and amber for what it's showing you.
 colors:
   pink: "#ff2c68"
   pink-deep: "#e01259"
   pink-tint: "#ffe4ee"
   pink-tint-2: "#fff0f5"
+  teal: "#0f8a7c"
+  teal-deep: "#0b6d62"
+  teal-tint: "#cfeeea"
+  teal-tint-2: "#eaf8f6"
+  amber: "#c67a1f"
+  amber-deep: "#96570a"
+  amber-tint: "#f3ddb0"
+  amber-tint-2: "#fbf3e3"
   ink: "#14141a"
   ink-soft: "#4a4a56"
   ink-faint: "#8b8b98"
@@ -101,10 +109,14 @@ components:
 
 The product is a screen that glows as it moves through a grey city, and the
 site is built the same way: near-white paper, near-black ink, and one
-high-voltage pink that behaves like a signal rather than a brand wash. Almost
-every surface is uncoloured. What carries colour is what wants your eye — the
-thing you can click, the thing that starts a thought, the thing that just
-changed state.
+high-voltage pink that behaves like a signal rather than a brand wash. Most
+surfaces are still uncoloured, and pink still marks the same three things it
+always did — what you can click, what starts a thought, what just changed
+state. What's changed is everything pink used to have to carry alone: a
+cool Signal Teal now marks live status and data in motion (earning right
+now, a revenue share), and a warm Signal Amber marks a notable fact or value
+worth a second look (a stat, a saving) — see Colors below. Both are
+deliberately not another shade of pink; they're what pink was crowding out.
 
 The craft register is precise rather than soft. Borders are hairlines, the
 easing curve is a single deliberate `cubic-bezier(0.16, 1, 0.3, 1)` shared
@@ -122,8 +134,12 @@ able to render a limit without embarrassment.
 
 **Key Characteristics:**
 
-- One accent colour, used as signal rather than decoration
-- Paper-white default; dark tone reserved for the footer
+- Signal Pink used only for action, initiation or response — never decoration
+- Signal Teal (status/live data) and Signal Amber (notable facts/values) as
+  genuine secondary hues, not tints of pink — rationed to specific roles,
+  not scattered
+- Paper-white default; dark tone reserved for the footer and a small number
+  of named panels
 - Hairline borders (1px `#ebe9ef`) instead of heavy dividers or fills
 - Long, soft, downward shadows that lift objects rather than layering them
 - Mono type for labels and eyebrows; geometric sans for display
@@ -131,15 +147,18 @@ able to render a limit without embarrassment.
 
 ## Colors
 
-A near-monochrome paper-and-ink base with exactly one chromatic voice, plus two
-tints of that voice for fields and focus states.
+A near-monochrome paper-and-ink base carrying three chromatic voices, each
+with its own two-step tint pair for fields, panels and focus states. Pink is
+still the dominant one — action stays rare and loud precisely because teal
+and amber now carry everything that isn't action.
 
 ### Primary
 
-- **Signal Pink** (`#ff2c68`): The one chromatic voice. It marks what you can
-  act on (primary CTAs), what begins a thought (the eyebrow's 6px dot, the
-  statement rule's 3px left border), and what just responded (card hover
-  borders, footer link hover). Never a large decorative fill in the current
+- **Signal Pink** (`#ff2c68`): The action voice, and the only one that means
+  *act*. It marks what you can act on (primary CTAs), what begins a thought
+  (the eyebrow's 6px dot, the statement rule's 3px left border), and what
+  just responded (card hover borders, footer link hover, the negotiability
+  slider's thumb). Never a large decorative fill in the current
   implementation.
 - **Signal Pink Deep** (`#e01259`): The pressed/deepened partner. It is the
   origin colour of the button's radial fill sweep, the colour of eyebrow
@@ -148,6 +167,39 @@ tints of that voice for fields and focus states.
   on focused inputs, where a full-strength pink would be too loud.
 - **Signal Pink Tint 2** (`#fff0f5`): The lightest wash, for tinted fields
   where pink needs to be present as an area rather than a mark.
+
+### Secondary Accents
+
+Two genuine hues, not tints of pink — a cool complement and a warm one,
+chosen so the palette reads as a deliberate small system rather than a
+brand wash. Each is rationed to one job pink doesn't do: marking status, not
+action.
+
+- **Signal Teal** (`#0f8a7c`): *Something is happening right now.* The live/
+  status voice — earning in progress, a value in motion. Drives the shop
+  page's "earning" thread: the meter strip's live fill and blinking dot, the
+  swap-card's earning dot, the 3-step flow line and icon wells, and the
+  negotiability slider's revenue bar and track fill (the slider's own thumb
+  stays pink — that part you drag, so it's still an action). `Signal Teal
+  Deep` (`#0b6d62`) is the text-safe partner, used where teal needs to sit as
+  copy (the slider's mobile revenue readout). `Signal Teal Tint`
+  (`#cfeeea`) borders the cards living inside a teal section; `Signal Teal
+  Tint 2` (`#eaf8f6`) is the section-ground wash itself (`.how-it-works` on
+  shop.html).
+- **Signal Amber** (`#c67a1f`): *This number is worth a second look.* The
+  highlight voice for a standalone fact or value, never a status and never a
+  click target — the advertiser page's "7 exposures" stat and its chase-dot
+  animation, the swap-card's "100% existing riders" readout, and the shop
+  page's price-tag saving (`was $59 → $45`). `Signal Amber Deep` (`#96570a`)
+  is the text-safe partner for smaller text (the price-tag's headline
+  figure, the swap-stat number). `Signal Amber Tint` (`#f3ddb0`) borders
+  cards living inside an amber section (the fact-card); `Signal Amber Tint
+  2` (`#fbf3e3`) is the section-ground wash itself (`.why-works` on
+  advertiser.html).
+
+Both accents also make a small, matched appearance on the landing fork and
+each page's nav audience tag — see the Fork Identity and Navigation
+components below.
 
 ### Neutral
 
@@ -163,7 +215,8 @@ tints of that voice for fields and focus states.
   hover backgrounds on the dialog close button. A tonal shift, not a colour.
 - **Paper Line** (`#ebe9ef`): Every hairline border, divider, and input stroke.
 - **Dark** (`#121218`) and **Dark Line** (`#2a2a34`): The footer's ground and
-  its top border. This is the only dark region in the system.
+  its top border, reused on shop.html's `.transparency-card`. A deliberately
+  short list — dark stays a named-panel treatment, not a section option.
 - **Dark Text** (`#d7d7de`) and **Dark Text Soft** (`#9a9aa6`): Text on the
   dark ground — the near-white/near-Paper pairing that mirrors Ink/Ink Soft's
   role, but tuned for `#121218` instead of white. Dark Text is footer links
@@ -173,19 +226,32 @@ tints of that voice for fields and focus states.
 
 ### Named Rules
 
-**The Signal Rule.** Pink means *act, begin, or respond*. If a pink element is
-none of those three, it is decoration and should be reconsidered. This is why
+**The Signal Rule.** Pink means *act, begin, or respond*, and only pink means
+that — teal and amber never sit on a button, a link hover, or anything else
+the visitor triggers. If a pink element is none of those three, it is
+decoration and should be reconsidered, or it should be asking whether it's
+actually a teal (status) or amber (notable value) in disguise. This is why
 the eyebrow dot and the statement rule earn colour while section backgrounds
-do not.
+don't earn *pink* — teal and amber can still tint a section ground, per the
+Tint Escalation Rule below, because tinting isn't action.
+
+**The Status/Highlight Split.** Teal marks something happening now (a live
+fill, a blinking dot, data actively changing); amber marks a fact or value
+worth noticing but not changing (a stat, a saving). If a new element is
+data but not moving, reach for amber before teal. If it's live or
+interactive-adjacent but not itself the action, reach for teal before pink.
 
 **The Never-Black Rule.** Text is `#14141a`, not `#000000`; surfaces are
 `#ffffff` and `#faf9fb`, and dark regions are `#121218`. The near-blacks carry
 a blue cast that keeps the paper from reading as a harsh scan.
 
-**The Tint Escalation Rule.** When pink needs to occupy an area rather than a
-mark, escalate down to `pink-tint-2` (`#fff0f5`) or `pink-tint` (`#ffe4ee`) —
-never a reduced-opacity full-strength pink, which drifts the hue against the
-paper.
+**The Tint Escalation Rule.** When an accent needs to occupy an area rather
+than a mark, escalate down to that accent's own `-tint-2` (lightest wash, for
+section grounds) or `-tint` (for borders on cards sitting inside that
+section) — never a reduced-opacity full-strength colour, which drifts the
+hue against the paper. This applies to all three chromatic families now:
+`pink-tint-2`/`pink-tint`, `teal-tint-2`/`teal-tint`, and
+`amber-tint-2`/`amber-tint`.
 
 ## Typography
 
@@ -378,8 +444,12 @@ usually spacing or a shadow, not a thicker border.
 ### Navigation
 
 - **Style:** Sticky, with the nav-float shadow. Links are `0.92rem` in Ink Soft,
-  going to Ink on hover over `0.2s`. The audience tag is a mono uppercase pill
-  in Ink Faint with a hairline border.
+  going to Ink on hover over `0.2s`. The audience tag is a mono uppercase pill,
+  base style Ink Faint with a hairline border; on advertiser.html and
+  shop.html it also carries that page's accent (`.nav-audience-amber` /
+  `.nav-audience-teal` — Amber Deep / Teal Deep text over an
+  Amber Tint / Teal Tint border) as a small, matched wayfinding echo of the
+  page's dominant secondary hue.
 - **Mobile (≤640px):** The audience pill and the secondary cross-link are
   removed outright, leaving wordmark plus primary CTA; the CTA shrinks to
   `10px 18px` at `0.88rem`.
@@ -415,6 +485,37 @@ one piece of copy in a section that needs to visually interrupt the reading
 flow ("founding advertiser" pricing note). Follows the Signal Rule: the pink
 marks that this callout *begins* a distinct, time-sensitive offer.
 
+### Section tint
+
+The realised form of the Provisional allowance below, extended past pink: a
+full-section background moved off neutral `paper-alt` onto an accent's
+`-tint-2` wash, with the section's own top/bottom hairlines moved to that
+accent's `-tint` so the whole band reads as one deliberate field rather than
+a stray colour. Used exactly twice, one per accent, each tied to the content
+it sits behind rather than applied for texture: `.why-works` on
+advertiser.html (Amber Tint 2 ground, because the section's payload is the
+"7 exposures" amber stat) and `.how-it-works` on shop.html (Teal Tint 2
+ground, because the section's payload is the live teal meter strip and flow
+diagram). Cards sitting inside a tinted section (`.fact-card`,
+`.meter-card`, `.flow-step`) take that accent's `-tint` as their border
+instead of `paper-line`, so the card reads as native to its section rather
+than a neutral box dropped onto a colour. Not a pattern to reach for by
+default — a third section earns this treatment only if it has an equally
+clear accent payload to justify it, not because a page has an empty
+`paper-alt` band to fill.
+
+### Fork identity
+
+The landing page's two `.fork-card`s preview the accent world of the page
+they lead to before the visitor ever clicks: the advertiser fork's icon well
+rests in Amber Tint 2 / Amber Deep, the shop fork's in Teal Tint 2 / Teal
+Deep (`.fork-advertiser .fork-icon` / `.fork-shop .fork-icon` in
+css/landing.css). Both still escalate to the same Signal Pink Tint / Signal
+Pink on hover — the moment a visitor is about to click stays one universal
+action colour regardless of which fork it is, per the Signal Rule. The same
+amber/teal-per-page mapping repeats in the Navigation audience tag above,
+so a visitor meets a page's accent twice before reading a word of its copy.
+
 ### Unfinished-component placeholder
 
 A dashed border over a hatched muted fill, labelled with what is missing
@@ -427,7 +528,10 @@ this system, not a temporary hack.
 ### Do:
 
 - **Do** use Signal Pink for action, initiation, or response — CTAs, eyebrow
-  dots, statement rules, hover states.
+  dots, statement rules, hover states — and nothing else.
+- **Do** use Signal Teal for live status/data-in-motion and Signal Amber for
+  a notable fact or value, per the Status/Highlight Split — never as a
+  substitute for pink on something clickable.
 - **Do** draw structure with 1px `#ebe9ef` hairlines before reaching for fills
   or shadows.
 - **Do** use the shared `cubic-bezier(0.16, 1, 0.3, 1)` easing for every new
@@ -441,15 +545,21 @@ this system, not a temporary hack.
 
 ### Don't:
 
-- **Don't** introduce a second accent hue. The system's whole premise is one
-  chromatic voice against paper and ink.
+- **Don't** add a third accent hue, or let teal/amber drift toward each
+  other's job. Two accents, each with exactly one role (Status/Highlight
+  Split), is the ceiling — not a licence to keep adding chromatic voices.
+- **Don't** put teal or amber on anything clickable — a button, a link, a
+  hover or focus state. That's what would actually dilute Signal Pink's
+  meaning; the accents exist to take non-action colour *off* pink, not to
+  join it on action.
 - **Don't** drift toward generic SaaS visual language — purple-blue mesh
   gradients, glassmorphism, or floating 3D blobs. Confirmed anti-reference.
 - **Don't** adopt outdoor-advertising corporate styling — stock photography,
   heavy sans caps, a blue corporate palette. The product positions *against*
   that industry.
 - **Don't** build dark-mode dashboard surfaces with neon accents and data-viz
-  chrome. This site is paper-white; the dark tone is footer-only. Confirmed
+  chrome. This site is paper-white; dark stays a named-panel treatment
+  (footer, `.transparency-card`), never a default surface. Confirmed
   anti-reference.
 - **Don't** use pure `#000000` or pure-grey neutrals; the palette's near-blacks
   carry a blue cast.
@@ -463,8 +573,20 @@ this system, not a temporary hack.
 
 ### Provisional
 
-The accent may be rationed more freely than the current implementation shows:
-tinted section grounds and pink panels drawn from `pink-tint` and `pink-tint-2`
-are permitted as the brand matures. This is a deliberate expansion beyond
-today's code, not a description of it — the Signal Rule still governs
-full-strength `#ff2c68`.
+Colour may still be rationed more freely than today's code shows — this
+section now documents what's realised versus what remains headroom.
+
+**Realised:** two full-section tints (Section tint, above), each escalated
+from an accent's own `-tint-2`/`-tint` pair rather than pink's. Signal Pink
+itself still never fills a section ground in the current implementation —
+that headroom stays reserved, not spent, because a pink field would compete
+with pink's own action role rather than support it.
+
+**Still headroom:** a third tinted panel, on either accent or on pink, is
+permitted as the brand matures *only* where a section has a payload as
+clear as the two that earned tint today — a genuine data/status or
+notable-value moment, not an empty band. A pink section ground is
+permitted only where the section's own content is the site's next
+significant CTA-adjacent moment, and should be treated as a bigger call
+than a teal or amber one, since it borrows presence from the one colour
+that must stay rare to keep meaning action.

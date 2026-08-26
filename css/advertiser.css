@@ -60,10 +60,15 @@
 
 /* ---------- Why it works / loop diagram ---------- */
 
+/* Amber wash, not neutral paper-alt: this section carries the page's one
+   notable-fact moment (the "7 exposures" stat below), so the section
+   ground itself is tinted the same Signal Amber the stat uses — a
+   deliberate larger colour field, not a small accent. See DESIGN.md's
+   Colors section and the Section Tint component. */
 .why-works {
-  background: var(--paper-alt);
-  border-top: 1px solid var(--paper-line);
-  border-bottom: 1px solid var(--paper-line);
+  background: var(--amber-tint-2);
+  border-top: 1px solid var(--amber-tint);
+  border-bottom: 1px solid var(--amber-tint);
 }
 
 /* ---------- Reach: city-wide cost strip ----------
@@ -717,7 +722,7 @@
 .fact-card {
   position: relative;
   background: var(--paper);
-  border: 1px solid var(--paper-line);
+  border: 1px solid var(--amber-tint);
   border-radius: var(--radius-lg);
   padding: 30px;
   box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.22);
@@ -731,12 +736,14 @@
   margin-bottom: 10px;
 }
 
+/* Amber, not pink: a standalone illustrative stat, not something to act on
+   — see DESIGN.md's Signal Amber role. */
 .fact-number {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 4.4rem;
   line-height: 1;
-  color: var(--pink);
+  color: var(--amber);
 }
 
 .fact-caption {
@@ -773,13 +780,13 @@
 
 @keyframes factChase {
   0%, 92%, 100% { background: var(--paper-line); }
-  8%, 20% { background: var(--pink); }
+  8%, 20% { background: var(--amber); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fact-dots span {
     animation: none;
-    background: var(--pink);
+    background: var(--amber);
     opacity: 0.5;
   }
 }

@@ -86,10 +86,15 @@
 
 /* ---------- How it works / 3-step flow ---------- */
 
+/* Teal wash, not neutral paper-alt: this section carries the page's live
+   "earning" data — the meter strip and the 3-step flow below — so the
+   section ground itself is tinted the same Signal Teal those elements use
+   — a deliberate larger colour field, not a small accent. See DESIGN.md's
+   Colors section and the Section Tint component. */
 .how-it-works {
-  background: var(--paper-alt);
-  border-top: 1px solid var(--paper-line);
-  border-bottom: 1px solid var(--paper-line);
+  background: var(--teal-tint-2);
+  border-top: 1px solid var(--teal-tint);
+  border-bottom: 1px solid var(--teal-tint);
 }
 
 /* ---------- How it works: with/without PedalPanel meter strip ----------
@@ -110,7 +115,7 @@
 
 .meter-card {
   background: var(--paper);
-  border: 1px solid var(--paper-line);
+  border: 1px solid var(--teal-tint);
   border-radius: var(--radius-md);
   padding: 20px 22px;
 }
@@ -159,8 +164,10 @@
   background: var(--ink-faint);
 }
 
+/* Teal, not pink: a live data fill (earning is currently happening), not a
+   call to action — see DESIGN.md's Signal Teal role. */
 .meter-fill.is-live {
-  background: var(--pink);
+  background: var(--teal);
 }
 
 .meter-value {
@@ -181,7 +188,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--pink);
+  background: var(--teal);
   margin-left: 7px;
   animation: swapBlink 1.8s var(--ease) infinite;
 }
@@ -251,14 +258,16 @@
 
 .price-old .mono {
   text-decoration: line-through;
-  text-decoration-color: var(--pink);
+  text-decoration-color: var(--amber);
   text-decoration-thickness: 2px;
 }
 
+/* Amber, not pink: this is a value/saving highlight, not a call to action —
+   see DESIGN.md's Signal Amber role. */
 .price-new {
   font-weight: 600;
   font-size: 2.9rem;
-  color: var(--pink-deep);
+  color: var(--amber-deep);
   line-height: 1.2;
   margin-top: 6px;
 }
@@ -301,7 +310,7 @@
 }
 
 .flow-line {
-  stroke: var(--pink);
+  stroke: var(--teal);
   stroke-width: 2;
   opacity: 0.9;
   transition: stroke-dashoffset 1.4s var(--ease);
@@ -324,7 +333,7 @@
 .flow-step {
   position: relative;
   background: var(--paper);
-  border: 1px solid var(--paper-line);
+  border: 1px solid var(--teal-tint);
   border-radius: var(--radius-md);
   padding: 26px 22px 24px;
 }
@@ -336,7 +345,7 @@
   width: 40px;
   height: 40px;
   color: var(--ink);
-  background: var(--pink-tint-2);
+  background: var(--teal-tint-2);
   border-radius: 10px;
 }
 
@@ -497,8 +506,11 @@
   background: var(--ink);
 }
 
+/* Teal, not pink: revenue-share data driven by the slider, not a call to
+   action — see DESIGN.md's Signal Teal role. The thumb/track handle below
+   stays pink, since that's the part the visitor actually drags. */
 .split-bar-fill.revenue {
-  background: var(--pink);
+  background: var(--teal);
 }
 
 .split-bar-value {
@@ -518,7 +530,7 @@
   width: 100%;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(to right, var(--ink) 0%, var(--ink) var(--pct, 50%), var(--pink) var(--pct, 50%), var(--pink) 100%);
+  background: linear-gradient(to right, var(--ink) 0%, var(--ink) var(--pct, 50%), var(--teal) var(--pct, 50%), var(--teal) 100%);
   outline: none;
   cursor: pointer;
   margin: 10px 0 6px;
@@ -643,7 +655,7 @@
   }
 
   #split-rev-value {
-    color: var(--pink-deep);
+    color: var(--teal-deep);
   }
 
   .split-control {
@@ -663,7 +675,7 @@
     height: 200px;
     margin: 0;
     touch-action: none;
-    background: linear-gradient(to top, var(--ink) 0%, var(--ink) var(--pct, 50%), var(--pink) var(--pct, 50%), var(--pink) 100%);
+    background: linear-gradient(to top, var(--ink) 0%, var(--ink) var(--pct, 50%), var(--teal) var(--pct, 50%), var(--teal) 100%);
   }
 
   /* Bigger thumb than the desktop 22px — a finger needs a larger, more
