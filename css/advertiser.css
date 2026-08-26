@@ -158,10 +158,12 @@
 .scale-bar {
   display: block;
   height: 100%;
-  width: 0;
+  width: 100%;
   border-radius: 6px;
   background: var(--ink-faint);
-  transition: width 1.1s var(--ease);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s var(--ease);
 }
 
 .scale-traits {

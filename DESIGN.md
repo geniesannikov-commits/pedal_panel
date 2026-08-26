@@ -14,6 +14,8 @@ colors:
   paper-line: "#ebe9ef"
   dark: "#121218"
   dark-line: "#2a2a34"
+  dark-text: "#d7d7de"
+  dark-text-soft: "#9a9aa6"
 typography:
   display:
     fontFamily: "Space Grotesk, Inter, system-ui, sans-serif"
@@ -45,6 +47,12 @@ typography:
     fontWeight: 500
     lineHeight: 1.5
     letterSpacing: "0.08em"
+  caption:
+    fontFamily: "Inter, system-ui, -apple-system, sans-serif"
+    fontSize: "0.95rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "normal"
 rounded:
   sm: "8px"
   md: "14px"
@@ -156,6 +164,12 @@ tints of that voice for fields and focus states.
 - **Paper Line** (`#ebe9ef`): Every hairline border, divider, and input stroke.
 - **Dark** (`#121218`) and **Dark Line** (`#2a2a34`): The footer's ground and
   its top border. This is the only dark region in the system.
+- **Dark Text** (`#d7d7de`) and **Dark Text Soft** (`#9a9aa6`): Text on the
+  dark ground — the near-white/near-Paper pairing that mirrors Ink/Ink Soft's
+  role, but tuned for `#121218` instead of white. Dark Text is footer links
+  and the transparency card's lede; Dark Text Soft is the footer's own body
+  copy. Never pure white on the dark ground, for the same reason Ink is never
+  pure black.
 
 ### Named Rules
 
@@ -200,11 +214,23 @@ All three load from Google Fonts with `display=swap` behind a `preconnect` pair.
   against a 3px pink left rule at a 34ch maximum.
 - **Body** (400, `1.02rem`, 1.65): Anchor-section paragraphs, capped at 46ch.
   The lede variant runs slightly larger (`1.08rem`, 1.6) in Ink Soft.
+- **Caption** (400, `0.95rem`, 1.5): The step this system was missing — UI
+  chrome and secondary text that reads as interface, not prose: button
+  labels, form inputs, card sub-copy that sits under a heading rather than
+  carrying the paragraph. This is the reading colour default only when it
+  is not already Ink Soft by context.
 - **Label** (500, `0.78rem`, 0.08em, uppercase): Eyebrows in Signal Pink Deep,
   preceded by a 6px pink dot. The audience pill runs a smaller cut
   (`0.72rem`, 0.04em) in Ink Faint.
 
 ### Named Rules
+
+**The Caption Step Rule.** Text smaller than body but not a mono label uses
+the Caption step (`0.95rem`) as its anchor. A handful of components tune
+±0.03–0.07rem off that anchor for local rhythm (form error text at
+`0.86rem`, input field labels at `0.82rem`) — that is expected local tuning,
+not drift, as long as it stays within roughly 0.8–0.98rem of the Caption
+anchor and does not invent a size outside that band.
 
 **The Measure Rule.** Reading columns are capped in characters, not pixels:
 46ch for body paragraphs, 34ch for statement lines and the landing tagline.
@@ -230,6 +256,13 @@ The recurring composition is the **anchor grid**: a narrow text column (46ch)
 paired with a small supporting diagram card, over a subtle dot-grid and soft
 radial glow. It alternates side per section via a reverse modifier so that
 consecutive sections do not repeat the same copy-left arrangement.
+
+One section — advertiser.html's zones/geofencing beat — swaps the dot-grid
+for a masked **line-grid** backdrop (`.zones-bg`): the same `paper-line`
+token, at a coarser 68px pitch, reading as map graph paper rather than a
+texture. This is a deliberate, sanctioned variant for content that is
+literally about geography, not drift — it never appears outside that one
+section, and it stays inside the palette (no new hue, no gradient).
 
 Breakpoints in use, in order of weight: `900px` (the main one-to-two-column
 switch, 8 uses), `640px` and below (mobile nav reduction — the audience pill and
@@ -287,6 +320,15 @@ pills use `100px`: every button, and the nav audience tag.
 Icon wells are the exception that proves the rule — the fork card's icon sits in
 a `48px` square at `12px` radius, and the wordmark mark is `38px` at `10px`, so
 small square elements stay noticeably crisper than the cards containing them.
+The flow-step icon well (`40px` at `10px`) on the how-it-works sections follows
+the same exception at its own size.
+
+Progress/fill-bar tracks are a second small-scale exception, at `6px`: the
+reach-scale bars on advertiser.html, and the meter-strip and revenue-split
+bars on shop.html. All three converged on the same value independently
+because an 8–10px-tall bar reads better with a tighter radius than the `8px`
+small-scale token gives it — treat `6px` as the bar-track radius, not a value
+to round up to `8px`.
 
 Borders are hairlines: `1px solid #ebe9ef` almost everywhere, thickening to
 `1.5px` only on the landing fork cards, which are the page's primary action.
@@ -362,6 +404,16 @@ One shared scroll-reveal, not a bespoke animation per section: `opacity 0` and
 stagger variant at `14px`/`0.6s` and delays from `0.03s` to `0.27s` across five
 children. Reduced-motion is honoured in six separate places across the
 stylesheets; any new motion must do the same.
+
+### Tinted callout
+
+A sanctioned extension of the Provisional tint-panel allowance: a
+`pink-tint-2` ground with a `pink-tint` border and the `.statement` left-rule
+motif (`3px solid` Signal Pink) reused as a callout accent rather than a
+typographic bridge. Used once — `.zones-founding` on advertiser.html, for the
+one piece of copy in a section that needs to visually interrupt the reading
+flow ("founding advertiser" pricing note). Follows the Signal Rule: the pink
+marks that this callout *begins* a distinct, time-sensitive offer.
 
 ### Unfinished-component placeholder
 

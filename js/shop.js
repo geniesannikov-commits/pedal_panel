@@ -55,8 +55,10 @@
       var revenue = Math.round(REV_MIN + (cost / 100) * (REV_MAX - REV_MIN));
 
       range.style.setProperty("--pct", cost + "%");
-      costFill.style.width = cost + "%";
-      revFill.style.width = revenue + "%";
+      // transform: scaleX() instead of width — avoids layout thrash on
+      // every "input" event while the slider is being dragged.
+      costFill.style.transform = "scaleX(" + cost / 100 + ")";
+      revFill.style.transform = "scaleX(" + revenue / 100 + ")";
       costValue.textContent = cost + "%";
       revValue.textContent = revenue + "%";
     };
