@@ -11,6 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css?v=20260825a" />
   <link rel="stylesheet" href="css/advertiser.css?v=20260825a" />
+  <!-- Progressive-enhancement gate for the shared .reveal scroll-animation
+       (see css/base.css + js/reveal.js): only a page that actually got this
+       script running ever hides .reveal content to animate it in. Runs
+       synchronously, before paint, so there's no flash of hidden content
+       either way. If this never runs, .reveal elements stay at their
+       plain, visible default. -->
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 

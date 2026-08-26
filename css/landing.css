@@ -56,18 +56,29 @@ body.landing {
   letter-spacing: -0.01em;
 }
 
+/* Now the real h1 (base.css's h1-h4 rule supplies the display font,
+   weight, line-height and tracking) — the page's actual proposition,
+   promoted to the hero-headline treatment the advertiser/shop pages
+   already use for their h1 (display clamp + a narrow ch cap forces the
+   same short, punchy stacked wrap as css/advertiser.css's
+   .adv-hero-copy h1, just centered here instead of left-aligned). */
 .landing-tagline {
-  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
-  color: var(--ink-soft);
-  max-width: 34ch;
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  max-width: 20ch;
   margin-inline: auto;
-  line-height: 1.5;
 }
 
+/* Demoted from h1 to the fork's wayfinding prompt — takes over the
+   tagline's old secondary treatment verbatim. */
 .landing-question {
-  margin-top: 56px;
+  margin-top: 40px;
   margin-bottom: 24px;
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--ink-soft);
 }
 
 .fork {
@@ -99,12 +110,23 @@ body.landing {
   transition: transform 0.4s var(--ease), border-color 0.3s var(--ease), box-shadow 0.4s var(--ease);
 }
 
-.fork-card:hover {
+.fork-card:hover,
+.fork-card:focus-visible {
   transform: translateY(-4px);
   border-color: var(--pink);
   box-shadow: 0 20px 40px -22px rgba(255, 44, 104, 0.35);
 }
 
+.fork-card:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
+}
+
+/* Resting accent, not hover-only: DESIGN.md's Provisional note (confirmed
+   with the user during /impeccable document) permits tint fields as the
+   brand matures. The two tints stay a two-step escalation — tint-2 at
+   rest, tint on hover — so the primary action carries Signal Pink before
+   a visitor ever touches it, not only after. */
 .fork-icon {
   width: 48px;
   height: 48px;
@@ -112,8 +134,8 @@ body.landing {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: var(--paper-alt);
-  color: var(--ink-soft);
+  background: var(--pink-tint-2);
+  color: var(--pink-deep);
   transition: color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
@@ -123,15 +145,24 @@ body.landing {
 }
 
 .fork-card:hover .fork-icon {
-  color: var(--pink-deep);
-  background: var(--pink-tint-2);
+  color: var(--pink);
+  background: var(--pink-tint);
 }
 
+/* No flex: 1 — the card no longer stretches this to fill leftover grid
+   height and pin the arrow at the bottom. Content sets the height; the
+   arrow moved up onto the title's own line (.fork-head) instead. */
 .fork-copy {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  flex: 1;
+}
+
+.fork-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .fork-title {
@@ -150,6 +181,11 @@ body.landing {
 .fork-arrow {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
+  /* Aligns the icon to the title's first line rather than its own
+     line-box center, so a two-line title (e.g. "I run an e-bike rental
+     shop") doesn't pull the arrow down to the wrapped block's midpoint. */
+  margin-top: 0.2em;
   color: var(--ink-faint);
   transition: transform 0.35s var(--ease), color 0.3s var(--ease);
 }
@@ -167,7 +203,10 @@ body.landing {
 .landing-footnote {
   margin-top: 44px;
   font-size: 0.85rem;
-  color: var(--ink-faint);
+  /* ink-soft, not ink-faint: the faint tone measures 3.36:1 on paper at
+     this size, under the 4.5:1 AA minimum — and this line holds the
+     page's only contact email. */
+  color: var(--ink-soft);
 }
 
 .landing-footnote a {

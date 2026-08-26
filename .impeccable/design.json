@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-26T00:01:28.784Z",
+  "title": "Design System: PedalPanel",
+  "extensions": {
+    "colorMeta": {
+      "pink": {
+        "role": "primary",
+        "displayName": "Signal Pink",
+        "canonical": "oklch(65.3% 0.240 12.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.240 12.0)",
+          "oklch(26.4% 0.240 12.0)",
+          "oklch(37.9% 0.240 12.0)",
+          "oklch(49.3% 0.240 12.0)",
+          "oklch(60.7% 0.240 12.0)",
+          "oklch(72.1% 0.240 12.0)",
+          "oklch(83.6% 0.240 12.0)",
+          "oklch(95.0% 0.240 12.0)"
+        ]
+      },
+      "pink-deep": {
+        "role": "primary",
+        "displayName": "Signal Pink Deep",
+        "canonical": "oklch(58.3% 0.227 11.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.227 11.1)",
+          "oklch(26.4% 0.227 11.1)",
+          "oklch(37.9% 0.227 11.1)",
+          "oklch(49.3% 0.227 11.1)",
+          "oklch(60.7% 0.227 11.1)",
+          "oklch(72.1% 0.227 11.1)",
+          "oklch(83.6% 0.227 11.1)",
+          "oklch(95.0% 0.227 11.1)"
+        ]
+      },
+      "pink-tint": {
+        "role": "primary",
+        "displayName": "Signal Pink Tint",
+        "canonical": "oklch(94.4% 0.032 353.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.032 353.3)",
+          "oklch(26.4% 0.032 353.3)",
+          "oklch(37.9% 0.032 353.3)",
+          "oklch(49.3% 0.032 353.3)",
+          "oklch(60.7% 0.032 353.3)",
+          "oklch(72.1% 0.032 353.3)",
+          "oklch(83.6% 0.032 353.3)",
+          "oklch(95.0% 0.032 353.3)"
+        ]
+      },
+      "pink-tint-2": {
+        "role": "primary",
+        "displayName": "Signal Pink Tint 2",
+        "canonical": "oklch(96.8% 0.017 355.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.017 355.1)",
+          "oklch(26.4% 0.017 355.1)",
+          "oklch(37.9% 0.017 355.1)",
+          "oklch(49.3% 0.017 355.1)",
+          "oklch(60.7% 0.017 355.1)",
+          "oklch(72.1% 0.017 355.1)",
+          "oklch(83.6% 0.017 355.1)",
+          "oklch(95.0% 0.017 355.1)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(19.4% 0.012 285.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.012 285.2)",
+          "oklch(26.4% 0.012 285.2)",
+          "oklch(37.9% 0.012 285.2)",
+          "oklch(49.3% 0.012 285.2)",
+          "oklch(60.7% 0.012 285.2)",
+          "oklch(72.1% 0.012 285.2)",
+          "oklch(83.6% 0.012 285.2)",
+          "oklch(95.0% 0.012 285.2)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "oklch(41.4% 0.020 285.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.020 285.5)",
+          "oklch(26.4% 0.020 285.5)",
+          "oklch(37.9% 0.020 285.5)",
+          "oklch(49.3% 0.020 285.5)",
+          "oklch(60.7% 0.020 285.5)",
+          "oklch(72.1% 0.020 285.5)",
+          "oklch(83.6% 0.020 285.5)",
+          "oklch(95.0% 0.020 285.5)"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Ink Faint",
+        "canonical": "oklch(64.1% 0.019 285.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.019 285.8)",
+          "oklch(26.4% 0.019 285.8)",
+          "oklch(37.9% 0.019 285.8)",
+          "oklch(49.3% 0.019 285.8)",
+          "oklch(60.7% 0.019 285.8)",
+          "oklch(72.1% 0.019 285.8)",
+          "oklch(83.6% 0.019 285.8)",
+          "oklch(95.0% 0.019 285.8)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "paper-alt": {
+        "role": "neutral",
+        "displayName": "Paper Alt",
+        "canonical": "oklch(98.3% 0.003 308.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 308.4)",
+          "oklch(26.4% 0.003 308.4)",
+          "oklch(37.9% 0.003 308.4)",
+          "oklch(49.3% 0.003 308.4)",
+          "oklch(60.7% 0.003 308.4)",
+          "oklch(72.1% 0.003 308.4)",
+          "oklch(83.6% 0.003 308.4)",
+          "oklch(95.0% 0.003 308.4)"
+        ]
+      },
+      "paper-line": {
+        "role": "neutral",
+        "displayName": "Paper Line",
+        "canonical": "oklch(93.7% 0.008 301.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 301.4)",
+          "oklch(26.4% 0.008 301.4)",
+          "oklch(37.9% 0.008 301.4)",
+          "oklch(49.3% 0.008 301.4)",
+          "oklch(60.7% 0.008 301.4)",
+          "oklch(72.1% 0.008 301.4)",
+          "oklch(83.6% 0.008 301.4)",
+          "oklch(95.0% 0.008 301.4)"
+        ]
+      },
+      "dark": {
+        "role": "neutral",
+        "displayName": "Dark",
+        "canonical": "oklch(18.5% 0.012 285.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.012 285.2)",
+          "oklch(26.4% 0.012 285.2)",
+          "oklch(37.9% 0.012 285.2)",
+          "oklch(49.3% 0.012 285.2)",
+          "oklch(60.7% 0.012 285.2)",
+          "oklch(72.1% 0.012 285.2)",
+          "oklch(83.6% 0.012 285.2)",
+          "oklch(95.0% 0.012 285.2)"
+        ]
+      },
+      "dark-line": {
+        "role": "neutral",
+        "displayName": "Dark Line",
+        "canonical": "oklch(28.9% 0.018 285.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.018 285.2)",
+          "oklch(26.4% 0.018 285.2)",
+          "oklch(37.9% 0.018 285.2)",
+          "oklch(49.3% 0.018 285.2)",
+          "oklch(60.7% 0.018 285.2)",
+          "oklch(72.1% 0.018 285.2)",
+          "oklch(83.6% 0.018 285.2)",
+          "oklch(95.0% 0.018 285.2)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page heroes only. The shop hero runs a tighter cap because its headline is longer."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Major section headings, established by the closing-grid pattern."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "The statement line inside anchor sections, against a 3px pink rule at 34ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Anchor-section paragraphs, capped at 46ch. The lede variant runs 1.08rem/1.6 in Ink Soft."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Mono uppercase eyebrows and the nav audience pill. Never used for prose."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 24px 48px -32px rgba(20, 20, 26, 0.25)",
+        "purpose": "Diagram and swap cards sitting above the dot-grid background."
+      },
+      {
+        "name": "nav-float",
+        "value": "0 24px 48px -30px rgba(20, 20, 26, 0.28)",
+        "purpose": "Sticky navigation separating from content scrolling beneath."
+      },
+      {
+        "name": "hover-pink",
+        "value": "0 20px 40px -22px rgba(255, 44, 104, 0.35)",
+        "purpose": "Landing fork card hover. The only tinted shadow in the system."
+      },
+      {
+        "name": "dialog",
+        "value": "0 40px 80px -30px rgba(20, 20, 26, 0.45)",
+        "purpose": "Lead-capture dialog. The deepest shadow in the system."
+      },
+      {
+        "name": "chip",
+        "value": "0 4px 10px rgba(20, 20, 26, 0.18)",
+        "purpose": "Small elements riding on top of a diagram. The one short shadow."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px #ffe4ee",
+        "purpose": "Input focus. Not depth — the only focus affordance, since the native outline is suppressed."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The single shared easing curve for every transition on the site."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity 0.7s, translateY(18px)",
+        "purpose": "Shared IntersectionObserver scroll reveal. The site's whole motion vocabulary."
+      },
+      {
+        "name": "reveal-stagger",
+        "value": "opacity 0.6s, translateY(14px), delays 0.03s–0.27s",
+        "purpose": "Staggered variant across up to five children."
+      },
+      {
+        "name": "btn-fill",
+        "value": "transform 0.45s, opacity 0.35s",
+        "purpose": "Radial fill sweep expanding from the pointer position on button hover."
+      },
+      {
+        "name": "btn-magnet",
+        "value": "transform 0.35s, ±10px clamp",
+        "purpose": "Pointer-follow translate applied via --tx/--ty custom properties in JS."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-nav",
+        "value": "640px"
+      },
+      {
+        "name": "container",
+        "value": "700px"
+      },
+      {
+        "name": "sm",
+        "value": "760px"
+      },
+      {
+        "name": "md",
+        "value": "800px"
+      },
+      {
+        "name": "main",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The site-wide call to action. Pill-shaped, Signal Pink, with a radial fill that deepens from the pointer on hover.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Book a call</a>",
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body, Inter, system-ui, sans-serif); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 14px 26px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; isolation: isolate; overflow: hidden; transition: transform 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-primary { background: var(--pink, #ff2c68); color: #fff; }\n.ds-btn-primary::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, var(--pink-deep, #e01259) 0%, var(--pink, #ff2c68) 60%); opacity: 1; transform: scale(1); transition: transform 0.45s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-primary:hover::before { transform: scale(1.15); }\n.ds-btn-primary:hover { transform: translateY(-1px); }\n.ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action. Hairline border at rest; the ink fill sweeps in on hover and the label goes white.",
+      "html": "<a class=\"ds-btn ds-btn-ghost\" href=\"#\">Run a rental shop instead?</a>",
+      "css": ".ds-btn-ghost { position: relative; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body, Inter, system-ui, sans-serif); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 14px 26px; border-radius: 100px; background: transparent; color: var(--ink, #14141a); border: 1px solid var(--paper-line, #ebe9ef); cursor: pointer; isolation: isolate; overflow: hidden; transition: color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-ghost::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--ink, #14141a); opacity: 0; transform: scale(0.4); transition: opacity 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.45s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-ghost:hover { color: #fff; border-color: var(--ink, #14141a); }\n.ds-btn-ghost:hover::before { opacity: 1; transform: scale(1.15); }\n.ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Lead-dialog field. The native outline is suppressed, so the pink tint ring is the only focus affordance.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@business.com.au\" /></label>",
+      "css": ".ds-field { display: block; font-family: var(--font-body, Inter, system-ui, sans-serif); }\n.ds-field-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink, #14141a); margin-bottom: 6px; }\n.ds-input { width: 100%; font: inherit; font-size: 0.95rem; padding: 11px 14px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--paper-line, #ebe9ef); background: var(--paper, #ffffff); color: var(--ink, #14141a); }\n.ds-input::placeholder { color: var(--ink-faint, #8b8b98); }\n.ds-input:focus { outline: none; border-color: var(--pink, #ff2c68); box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
+    },
+    {
+      "name": "Diagram Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The standard supporting card inside anchor sections. Large radius, hairline border, long soft lift so it separates from the dot-grid ground.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-label\">The swap</div><p class=\"ds-card-body\">Any delivery bag becomes a PedalPanel bag in a five-minute swap.</p></div>",
+      "css": ".ds-card { background: var(--paper, #ffffff); border: 1px solid var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); padding: 26px; box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.25); font-family: var(--font-body, Inter, system-ui, sans-serif); }\n.ds-card-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); margin-bottom: 20px; }\n.ds-card-body { margin: 0; color: var(--ink-soft, #4a4a56); font-size: 1.02rem; line-height: 1.65; }"
+    },
+    {
+      "name": "Fork Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The landing page audience fork — the only element with a tinted hover shadow, and the canonical example of depth as a response to interaction.",
+      "html": "<a class=\"ds-fork\" href=\"#\"><span class=\"ds-fork-icon\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12h4l2-5 4 10 2-5h6\"/></svg></span><span class=\"ds-fork-title\">I want to advertise</span><span class=\"ds-fork-sub\">Get your brand in front of your local neighbourhood, every day.</span></a>",
+      "css": ".ds-fork { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 30px 26px; border: 1.5px solid var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); background: var(--paper, #ffffff); text-decoration: none; color: var(--ink, #14141a); font-family: var(--font-body, Inter, system-ui, sans-serif); transition: transform 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-fork:hover { transform: translateY(-4px); border-color: var(--pink, #ff2c68); box-shadow: 0 20px 40px -22px rgba(255, 44, 104, 0.35); }\n.ds-fork:focus-visible { outline: none; border-color: var(--pink, #ff2c68); box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }\n.ds-fork-icon { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--paper-alt, #faf9fb); color: var(--ink-soft, #4a4a56); transition: color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), background 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-fork:hover .ds-fork-icon { background: var(--pink-tint, #ffe4ee); color: var(--pink-deep, #e01259); }\n.ds-fork-title { font-family: var(--font-display, Space Grotesk, sans-serif); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.01em; }\n.ds-fork-sub { color: var(--ink-soft, #4a4a56); font-size: 0.95rem; line-height: 1.5; }"
+    },
+    {
+      "name": "Eyebrow",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Opens nearly every section: mono uppercase label in Signal Pink Deep, preceded by a 6px pink dot.",
+      "html": "<div class=\"ds-eyebrow\">The mechanism</div>",
+      "css": ".ds-eyebrow { font-family: var(--font-mono, JetBrains Mono, Menlo, monospace); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink-deep, #e01259); display: inline-flex; align-items: center; gap: 8px; }\n.ds-eyebrow::before { content: \"\"; width: 6px; height: 6px; border-radius: 50%; background: var(--pink, #ff2c68); flex-shrink: 0; }"
+    },
+    {
+      "name": "Statement",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The bold scannable line bridging a section eyebrow and its paragraphs. Display type against a 3px pink rule, capped at 34ch.",
+      "html": "<p class=\"ds-statement\">We don't add riders. We equip the ones already on the road.</p>",
+      "css": ".ds-statement { font-family: var(--font-display, Space Grotesk, sans-serif); font-weight: 600; font-size: clamp(1.15rem, 2.1vw, 1.4rem); line-height: 1.4; color: var(--ink, #14141a); border-left: 3px solid var(--pink, #ff2c68); padding-left: 16px; margin: 18px 0 22px; max-width: 34ch; }"
+    },
+    {
+      "name": "Audience Pill",
+      "kind": "chip",
+      "refersTo": "audience-pill",
+      "description": "Nav tag marking which audience page you are on. Drops out entirely below 640px.",
+      "html": "<span class=\"ds-pill\">Advertiser</span>",
+      "css": ".ds-pill { display: inline-block; font-family: var(--font-mono, JetBrains Mono, Menlo, monospace); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); padding: 5px 10px; border: 1px solid var(--paper-line, #ebe9ef); border-radius: 100px; }"
+    },
+    {
+      "name": "Unfinished Placeholder",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "First-class component, not a hack: a labelled dashed box that holds a pending component's layout slot so nothing reflows when it lands.",
+      "html": "<div class=\"ds-placeholder\"><span class=\"ds-placeholder-tag\">placeholder</span><span class=\"ds-placeholder-label\">Interactive zone map — component pending</span></div>",
+      "css": ".ds-placeholder { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 4 / 3; min-height: 340px; border: 1.5px dashed var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); background: repeating-linear-gradient(45deg, var(--paper-alt, #faf9fb) 0 10px, var(--paper, #ffffff) 10px 20px); font-family: var(--font-body, Inter, system-ui, sans-serif); text-align: center; padding: 24px; }\n.ds-placeholder-tag { font-family: var(--font-mono, JetBrains Mono, Menlo, monospace); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); }\n.ds-placeholder-label { font-size: 0.86rem; color: var(--ink-soft, #4a4a56); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Street Signal",
+    "overview": "The product is a screen that glows as it moves through a grey city, and the site is built the same way: near-white paper, near-black ink, and one high-voltage pink that behaves like a signal rather than a brand wash. Almost every surface is uncoloured. What carries colour is what wants your eye — the thing you can click, the thing that starts a thought, the thing that just changed state.\n\nThe craft register is precise rather than soft. Borders are hairlines, the easing curve is a single deliberate cubic-bezier(0.16, 1, 0.3, 1) shared across every transition, and the interaction detail is tightly controlled: the buttons lean toward the cursor on a ±10px clamp and fill with a radial sweep that originates at the pointer. It should feel like a well-machined instrument that happens to be friendly, not a soft consumer app.\n\nBecause the product is pre-launch, the system also has to be able to show its own unfinished edges without looking broken. The dashed, hatched zone-map placeholder is a design element, not a defect — a deliberately unfinished box that holds its layout slot and says so. That honesty is load-bearing: the copy's credibility comes from naming limits, and the visual system has to be able to render a limit without embarrassment.",
+    "keyCharacteristics": [
+      "One accent colour, used as signal rather than decoration",
+      "Paper-white default; dark tone reserved for the footer",
+      "Hairline borders (1px #ebe9ef) instead of heavy dividers or fills",
+      "Long, soft, downward shadows that lift objects rather than layering them",
+      "Mono type for labels and eyebrows; geometric sans for display",
+      "A single shared easing curve across every transition on the site"
+    ],
+    "rules": [
+      {
+        "name": "The Signal Rule",
+        "section": "colors",
+        "body": "Pink means act, begin, or respond. If a pink element is none of those three, it is decoration and should be reconsidered. This is why the eyebrow dot and the statement rule earn colour while section backgrounds do not."
+      },
+      {
+        "name": "The Never-Black Rule",
+        "section": "colors",
+        "body": "Text is #14141a, not #000000; surfaces are #ffffff and #faf9fb, and dark regions are #121218. The near-blacks carry a blue cast that keeps the paper from reading as a harsh scan."
+      },
+      {
+        "name": "The Tint Escalation Rule",
+        "section": "colors",
+        "body": "When pink needs to occupy an area rather than a mark, escalate down to pink-tint-2 (#fff0f5) or pink-tint (#ffe4ee) — never a reduced-opacity full-strength pink, which drifts the hue against the paper."
+      },
+      {
+        "name": "The Measure Rule",
+        "section": "typography",
+        "body": "Reading columns are capped in ch, not pixels: 46ch for body paragraphs, 34ch for statement lines and the landing tagline. A paragraph that runs wider than its ch cap is a bug regardless of viewport."
+      },
+      {
+        "name": "The Mono-Means-Marker Rule",
+        "section": "typography",
+        "body": "JetBrains Mono is never used for prose. It appears only in short uppercase labels with positive tracking, where its job is to look like a tag rather than a sentence."
+      },
+      {
+        "name": "The Recomposition Rule",
+        "section": "layout",
+        "body": "When a layout does not fit a small screen, change its composition rather than shrinking it. The precedent is set twice already — the comparison table becomes a swipeable card per competitor, and the zone chip row becomes a horizontal strip."
+      },
+      {
+        "name": "The Flat-At-Rest Rule",
+        "section": "elevation",
+        "body": "A surface earns a shadow by being interactive or by sitting on a textured background. A card on plain paper takes a hairline border instead."
+      },
+      {
+        "name": "The Hairline Rule",
+        "section": "shapes",
+        "body": "Structure is drawn with 1px paper-line, not with fills or heavy rules. If a boundary needs more presence than a hairline, the fix is usually spacing or a shadow, not a thicker border."
+      }
+    ],
+    "dos": [
+      "Do use Signal Pink for action, initiation, or response — CTAs, eyebrow dots, statement rules, hover states.",
+      "Do draw structure with 1px #ebe9ef hairlines before reaching for fills or shadows.",
+      "Do use the shared cubic-bezier(0.16, 1, 0.3, 1) easing for every new transition, so motion across the site stays one voice.",
+      "Do cap reading columns in ch (46ch body, 34ch statements).",
+      "Do recompose layouts for small screens rather than shrinking them, as the comparison table and zone chips already do.",
+      "Do honour prefers-reduced-motion for any new motion.",
+      "Do render an unfinished feature as a labelled dashed placeholder that holds its layout box."
+    ],
+    "donts": [
+      "Don't introduce a second accent hue. The system's whole premise is one chromatic voice against paper and ink.",
+      "Don't drift toward generic SaaS visual language — purple-blue mesh gradients, glassmorphism, or floating 3D blobs. Confirmed anti-reference.",
+      "Don't adopt outdoor-advertising corporate styling — stock photography, heavy sans caps, a blue corporate palette. The product positions against that industry.",
+      "Don't build dark-mode dashboard surfaces with neon accents and data-viz chrome. This site is paper-white; the dark tone is footer-only. Confirmed anti-reference.",
+      "Don't use pure #000000 or pure-grey neutrals; the palette's near-blacks carry a blue cast.",
+      "Don't remove the input focus ring — the native outline is already suppressed, so the 3px tint ring is the only focus affordance.",
+      "Don't rely on the browser's default h2 size. Section headings without an explicit size fall back to the UA default and flatten the type hierarchy; set the headline token instead.",
+      "Don't add a per-section bespoke scroll animation. The shared reveal utility is the site's motion vocabulary."
+    ]
+  }
+}

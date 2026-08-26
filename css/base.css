@@ -339,9 +339,14 @@ section {
    tag family (e.g. tympanus.net/codrops/tag/scroll/) — a single restrained
    reveal reused everywhere rather than a bespoke animation per section.
    See js/reveal.js.
-   ------------------------------------------------------------------ */
 
-.reveal {
+   Gated behind html.js (set synchronously in <head>, before paint, by an
+   inline script — see the comment at that script for why). Content is
+   visible by default; only a page that actually got JS running ever
+   hides it to animate in. A blocked/failed script script-tag now costs
+   this page its scroll animation, not its content. */
+
+.js .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
@@ -352,7 +357,7 @@ section {
   transform: translateY(0);
 }
 
-.reveal-stagger > * {
+.js .reveal-stagger > * {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);

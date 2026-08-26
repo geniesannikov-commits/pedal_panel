@@ -1,0 +1,29 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "css/base.css"
+        ],
+        "createdAt": "2026-08-26T00:33:17.926Z",
+        "reason": "the .statement component \u2014 DESIGN.md's documented pull-quote device (3px pink rule + 16px padding), confirmed with the user during /impeccable document, not a card/callout accent"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.85rem",
+        "createdAt": "2026-08-26T00:33:32.903Z",
+        "reason": "pre-existing small-caption size used identically in css/landing.css (.landing-footnote) and css/advertiser.css (.scale-tier), predating this session; DESIGN.md's type scale has no documented caption step below body (1.02rem) besides label (0.78rem) \u2014 a real gap, not drift, worth closing in a future /impeccable document pass rather than redesigning unprompted here"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-08-26T00:33:32.968Z",
+        "reason": "DESIGN.md frontmatter typography.display commits to Space Grotesk as the site's display face, confirmed with the user during /impeccable document"
+      }
+    ]
+  }
+}
