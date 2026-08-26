@@ -179,6 +179,105 @@
         ],
         "createdAt": "2026-08-26T01:44:25.840Z",
         "reason": "sanctioned: .zones-bg is a deliberate map-like backdrop for the geofencing section, documented in DESIGN.md Layout"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.62rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.016Z",
+        "reason": "zone-split-caps mono micro-label under the zone-subdivision diagram, same tier as the audience-pill/meter-strip micro-labels already documented under the Caption Step Rule family"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.58rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.089Z",
+        "reason": "mobile cut of the zone-split-caps micro-label (0.62rem) at max-width:640px, same component as the entry above"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.2rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.155Z",
+        "reason": "covers two: zones-next-copy h2's local clamp(1.2rem,2.2vw,1.45rem) — a smaller supporting sub-heading, not the page's Headline role — and .budget-arrow's glyph size sitting between the budget numeral and its label"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.82rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.220Z",
+        "reason": "budget-tab mono label and budget-footnote helper text, both within the documented Caption Step Rule tolerance band (0.8-0.98rem off the 0.95rem Caption anchor)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.284Z",
+        "reason": "budget-amount: one-off big-numeral price emphasis, same pattern as the already-documented 2.9rem shop.css precedent"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.5rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.351Z",
+        "reason": "budget-plays mono readout, a secondary numeral emphasis paired with the budget-amount stat"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.72rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.417Z",
+        "reason": "fact-label micro-label, matches the already-documented 0.72rem micro-label pattern used elsewhere on this page (audience pill, meter-strip labels)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "4.4rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.484Z",
+        "reason": "fact-number: the amber '7 exposures' hero stat, one-off big-numeral emphasis (same pattern as budget-amount and shop.css's 2.9rem)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.74rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.549Z",
+        "reason": "covers three matching mono/uppercase micro-labels: compare-table thead th, compare-cards-hint, compare-card-eyebrow — same 0.74rem pattern already documented for shop.css"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.88rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.614Z",
+        "reason": "compare-card-row value text, within the documented Caption Step Rule tolerance band"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.4rem",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T03:47:35.681Z",
+        "reason": "mobile-narrowed variant of budget-amount (2rem) at max-width:480px, same component as the 2rem entry above"
       }
     ]
   }
