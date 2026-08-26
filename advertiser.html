@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/base.css?v=20260826d" />
+  <link rel="stylesheet" href="css/base.css?v=20260826e" />
   <link rel="stylesheet" href="css/advertiser.css?v=20260826e" />
   <!-- Progressive-enhancement gate for the shared .reveal scroll-animation
        (see css/base.css + js/reveal.js): only a page that actually got this
@@ -36,8 +36,11 @@
 
     <!-- ================= HERO ================= -->
     <section class="adv-hero">
-      <!-- Decorative frame line — see .hero-frame in css/base.css. -->
-      <div class="hero-frame hero-frame-amber" aria-hidden="true"></div>
+      <!-- Decorative frame line, drawn on load — see .hero-frame in
+           css/base.css and js/hero-frame.js. -->
+      <svg class="hero-frame hero-frame-amber" aria-hidden="true">
+        <path class="hero-frame-path" />
+      </svg>
       <div class="container adv-hero-grid">
         <div class="adv-hero-copy reveal">
           <p class="eyebrow">For local advertisers</p>
@@ -531,5 +534,6 @@
   <script src="js/advertiser.js?v=20260825a"></script>
   <script src="js/lead-form.js?v=20260825a"></script>
   <script src="js/hero-3d.js?v=20260825a"></script>
+  <script src="js/hero-frame.js?v=20260826a"></script>
 </body>
 </html>

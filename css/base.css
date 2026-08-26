@@ -724,14 +724,17 @@ section {
    already uses — not Signal Pink, since this is decoration rather than
    an action or a live status.
 
-   Plain CSS border + border-radius, not an SVG path: a single
-   border-radius value is always a true circle regardless of the box's
-   own aspect ratio, where an SVG viewBox stretched non-uniformly to fit
-   each hero's own (font-size-dependent, non-square) height distorts a
-   path-drawn curve into a visibly flattened ellipse — no per-breakpoint
-   coordinate tuning needed either way. border-width's 0 on the top and
-   left sides keeps those edges invisible, so the box reads as an
-   open-cornered frame rather than a rectangle.
+   An SVG path again (not the border-radius box this replaced), because
+   it needs to "draw" on load like the shop page's flow-line and the
+   advertiser page's street-loop — same stroke-dasharray/dashoffset
+   technique (Codrops SVG line-draw family), see js/hero-frame.js. What
+   made the earlier SVG attempt read as a flattened ellipse wasn't SVG
+   itself, it was a fixed viewBox="0 0 100 100" stretched non-uniformly
+   with preserveAspectRatio="none" to fit each hero's own tall,
+   non-square box. js/hero-frame.js instead measures the real rendered
+   box and builds the path (and an actual circular arc command, not a
+   quadratic Bezier) in true pixel coordinates, so 1 viewBox unit is
+   always 1px and the corner is always a genuine circle.
 
    Sits behind the hero content (negative z-index, inside the section's
    own stacking context via position:relative + z-index:0 on
@@ -742,14 +745,9 @@ section {
 .hero-frame {
   display: none;
   position: absolute;
-  top: 3%;
-  right: 3%;
-  bottom: 3%;
-  left: 45%;
-  border-style: solid;
-  border-width: 0 2px 2px 0;
-  border-color: transparent;
-  border-bottom-right-radius: clamp(24px, 4vw, 56px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
   pointer-events: none;
 }
@@ -760,12 +758,52 @@ section {
   }
 }
 
-.hero-frame-amber {
-  border-color: var(--amber);
+.hero-frame-path {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: var(--hero-frame-len, 0);
+  stroke-dashoffset: var(--hero-frame-len, 0);
 }
 
-.hero-frame-teal {
-  border-color: var(--teal);
+/* A @keyframes animation, not a transition: a transition needs a real
+   painted frame of the "before" state to interpolate from, which this
+   doesn't reliably get — the hero is the very first thing on the page,
+   so the dasharray/dashoffset set in JS can land in the same initial
+   paint as the "reveal" state that follows moments later, collapsing
+   the transition to nothing. An animation instead computes its 0% state
+   directly from the keyframe rule regardless of paint timing, so it
+   plays correctly even that close to first paint. --hero-frame-len is
+   set inline once js/hero-frame.js knows the path's real length.
+   Linear, not the shared var(--ease) — that curve is tuned for snappy
+   UI feedback (button hovers, reveals) and reaches ~99% of its travel
+   in well under a third of its stated duration, which reads as "drawn
+   almost instantly, then nothing" rather than a 2s reveal. A steady,
+   constant-speed stroke is what "drawing a line" actually looks like. */
+.hero-frame-path.is-drawing {
+  animation: heroFrameDraw 2s linear forwards;
+}
+
+@keyframes heroFrameDraw {
+  from {
+    stroke-dashoffset: var(--hero-frame-len, 0);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-frame-amber .hero-frame-path {
+  stroke: var(--amber);
+}
+
+.hero-frame-teal .hero-frame-path {
+  stroke: var(--teal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-frame-path.is-drawing {
+    animation: none;
+  }
 }
 
 /* ---------- Hero 3D visual ----------
