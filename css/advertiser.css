@@ -498,15 +498,16 @@
 /* Anchored to the right edge of the container rather than spanning the
    full width like the "Pick where your ad shows up" beat above it — the
    two beats reading identically edge-to-edge made this one feel like a
-   repeat of the same layout instead of a closing footnote. Capping the
-   width and pushing it right with margin-left:auto gives it a distinct
-   shape while keeping the figure top-aligned with the heading. */
+   repeat of the same layout instead of a closing footnote. The text
+   column is sized to the same 62ch the paragraphs already cap at (not
+   1fr) so wrapping is identical to the full-width version — only the
+   block's position changes, via margin-left:auto, not its content width. */
 @media (min-width: 900px) {
   .zones-next {
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 240px minmax(0, 62ch);
     gap: 48px;
     align-items: start;
-    max-width: 760px;
+    width: fit-content;
     margin-left: auto;
   }
 }
