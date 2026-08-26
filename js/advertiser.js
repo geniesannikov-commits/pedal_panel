@@ -18,7 +18,9 @@
     var bars = container.querySelectorAll(barSelector);
     var growBars = function () {
       bars.forEach(function (bar) {
-        bar.style.width = bar.dataset.w;
+        // transform: scaleX() instead of width — avoids animating a
+        // layout property (layout thrash) for a purely visual fill.
+        bar.style.transform = "scaleX(" + parseFloat(bar.dataset.w) / 100 + ")";
       });
     };
 

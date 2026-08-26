@@ -44,6 +44,123 @@
         "value": "0.9rem",
         "createdAt": "2026-08-26T01:26:39.771Z",
         "reason": "matches existing .split-bar-value 0.9rem already used in the same component (css/shop.css)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "clamp(2.1rem, 5vw, 2.85rem)",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.250Z",
+        "reason": "documented in DESIGN.md: shop hero's own tighter display cap for its longer headline"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.72rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.310Z",
+        "reason": "matches the documented audience-pill smaller-label cut (0.72rem) reused for the meter-strip's mono uppercase labels"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.74rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.366Z",
+        "reason": "consistent secondary micro-label size used identically in two places (meter-metric-label, flow-num); documented as local tuning under the new Caption Step Rule"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.25rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.424Z",
+        "reason": "falls inside the documented Title clamp(1.15rem,2.1vw,1.4rem) range, expressed as a fixed rem for a non-fluid card context (price-tag-name)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.9rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.482Z",
+        "reason": "one-off big-numeral price emphasis (the illustrative was/now price), not a repeated pattern worth formalizing as a new type step"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.08rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.537Z",
+        "reason": "matches the documented lede variant size (1.08rem) reused for flow-step h3 sub-headings"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.86rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.596Z",
+        "reason": "within the new Caption Step Rule tolerance band (0.8-0.98rem off the 0.95rem Caption anchor)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.82rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.655Z",
+        "reason": "within the new Caption Step Rule tolerance band (0.8-0.98rem off the 0.95rem Caption anchor)"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "10px",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:37:54.708Z",
+        "reason": "flow-icon well matches the documented icon-well radius exception (crisper radius than the card containing it)"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "6px",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:38:01.157Z",
+        "reason": "documented bar-track radius exception (DESIGN.md Shapes) shared with advertiser.css's scale-track"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#d7d7de",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:38:01.210Z",
+        "reason": "documented as Dark Text in DESIGN.md, reused from base.css's footer link color for the transparency card's lede on the same dark ground"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.85rem",
+        "files": [
+          "css/shop.css"
+        ],
+        "createdAt": "2026-08-26T01:38:06.077Z",
+        "reason": "documented in DESIGN.md: shop hero's own tighter display cap for its longer headline"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#000",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T01:38:27.232Z",
+        "reason": "mask-image alpha channel (both instances), not a visible ink/surface color — Never-Black Rule governs visible color, not mask stops"
       }
     ]
   }
