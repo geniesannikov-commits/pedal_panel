@@ -514,6 +514,23 @@
   align-items: center;
 }
 
+/* Mobile/tablet only: text first, diagram below, full width — reversed
+   from the DOM order (figure markup comes first so desktop's visual-left
+   arrangement needs no override there). Sitting the figure on top of the
+   copy at a capped, off-centre width read as misplaced rather than
+   composed; full-width underneath it reads as a supporting diagram for
+   the paragraph above, the way the zone-map placeholder above it in this
+   same section already does on mobile. */
+@media (max-width: 899px) {
+  .zones-next-figure {
+    order: 2;
+  }
+
+  .zones-next-copy {
+    order: 1;
+  }
+}
+
 /* Anchored to the right edge of the container rather than spanning the
    full width like the "Pick where your ad shows up" beat above it — the
    two beats reading identically edge-to-edge made this one feel like a
@@ -532,9 +549,19 @@
 }
 
 .zones-next-figure {
-  margin: 0;
+  margin: 0 auto;
   width: 100%;
   max-width: 240px;
+}
+
+/* Full width on mobile/tablet, not the 240px (200px under 640px) card
+   size — at a capped width it read as a small stray object rather than
+   a diagram for the paragraph above; letting it fill the column matches
+   how the zone-map placeholder above it already goes full width here. */
+@media (max-width: 899px) {
+  .zones-next-figure {
+    max-width: none;
+  }
 }
 
 /* Top-aligned with the heading rather than centred against the whole text
@@ -668,10 +695,6 @@
 
   .zones-next {
     gap: 20px;
-  }
-
-  .zones-next-figure {
-    max-width: 200px;
   }
 
   .zone-split-caps {
