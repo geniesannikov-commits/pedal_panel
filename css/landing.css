@@ -139,6 +139,22 @@ body.landing {
   transition: color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
+/* Resting identity, not just tint: each fork previews the accent world of
+   the page it leads to (advertiser = Signal Amber, shop = Signal Teal —
+   see DESIGN.md's Colors section), so the fork itself is the first place a
+   visitor meets that page's voice. Both still escalate to Signal Pink on
+   hover below — the moment you're about to click stays the one universal
+   action colour, per the Signal Rule. */
+.fork-advertiser .fork-icon {
+  background: var(--amber-tint-2);
+  color: var(--amber-deep);
+}
+
+.fork-shop .fork-icon {
+  background: var(--teal-tint-2);
+  color: var(--teal-deep);
+}
+
 .fork-icon svg {
   width: 26px;
   height: 26px;

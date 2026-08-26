@@ -5,11 +5,28 @@
    ========================================================================== */
 
 :root {
-  /* Brand */
+  /* Brand — Signal Pink. Action-only: CTAs, hover states, the eyebrow dot,
+     the statement rule. See DESIGN.md's Signal Rule. */
   --pink: #ff2c68;
   --pink-deep: #e01259;
   --pink-tint: #ffe4ee;
   --pink-tint-2: #fff0f5;
+
+  /* Accent — Signal Teal. The status/active voice: something happening right
+     now (earning, live data, a value in motion) rather than something to
+     act on. Cool complement to Signal Pink. */
+  --teal: #0f8a7c;
+  --teal-deep: #0b6d62;
+  --teal-tint: #cfeeea;
+  --teal-tint-2: #eaf8f6;
+
+  /* Accent — Signal Amber. The highlight voice: a notable fact or value
+     worth a second look (a stat, a saving) rather than a live status. Warm
+     complement to Signal Pink, distinct from Teal's cool status role. */
+  --amber: #c67a1f;
+  --amber-deep: #96570a;
+  --amber-tint: #f3ddb0;
+  --amber-tint-2: #fbf3e3;
 
   /* Ink */
   --ink: #14141a;
@@ -231,6 +248,19 @@ section {
   padding: 5px 10px;
   border: 1px solid var(--paper-line);
   border-radius: 100px;
+}
+
+/* Small identity touch, not a status: echoes the page's dominant accent
+   world (advertiser = Amber, shop = Teal — same mapping as the landing
+   fork icons) in the one nav element that already names the audience. */
+.nav-audience-amber {
+  color: var(--amber-deep);
+  border-color: var(--amber-tint);
+}
+
+.nav-audience-teal {
+  color: var(--teal-deep);
+  border-color: var(--teal-tint);
 }
 
 /* Below ~640px, keep only the wordmark + primary CTA — the audience pill
@@ -628,11 +658,14 @@ section {
   text-align: left;
 }
 
+/* Amber, not pink: this is a notable-fact readout ("100% existing riders"),
+   not something the visitor acts on. Advertiser-only usage — see
+   DESIGN.md's Signal Amber role. */
 .swap-stat-num {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 2.1rem;
-  color: var(--pink-deep);
+  color: var(--amber-deep);
   line-height: 1;
 }
 
@@ -653,11 +686,13 @@ section {
   border-top: 1px dashed var(--paper-line);
 }
 
+/* Teal, not pink: a live status dot ("earning, right now"), not a call to
+   action. Shop-only usage — see DESIGN.md's Signal Teal role. */
 .swap-earning-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--pink);
+  background: var(--teal);
   flex-shrink: 0;
   animation: swapBlink 1.8s var(--ease) infinite;
 }
