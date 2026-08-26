@@ -246,6 +246,10 @@ section {
   }
 
   .site-nav .btn {
+    /* min-height clears the 44px touch-target minimum directly, since
+       the padding math alone came out short (line-height here computes
+       to "normal", not the 1.5 inherited elsewhere on the page). */
+    min-height: 44px;
     padding: 10px 18px;
     font-size: 0.88rem;
   }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-26T00:01:28.784Z",
+  "generatedAt": "2026-08-26T01:45:54.000Z",
   "title": "Design System: PedalPanel",
   "extensions": {
     "colorMeta": {
@@ -183,6 +183,36 @@
           "oklch(83.6% 0.018 285.2)",
           "oklch(95.0% 0.018 285.2)"
         ]
+      },
+      "dark-text": {
+        "role": "neutral",
+        "displayName": "Dark Text",
+        "canonical": "oklch(88.1% 0.010 286.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 286.2)",
+          "oklch(26.4% 0.010 286.2)",
+          "oklch(37.9% 0.010 286.2)",
+          "oklch(49.3% 0.010 286.2)",
+          "oklch(60.7% 0.010 286.2)",
+          "oklch(72.1% 0.010 286.2)",
+          "oklch(83.6% 0.010 286.2)",
+          "oklch(95.0% 0.010 286.2)"
+        ]
+      },
+      "dark-text-soft": {
+        "role": "neutral",
+        "displayName": "Dark Text Soft",
+        "canonical": "oklch(69.0% 0.017 285.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.017 285.9)",
+          "oklch(26.4% 0.017 285.9)",
+          "oklch(37.9% 0.017 285.9)",
+          "oklch(49.3% 0.017 285.9)",
+          "oklch(60.7% 0.017 285.9)",
+          "oklch(72.1% 0.017 285.9)",
+          "oklch(83.6% 0.017 285.9)",
+          "oklch(95.0% 0.017 285.9)"
+        ]
       }
     },
     "typographyMeta": {
@@ -201,6 +231,10 @@
       "body": {
         "displayName": "Body",
         "purpose": "Anchor-section paragraphs, capped at 46ch. The lede variant runs 1.08rem/1.6 in Ink Soft."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "UI chrome and secondary text that reads as interface, not prose: button labels, form inputs, card sub-copy. Components tune ±0.03-0.07rem off this anchor for local rhythm."
       },
       "label": {
         "displayName": "Label",
@@ -351,6 +385,14 @@
       "css": ".ds-statement { font-family: var(--font-display, Space Grotesk, sans-serif); font-weight: 600; font-size: clamp(1.15rem, 2.1vw, 1.4rem); line-height: 1.4; color: var(--ink, #14141a); border-left: 3px solid var(--pink, #ff2c68); padding-left: 16px; margin: 18px 0 22px; max-width: 34ch; }"
     },
     {
+      "name": "Tinted Callout",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "A sanctioned extension of the Provisional tint-panel allowance: a pink-tint-2 ground with a pink-tint border and the Statement left-rule motif reused as a callout accent. Used once, for advertiser.html's founding-advertiser pricing note.",
+      "html": "<div class=\"ds-callout\"><h3>Founding advertiser pricing</h3><p>Locked in for your first 6 months.</p></div>",
+      "css": ".ds-callout { padding: 20px 22px; background: var(--pink-tint-2, #fff0f5); border: 1px solid var(--pink-tint, #ffe4ee); border-left: 3px solid var(--pink, #ff2c68); border-radius: var(--radius-md, 14px); font-family: var(--font-body, Inter, system-ui, sans-serif); }\n.ds-callout h3 { font-size: 1.05rem; margin: 0; }\n.ds-callout p { margin-top: 8px; font-size: 0.96rem; color: var(--ink-soft, #4a4a56); }"
+    },
+    {
       "name": "Audience Pill",
       "kind": "chip",
       "refersTo": "audience-pill",
@@ -403,6 +445,11 @@
         "name": "The Mono-Means-Marker Rule",
         "section": "typography",
         "body": "JetBrains Mono is never used for prose. It appears only in short uppercase labels with positive tracking, where its job is to look like a tag rather than a sentence."
+      },
+      {
+        "name": "The Caption Step Rule",
+        "section": "typography",
+        "body": "Text smaller than body but not a mono label uses the Caption step (0.95rem) as its anchor. A handful of components tune ±0.03-0.07rem off that anchor for local rhythm (form error text at 0.86rem, input field labels at 0.82rem) — expected local tuning, not drift, as long as it stays within roughly 0.8-0.98rem of the Caption anchor."
       },
       {
         "name": "The Recomposition Rule",

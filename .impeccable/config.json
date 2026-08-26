@@ -161,6 +161,24 @@
         ],
         "createdAt": "2026-08-26T01:38:27.232Z",
         "reason": "mask-image alpha channel (both instances), not a visible ink/surface color — Never-Black Rule governs visible color, not mask stops"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T01:44:25.780Z",
+        "reason": "sanctioned: .statement (documented DESIGN.md component) and .zones-founding (documented Tinted callout extension) are the only two instances"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "css/advertiser.css"
+        ],
+        "createdAt": "2026-08-26T01:44:25.840Z",
+        "reason": "sanctioned: .zones-bg is a deliberate map-like backdrop for the geofencing section, documented in DESIGN.md Layout"
       }
     ]
   }
