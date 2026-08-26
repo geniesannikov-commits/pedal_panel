@@ -6,9 +6,12 @@ node_modules/
 # Shared hooks live in .claude/settings.json.
 .claude/settings.local.json
 
-# Impeccable: runtime artifacts and personal config. Only the shared design
-# sidecar and live config are tracked.
+# Impeccable: runtime artifacts and personal config. config.json is the
+# shared, team-committed detector config (hook settings + sanctioned
+# ignore-values); config.local.json is the gitignored per-developer
+# override the skill's own docs describe — keep that one out.
 .impeccable/*
+!.impeccable/config.json
 !.impeccable/design.json
 !.impeccable/live/
 .impeccable/live/*
