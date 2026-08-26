@@ -24,9 +24,13 @@
   align-items: center;
 }
 
+/* minmax(0, …), not bare fr — see the matching comment on .adv-hero-grid
+   in css/advertiser.css. Without it, this page's longest headline word
+   ("themselves.") pushed the text column past its 0.75fr share, shrinking
+   the visual below the advertiser page's. */
 @media (min-width: 900px) {
   .shop-hero-grid {
-    grid-template-columns: 0.75fr 1.25fr;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
     gap: 56px;
   }
 }
@@ -35,11 +39,14 @@
   /* Identical to .adv-hero-copy h1 — was capped lower (2.85rem, later
      3.15rem under the Big Shoulders Display swap) and forced into exactly
      4 lines with <br> to fit the old 1:1 grid split; now it wraps
-     naturally like the advertiser headline does, at the same type scale. */
+     naturally like the advertiser headline does, at the same type scale.
+     overflow-wrap matches the grid's minmax(0, …) — see that comment. */
   font-size: clamp(2.3rem, 5vw, 3.75rem);
   font-weight: 300;
   line-height: 0.95;
   max-width: 15ch;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .shop-hero-inner .lede {

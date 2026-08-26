@@ -16,9 +16,17 @@
   align-items: center;
 }
 
+/* minmax(0, …) rather than bare fr values: an auto-minimum fr track
+   won't shrink past its content's longest unbreakable word, so a
+   headline with one long word (this page's "billboard", the shop
+   page's "themselves.") can quietly widen its column past its 0.75fr
+   share and throw off the two hero grids' otherwise-identical ratio.
+   Forcing the floor to 0 keeps the 0.75/1.25 split exact regardless of
+   copy — see the matching overflow-wrap on the h1 below, which is what
+   makes shrinking below that word's width safe. */
 @media (min-width: 900px) {
   .adv-hero-grid {
-    grid-template-columns: 0.75fr 1.25fr;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
     gap: 56px;
   }
 }
@@ -26,11 +34,17 @@
 .adv-hero-copy h1 {
   /* Sized up and lightened from the shared h1-h4 default — Big Shoulders
      Display is condensed, so it reads smaller than Space Grotesk did at
-     the same size. */
+     the same size. overflow-wrap lets a long word break instead of
+     forcing the grid column wider than its fr share (see the grid
+     comment above) — the display font is already jagged multi-line by
+     design at this max-width, so a mid-word break reads as more of the
+     same rather than a defect. */
   font-size: clamp(2.3rem, 5vw, 3.75rem);
   font-weight: 300;
   line-height: 0.95;
   max-width: 15ch;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .adv-hero-copy .lede {

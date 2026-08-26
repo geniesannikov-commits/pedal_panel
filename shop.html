@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css?v=20260826b" />
-  <link rel="stylesheet" href="css/shop.css?v=20260826b" />
+  <link rel="stylesheet" href="css/shop.css?v=20260826c" />
   <!-- Progressive-enhancement gate for the shared .reveal scroll-animation
        (see css/base.css + js/reveal.js): only a page that actually got this
        script running ever hides .reveal content to animate it in. Runs
@@ -39,7 +39,13 @@
       <div class="container shop-hero-grid">
         <div class="shop-hero-inner reveal">
           <p class="eyebrow">For e-bike rental shops</p>
-          <h1>Your bikes are already on the road. Now they can pay for themselves.</h1>
+          <!-- &shy; gives "themselves" a syllable-boundary break point for
+               the narrow hero column — this word alone (uppercase, tracked)
+               is wider than the column at common viewports, and CSS
+               hyphens:auto isn't reliably available everywhere, so this is
+               the guaranteed fallback rather than an arbitrary mid-word
+               split from overflow-wrap. -->
+          <h1>Your bikes are already on the road. Now they can pay for them&shy;selves.</h1>
           <p class="lede">Turn your rental fleet into a second income stream — funded by advertisers, not your riders.</p>
           <button type="button" class="btn btn-primary btn-lg" data-open-lead-form data-audience="shop">Book a call</button>
         </div>

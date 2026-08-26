@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css?v=20260826b" />
-  <link rel="stylesheet" href="css/advertiser.css?v=20260826b" />
+  <link rel="stylesheet" href="css/advertiser.css?v=20260826c" />
   <!-- Progressive-enhancement gate for the shared .reveal scroll-animation
        (see css/base.css + js/reveal.js): only a page that actually got this
        script running ever hides .reveal content to animate it in. Runs
@@ -39,7 +39,11 @@
       <div class="container adv-hero-grid">
         <div class="adv-hero-copy reveal">
           <p class="eyebrow">For local advertisers</p>
-          <h1>A local billboard that follows your customers home.</h1>
+          <!-- &shy; gives "customers" a syllable-boundary break point for
+               the narrow hero column — see the matching comment on
+               shop.html's headline for why (this word alone, uppercase and
+               tracked, is wider than the column at common viewports). -->
+          <h1>A local billboard that follows your custom&shy;ers home.</h1>
           <p class="lede">Your ad, on screens riding through your neighbourhood, every day — no design agency, no six-figure minimum, no lock-in.</p>
           <button type="button" class="btn btn-primary btn-lg" data-open-lead-form data-audience="advertiser">Book a call</button>
         </div>
