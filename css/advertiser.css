@@ -67,9 +67,10 @@
 }
 
 /* ---------- Reach: city-wide cost strip ----------
-   Visual for "City-wide, like never before". Same grow-in-on-scroll
-   mechanic as .cost-preview below (js/advertiser.js drives both), but a
-   deliberately different composition: no card chrome — the two sections
+   Visual for "City-wide, like never before" — the page's one cost-scale
+   premise beat; the .compare-table below carries the full proof, so this
+   is deliberately the only bar-chart rendering of the comparison. Not
+   card chrome — the two sections
    above this one both end in a white card — full-width bars with the
    label sitting above rather than beside them, and two trait chips per
    row instead of the five-row detail of the comparison table. Cost is
@@ -622,6 +623,11 @@
   color: var(--ink);
 }
 
+.budget-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--pink-tint);
+}
+
 .budget-tab.is-active {
   background: var(--ink);
   border-color: var(--ink);
@@ -757,61 +763,6 @@
   overflow: hidden;
 }
 
-.cost-preview {
-  position: relative;
-  z-index: 1;
-  max-width: 420px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.cost-row {
-  display: grid;
-  grid-template-columns: 92px 1fr 56px;
-  align-items: center;
-  gap: 14px;
-  font-size: 0.88rem;
-}
-
-.cost-name {
-  color: var(--ink-soft);
-}
-
-.cost-bar-track {
-  height: 8px;
-  border-radius: 5px;
-  background: var(--paper-line);
-  overflow: hidden;
-}
-
-.cost-bar {
-  height: 100%;
-  width: 0;
-  border-radius: 5px;
-  background: var(--ink-faint);
-  transition: width 1.1s var(--ease);
-}
-
-.cost-bar-pp {
-  background: var(--pink);
-}
-
-.cost-row-pp .cost-name {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.cost-amt {
-  text-align: right;
-  color: var(--ink-faint);
-}
-
-.cost-row-pp .cost-amt {
-  color: var(--pink-deep);
-  font-weight: 600;
-}
 
 /* ---------- Comparison table ---------- */
 
