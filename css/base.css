@@ -41,8 +41,8 @@
   --dark-line: #2a2a34;
 
   /* Type */
-  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --font-body: "Public Sans", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
 
   /* Scale */
@@ -96,14 +96,20 @@ a {
   color: inherit;
 }
 
+/* Big Shoulders Display is condensed and drawn for caps — the negative
+   Space Grotesk tracking would collide letters here, so headings flip to
+   uppercase with a small positive tracking instead. Full-sentence roles
+   (.statement, .closing-question) opt back out below; short heading
+   phrases and card titles read as signage, which is the point. */
 h1,
 h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   margin: 0;
 }
 
@@ -174,8 +180,8 @@ section {
   gap: 10px;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
+  font-size: 1.1rem;
+  letter-spacing: 0;
   text-decoration: none;
   color: var(--ink);
 }
@@ -555,9 +561,12 @@ section {
   margin-top: 16px;
 }
 
+/* Full sentence, not a heading fragment — stays mixed case against the
+   uppercase h1-h4 default above, so it still reads as a quotable line
+   rather than a shouted label. */
 .statement {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.15rem, 2.1vw, 1.4rem);
   line-height: 1.4;
   color: var(--ink);

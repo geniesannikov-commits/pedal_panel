@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-26T01:45:54.000Z",
+  "generatedAt": "2026-08-26T03:39:00.000Z",
   "title": "Design System: PedalPanel",
   "extensions": {
     "colorMeta": {
@@ -334,7 +334,7 @@
       "refersTo": "button-primary",
       "description": "The site-wide call to action. Pill-shaped, Signal Pink, with a radial fill that deepens from the pointer on hover.",
       "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Book a call</a>",
-      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body, Inter, system-ui, sans-serif); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 14px 26px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; isolation: isolate; overflow: hidden; transition: transform 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-primary { background: var(--pink, #ff2c68); color: #fff; }\n.ds-btn-primary::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, var(--pink-deep, #e01259) 0%, var(--pink, #ff2c68) 60%); opacity: 1; transform: scale(1); transition: transform 0.45s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-primary:hover::before { transform: scale(1.15); }\n.ds-btn-primary:hover { transform: translateY(-1px); }\n.ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body, Public Sans, system-ui, sans-serif); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 14px 26px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; isolation: isolate; overflow: hidden; transition: transform 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-primary { background: var(--pink, #ff2c68); color: #fff; }\n.ds-btn-primary::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, var(--pink-deep, #e01259) 0%, var(--pink, #ff2c68) 60%); opacity: 1; transform: scale(1); transition: transform 0.45s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-primary:hover::before { transform: scale(1.15); }\n.ds-btn-primary:hover { transform: translateY(-1px); }\n.ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
     },
     {
       "name": "Ghost Button",
@@ -342,7 +342,7 @@
       "refersTo": "button-ghost",
       "description": "Secondary action. Hairline border at rest; the ink fill sweeps in on hover and the label goes white.",
       "html": "<a class=\"ds-btn ds-btn-ghost\" href=\"#\">Run a rental shop instead?</a>",
-      "css": ".ds-btn-ghost { position: relative; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body, Inter, system-ui, sans-serif); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 14px 26px; border-radius: 100px; background: transparent; color: var(--ink, #14141a); border: 1px solid var(--paper-line, #ebe9ef); cursor: pointer; isolation: isolate; overflow: hidden; transition: color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-ghost::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--ink, #14141a); opacity: 0; transform: scale(0.4); transition: opacity 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.45s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-ghost:hover { color: #fff; border-color: var(--ink, #14141a); }\n.ds-btn-ghost:hover::before { opacity: 1; transform: scale(1.15); }\n.ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
+      "css": ".ds-btn-ghost { position: relative; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body, Public Sans, system-ui, sans-serif); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 14px 26px; border-radius: 100px; background: transparent; color: var(--ink, #14141a); border: 1px solid var(--paper-line, #ebe9ef); cursor: pointer; isolation: isolate; overflow: hidden; transition: color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-ghost::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--ink, #14141a); opacity: 0; transform: scale(0.4); transition: opacity 0.35s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.45s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-btn-ghost:hover { color: #fff; border-color: var(--ink, #14141a); }\n.ds-btn-ghost:hover::before { opacity: 1; transform: scale(1.15); }\n.ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
     },
     {
       "name": "Text Input",
@@ -350,7 +350,7 @@
       "refersTo": "input",
       "description": "Lead-dialog field. The native outline is suppressed, so the pink tint ring is the only focus affordance.",
       "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@business.com.au\" /></label>",
-      "css": ".ds-field { display: block; font-family: var(--font-body, Inter, system-ui, sans-serif); }\n.ds-field-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink, #14141a); margin-bottom: 6px; }\n.ds-input { width: 100%; font: inherit; font-size: 0.95rem; padding: 11px 14px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--paper-line, #ebe9ef); background: var(--paper, #ffffff); color: var(--ink, #14141a); }\n.ds-input::placeholder { color: var(--ink-faint, #8b8b98); }\n.ds-input:focus { outline: none; border-color: var(--pink, #ff2c68); box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
+      "css": ".ds-field { display: block; font-family: var(--font-body, Public Sans, system-ui, sans-serif); }\n.ds-field-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink, #14141a); margin-bottom: 6px; }\n.ds-input { width: 100%; font: inherit; font-size: 0.95rem; padding: 11px 14px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--paper-line, #ebe9ef); background: var(--paper, #ffffff); color: var(--ink, #14141a); }\n.ds-input::placeholder { color: var(--ink-faint, #8b8b98); }\n.ds-input:focus { outline: none; border-color: var(--pink, #ff2c68); box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }"
     },
     {
       "name": "Diagram Card",
@@ -358,7 +358,7 @@
       "refersTo": "card",
       "description": "The standard supporting card inside anchor sections. Large radius, hairline border, long soft lift so it separates from the dot-grid ground.",
       "html": "<div class=\"ds-card\"><div class=\"ds-card-label\">The swap</div><p class=\"ds-card-body\">Any delivery bag becomes a PedalPanel bag in a five-minute swap.</p></div>",
-      "css": ".ds-card { background: var(--paper, #ffffff); border: 1px solid var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); padding: 26px; box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.25); font-family: var(--font-body, Inter, system-ui, sans-serif); }\n.ds-card-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); margin-bottom: 20px; }\n.ds-card-body { margin: 0; color: var(--ink-soft, #4a4a56); font-size: 1.02rem; line-height: 1.65; }"
+      "css": ".ds-card { background: var(--paper, #ffffff); border: 1px solid var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); padding: 26px; box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.25); font-family: var(--font-body, Public Sans, system-ui, sans-serif); }\n.ds-card-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); margin-bottom: 20px; }\n.ds-card-body { margin: 0; color: var(--ink-soft, #4a4a56); font-size: 1.02rem; line-height: 1.65; }"
     },
     {
       "name": "Fork Card",
@@ -366,7 +366,7 @@
       "refersTo": "card",
       "description": "The landing page audience fork — the only element with a tinted hover shadow, and the canonical example of depth as a response to interaction.",
       "html": "<a class=\"ds-fork\" href=\"#\"><span class=\"ds-fork-icon\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12h4l2-5 4 10 2-5h6\"/></svg></span><span class=\"ds-fork-title\">I want to advertise</span><span class=\"ds-fork-sub\">Get your brand in front of your local neighbourhood, every day.</span></a>",
-      "css": ".ds-fork { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 30px 26px; border: 1.5px solid var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); background: var(--paper, #ffffff); text-decoration: none; color: var(--ink, #14141a); font-family: var(--font-body, Inter, system-ui, sans-serif); transition: transform 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-fork:hover { transform: translateY(-4px); border-color: var(--pink, #ff2c68); box-shadow: 0 20px 40px -22px rgba(255, 44, 104, 0.35); }\n.ds-fork:focus-visible { outline: none; border-color: var(--pink, #ff2c68); box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }\n.ds-fork-icon { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--paper-alt, #faf9fb); color: var(--ink-soft, #4a4a56); transition: color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), background 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-fork:hover .ds-fork-icon { background: var(--pink-tint, #ffe4ee); color: var(--pink-deep, #e01259); }\n.ds-fork-title { font-family: var(--font-display, Space Grotesk, sans-serif); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.01em; }\n.ds-fork-sub { color: var(--ink-soft, #4a4a56); font-size: 0.95rem; line-height: 1.5; }"
+      "css": ".ds-fork { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 30px 26px; border: 1.5px solid var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); background: var(--paper, #ffffff); text-decoration: none; color: var(--ink, #14141a); font-family: var(--font-body, Public Sans, system-ui, sans-serif); transition: transform 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-fork:hover { transform: translateY(-4px); border-color: var(--pink, #ff2c68); box-shadow: 0 20px 40px -22px rgba(255, 44, 104, 0.35); }\n.ds-fork:focus-visible { outline: none; border-color: var(--pink, #ff2c68); box-shadow: 0 0 0 3px var(--pink-tint, #ffe4ee); }\n.ds-fork-icon { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--paper-alt, #faf9fb); color: var(--ink-soft, #4a4a56); transition: color 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)), background 0.3s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)); }\n.ds-fork:hover .ds-fork-icon { background: var(--pink-tint, #ffe4ee); color: var(--pink-deep, #e01259); }\n.ds-fork-title { font-family: var(--font-display, Big Shoulders Display, sans-serif); font-weight: 500; font-size: 1.3rem; letter-spacing: 0.02em; text-transform: uppercase; }\n.ds-fork-sub { color: var(--ink-soft, #4a4a56); font-size: 0.95rem; line-height: 1.5; }"
     },
     {
       "name": "Eyebrow",
@@ -382,7 +382,7 @@
       "refersTo": null,
       "description": "The bold scannable line bridging a section eyebrow and its paragraphs. Display type against a 3px pink rule, capped at 34ch.",
       "html": "<p class=\"ds-statement\">We don't add riders. We equip the ones already on the road.</p>",
-      "css": ".ds-statement { font-family: var(--font-display, Space Grotesk, sans-serif); font-weight: 600; font-size: clamp(1.15rem, 2.1vw, 1.4rem); line-height: 1.4; color: var(--ink, #14141a); border-left: 3px solid var(--pink, #ff2c68); padding-left: 16px; margin: 18px 0 22px; max-width: 34ch; }"
+      "css": ".ds-statement { font-family: var(--font-display, Big Shoulders Display, sans-serif); font-weight: 500; font-size: clamp(1.15rem, 2.1vw, 1.4rem); line-height: 1.4; color: var(--ink, #14141a); border-left: 3px solid var(--pink, #ff2c68); padding-left: 16px; margin: 18px 0 22px; max-width: 34ch; }"
     },
     {
       "name": "Tinted Callout",
@@ -390,7 +390,7 @@
       "refersTo": null,
       "description": "A sanctioned extension of the Provisional tint-panel allowance: a pink-tint-2 ground with a pink-tint border and the Statement left-rule motif reused as a callout accent. Used once, for advertiser.html's founding-advertiser pricing note.",
       "html": "<div class=\"ds-callout\"><h3>Founding advertiser pricing</h3><p>Locked in for your first 6 months.</p></div>",
-      "css": ".ds-callout { padding: 20px 22px; background: var(--pink-tint-2, #fff0f5); border: 1px solid var(--pink-tint, #ffe4ee); border-left: 3px solid var(--pink, #ff2c68); border-radius: var(--radius-md, 14px); font-family: var(--font-body, Inter, system-ui, sans-serif); }\n.ds-callout h3 { font-size: 1.05rem; margin: 0; }\n.ds-callout p { margin-top: 8px; font-size: 0.96rem; color: var(--ink-soft, #4a4a56); }"
+      "css": ".ds-callout { padding: 20px 22px; background: var(--pink-tint-2, #fff0f5); border: 1px solid var(--pink-tint, #ffe4ee); border-left: 3px solid var(--pink, #ff2c68); border-radius: var(--radius-md, 14px); font-family: var(--font-body, Public Sans, system-ui, sans-serif); }\n.ds-callout h3 { font-size: 1.05rem; margin: 0; }\n.ds-callout p { margin-top: 8px; font-size: 0.96rem; color: var(--ink-soft, #4a4a56); }"
     },
     {
       "name": "Audience Pill",
@@ -406,7 +406,7 @@
       "refersTo": null,
       "description": "First-class component, not a hack: a labelled dashed box that holds a pending component's layout slot so nothing reflows when it lands.",
       "html": "<div class=\"ds-placeholder\"><span class=\"ds-placeholder-tag\">placeholder</span><span class=\"ds-placeholder-label\">Interactive zone map — component pending</span></div>",
-      "css": ".ds-placeholder { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 4 / 3; min-height: 340px; border: 1.5px dashed var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); background: repeating-linear-gradient(45deg, var(--paper-alt, #faf9fb) 0 10px, var(--paper, #ffffff) 10px 20px); font-family: var(--font-body, Inter, system-ui, sans-serif); text-align: center; padding: 24px; }\n.ds-placeholder-tag { font-family: var(--font-mono, JetBrains Mono, Menlo, monospace); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); }\n.ds-placeholder-label { font-size: 0.86rem; color: var(--ink-soft, #4a4a56); }"
+      "css": ".ds-placeholder { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 4 / 3; min-height: 340px; border: 1.5px dashed var(--paper-line, #ebe9ef); border-radius: var(--radius-lg, 22px); background: repeating-linear-gradient(45deg, var(--paper-alt, #faf9fb) 0 10px, var(--paper, #ffffff) 10px 20px); font-family: var(--font-body, Public Sans, system-ui, sans-serif); text-align: center; padding: 24px; }\n.ds-placeholder-tag { font-family: var(--font-mono, JetBrains Mono, Menlo, monospace); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint, #8b8b98); }\n.ds-placeholder-label { font-size: 0.86rem; color: var(--ink-soft, #4a4a56); }"
     }
   ],
   "narrative": {
@@ -417,7 +417,7 @@
       "Paper-white default; dark tone reserved for the footer",
       "Hairline borders (1px #ebe9ef) instead of heavy dividers or fills",
       "Long, soft, downward shadows that lift objects rather than layering them",
-      "Mono type for labels and eyebrows; geometric sans for display",
+      "Mono type for labels and eyebrows; condensed signage-display type for headings, set uppercase",
       "A single shared easing curve across every transition on the site"
     ],
     "rules": [
@@ -435,6 +435,11 @@
         "name": "The Tint Escalation Rule",
         "section": "colors",
         "body": "When pink needs to occupy an area rather than a mark, escalate down to pink-tint-2 (#fff0f5) or pink-tint (#ffe4ee) — never a reduced-opacity full-strength pink, which drifts the hue against the paper."
+      },
+      {
+        "name": "The Caps-or-Sentence Rule",
+        "section": "typography",
+        "body": "Display and Headline set uppercase by default — Big Shoulders Display is drawn for it, and a short heading phrase reads as signage. An element carrying a full sentence rather than a heading fragment opts back out to mixed case instead, at Body weight rather than the heading's lighter one: the .statement line, .closing-question, and the .wordmark brand mark (whose Pascal-case \"PedalPanel\" needs its capital P to keep both halves of the name legible). A new display-family element defaults to uppercase; it earns mixed case only by being a sentence or a proper name, not by preference."
       },
       {
         "name": "The Measure Rule",

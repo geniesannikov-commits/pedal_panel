@@ -45,12 +45,15 @@
 }
 
 .shop-hero-inner h1 {
-  /* Capped lower than the advertiser page's hero (3.5rem) but still a
-     proper hero size — 2.85rem, not shrunk further, since the 1024px
-     breakpoint above already does most of the work of keeping the 4
-     forced-break lines each on one line. See the .shop-hero-grid
-     comment. */
-  font-size: clamp(2.1rem, 5vw, 2.85rem);
+  /* Capped lower than the advertiser page's hero but still a proper hero
+     size, since the 1024px breakpoint above already does most of the
+     work of keeping the 4 forced-break lines each on one line. See the
+     .shop-hero-grid comment. Sized up and lightened from the shared
+     h1-h4 default — Big Shoulders Display is condensed, so it reads
+     smaller than Space Grotesk did at the same size. */
+  font-size: clamp(2.3rem, 5.4vw, 3.15rem);
+  font-weight: 300;
+  line-height: 0.95;
   max-width: 34ch;
 }
 
@@ -245,8 +248,10 @@
 
 .price-tag-name {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: var(--ink);
   margin-bottom: 18px;
 }
