@@ -149,11 +149,20 @@ body.landing {
   background: var(--pink-tint);
 }
 
+/* No flex: 1 — the card no longer stretches this to fill leftover grid
+   height and pin the arrow at the bottom. Content sets the height; the
+   arrow moved up onto the title's own line (.fork-head) instead. */
 .fork-copy {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  flex: 1;
+}
+
+.fork-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .fork-title {
@@ -172,6 +181,7 @@ body.landing {
 .fork-arrow {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   color: var(--ink-faint);
   transition: transform 0.35s var(--ease), color 0.3s var(--ease);
 }
