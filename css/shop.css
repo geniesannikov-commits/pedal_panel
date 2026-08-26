@@ -123,7 +123,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   margin-bottom: 14px;
 }
 
@@ -224,7 +224,7 @@
   font-size: 0.76rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   margin-bottom: 14px;
 }
 
@@ -341,7 +341,7 @@
   display: block;
   margin-top: 16px;
   font-size: 0.74rem;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   letter-spacing: 0.05em;
 }
 
@@ -433,14 +433,6 @@
   line-height: 1.6;
 }
 
-.finance-note {
-  max-width: 68ch;
-  margin-top: 28px;
-  color: var(--ink-soft);
-  font-size: 1rem;
-  line-height: 1.65;
-}
-
 /* ---------- Negotiability slider ---------- */
 
 .split-slider {
@@ -449,6 +441,13 @@
   border: 1px solid var(--paper-line);
   border-radius: var(--radius-lg);
   background: var(--paper);
+}
+
+.split-caption {
+  margin: 0 0 22px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
 }
 
 .split-bars {
@@ -548,6 +547,12 @@
   background: transparent;
 }
 
+.split-control input[type="range"]:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
 .split-endpoints {
   display: flex;
   justify-content: space-between;
@@ -568,7 +573,7 @@
 .split-footnote {
   margin-top: 20px;
   font-size: 0.8rem;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
 }
 
 /* ---------- Negotiability slider (mobile) ----------

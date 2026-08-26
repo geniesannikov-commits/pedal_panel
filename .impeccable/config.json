@@ -32,6 +32,18 @@
         ],
         "createdAt": "2026-08-26T01:05:06.282Z",
         "reason": "matches DESIGN.md-documented 0.86rem error-text size, reused for adjacent .lead-form-privacy helper text"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "4px",
+        "createdAt": "2026-08-26T01:25:21.735Z",
+        "reason": "matches existing range-track radius already used two lines above in the same component (css/shop.css)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.9rem",
+        "createdAt": "2026-08-26T01:26:39.771Z",
+        "reason": "matches existing .split-bar-value 0.9rem already used in the same component (css/shop.css)"
       }
     ]
   }
