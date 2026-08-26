@@ -10,22 +10,13 @@
     var(--paper);
 }
 
-/* Mirrors .adv-hero-grid in css/advertiser.css: single column on
-   mobile, text + visual side by side from the breakpoint up, so the two
-   hero sections read as the same layout system. The breakpoint itself is
-   1024px rather than the advertiser page's 900px, and the split is 1:1
-   rather than 0.75fr/1.25fr — the forced 4-line headline break below
-   needs more column width than a narrower breakpoint + text-minority
-   ratio can give it without the font shrinking too far (each line was
-   sub-wrapping again inside its own <br> segment at 900px/0.75fr, and
-   fixing that by shrinking the font instead left the headline reading
-   too small with a lot of dead space next to the visual). Raising the
-   breakpoint means 900-1023px just gets the mobile single-column stack
-   instead of a cramped two-column squeeze — a cleaner trade than either
-   of those. Verified against the real Space Grotesk font: 1fr/1fr from
-   1024px + the 2.85rem font cap below keeps all 4 lines on one line each,
-   with real margin to spare, right up to the shared container's 1160px
-   cap. */
+/* Identical to .adv-hero-grid in css/advertiser.css — same breakpoint,
+   same 0.75fr/1.25fr split, same gap — so both hero sections' visuals
+   render at the same size (640px, the .hero-3d cap) in the same position.
+   This used to diverge (1024px breakpoint, 1:1 split) to fit a headline
+   that was hard-broken into 4 lines with <br>; removing those forced
+   breaks in favour of natural wrapping (see .shop-hero-inner h1 below)
+   let the grid rejoin the shared layout instead of the copy dictating it. */
 .shop-hero-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -33,28 +24,22 @@
   align-items: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   .shop-hero-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.75fr 1.25fr;
     gap: 56px;
   }
 }
 
-.shop-hero-inner {
-  max-width: 780px;
-}
-
 .shop-hero-inner h1 {
-  /* Capped lower than the advertiser page's hero but still a proper hero
-     size, since the 1024px breakpoint above already does most of the
-     work of keeping the 4 forced-break lines each on one line. See the
-     .shop-hero-grid comment. Sized up and lightened from the shared
-     h1-h4 default — Big Shoulders Display is condensed, so it reads
-     smaller than Space Grotesk did at the same size. */
-  font-size: clamp(2.3rem, 5.4vw, 3.15rem);
+  /* Identical to .adv-hero-copy h1 — was capped lower (2.85rem, later
+     3.15rem under the Big Shoulders Display swap) and forced into exactly
+     4 lines with <br> to fit the old 1:1 grid split; now it wraps
+     naturally like the advertiser headline does, at the same type scale. */
+  font-size: clamp(2.3rem, 5vw, 3.75rem);
   font-weight: 300;
   line-height: 0.95;
-  max-width: 34ch;
+  max-width: 15ch;
 }
 
 .shop-hero-inner .lede {
