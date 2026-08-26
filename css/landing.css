@@ -99,10 +99,16 @@ body.landing {
   transition: transform 0.4s var(--ease), border-color 0.3s var(--ease), box-shadow 0.4s var(--ease);
 }
 
-.fork-card:hover {
+.fork-card:hover,
+.fork-card:focus-visible {
   transform: translateY(-4px);
   border-color: var(--pink);
   box-shadow: 0 20px 40px -22px rgba(255, 44, 104, 0.35);
+}
+
+.fork-card:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
 }
 
 .fork-icon {
@@ -167,7 +173,10 @@ body.landing {
 .landing-footnote {
   margin-top: 44px;
   font-size: 0.85rem;
-  color: var(--ink-faint);
+  /* ink-soft, not ink-faint: the faint tone measures 3.36:1 on paper at
+     this size, under the 4.5:1 AA minimum — and this line holds the
+     page's only contact email. */
+  color: var(--ink-soft);
 }
 
 .landing-footnote a {
