@@ -160,7 +160,7 @@ body.landing {
 
 .fork-head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
@@ -182,6 +182,10 @@ body.landing {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
+  /* Aligns the icon to the title's first line rather than its own
+     line-box center, so a two-line title (e.g. "I run an e-bike rental
+     shop") doesn't pull the arrow down to the wrapped block's midpoint. */
+  margin-top: 0.2em;
   color: var(--ink-faint);
   transition: transform 0.35s var(--ease), color 0.3s var(--ease);
 }
