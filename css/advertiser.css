@@ -504,7 +504,7 @@
    block's position changes, via margin-left:auto, not its content width. */
 @media (min-width: 900px) {
   .zones-next {
-    grid-template-columns: 240px minmax(0, 62ch);
+    grid-template-columns: 400px minmax(0, 62ch);
     gap: 48px;
     align-items: start;
     width: fit-content;
@@ -522,10 +522,15 @@
    block: the figure is much shorter than the copy beside it, and centring
    it left dead space above and below instead of relating it to anything.
    A small nudge brings its optical centre to the headline's cap-height
-   rather than lining up flush with the very top of the grid cell. */
+   rather than lining up flush with the very top of the grid cell.
+   Sized up from the 240px mobile/tablet size so its bottom edge lands
+   level with the text column's bottom — top and right edges (locked to
+   the grid column) don't move, only the left and bottom grow to fill the
+   larger column. */
 @media (min-width: 900px) {
   .zones-next-figure {
     margin-top: 6px;
+    max-width: 400px;
   }
 }
 
