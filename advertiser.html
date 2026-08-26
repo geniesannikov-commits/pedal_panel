@@ -212,11 +212,6 @@
               <li>Kings Cross + the east</li>
               <li>The south</li>
             </ul>
-
-            <div class="zones-founding">
-              <h3>Help draw the map</h3>
-              <p>The zone map is still being drawn. Advertisers who come on now aren't just getting in early — they're some of the first campaigns to help shape where those boundaries land as the map sharpens.</p>
-            </div>
           </div>
 
           <!-- TODO: interactive zone map component to be inserted here -->
@@ -226,6 +221,16 @@
           <div class="zone-map-placeholder reveal" aria-hidden="true">
             <span class="zone-map-tag mono">placeholder</span>
             <span class="zone-map-label mono">Interactive zone map — component pending</span>
+          </div>
+
+          <!-- Full-width band below both columns from 900px up (grid-column:
+               1/-1 in css/advertiser.css) rather than tucked inside the copy
+               column — composed with the whole section instead of floating
+               under the chips, unrelated to the map beside it. Stacks
+               naturally inside the copy column below 900px. -->
+          <div class="zones-founding reveal">
+            <h3>Help draw the map</h3>
+            <p>The zone map is still being drawn. Advertisers who come on now aren't just getting in early — they're some of the first campaigns to help shape where those boundaries land as the map sharpens.</p>
           </div>
         </div>
 

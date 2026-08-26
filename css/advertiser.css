@@ -314,7 +314,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  align-items: stretch;
+  align-items: start;
 }
 
 /* Copy left, map right — same reading order as the rest of the page, but
@@ -333,18 +333,29 @@
 .zones-copy {
   min-width: 0;
   max-width: 52ch;
+  order: 1;
 }
 
-/* Stretches to the placeholder's full height only at the breakpoint where
-   the two columns actually sit side by side; .zones-founding then pins to
-   the bottom of that flex column with margin-top:auto so its bottom edge
-   lines up with the placeholder's, tying the two together instead of
-   leaving it floating under the chips. Single-column layouts stay natural
-   height — nothing to align against once the placeholder drops below. */
+/* .zones-founding sits after .zone-map-placeholder in source order (so it
+   can span both columns as a grid item at 900px+), but on a single-column
+   mobile layout it needs to read as part of the copy beat, right after the
+   chips — "copy first, placeholder below it" per the comment further down.
+   order puts it back between them without touching markup. */
+.zones-founding {
+  order: 2;
+}
+
+.zone-map-placeholder {
+  order: 3;
+}
+
 @media (min-width: 900px) {
-  .zones-copy {
-    display: flex;
-    flex-direction: column;
+  .zone-map-placeholder {
+    order: 2;
+  }
+
+  .zones-founding {
+    order: 3;
   }
 }
 
@@ -378,9 +389,17 @@
   white-space: nowrap;
 }
 
-/* Second beat inside the copy column: tinted band + pink rule so the
-   founding-advertiser message never blends into the explanatory copy
-   above it — carried through to mobile, just tighter. */
+/* Tinted band + pink rule so the founding-advertiser message never blends
+   into the explanatory copy above it. On mobile it stays inside the copy
+   column (natural stacking order, nothing to relate it to once the
+   placeholder has dropped below). From 900px up it spans the full grid
+   width instead — a deliberate composition choice rather than a height
+   chase: pinning its bottom edge to the placeholder's turned out to be
+   fragile (the aspect-ratio placeholder and the flex-stretched copy
+   column fed back into each other's sizing and blew the row up to
+   several thousand pixels tall in production). A full-width band under
+   both columns reads as composed with the section without depending on
+   two independently-sized columns lining up. */
 .zones-founding {
   margin-top: 26px;
   padding: 20px 22px;
@@ -390,12 +409,22 @@
   border-radius: var(--radius-md);
 }
 
-/* Pinned to the bottom of the (flex) copy column so its bottom edge lines
-   up with the placeholder's, composing the two rather than letting the
-   callout float wherever the copy above happens to end. */
 @media (min-width: 900px) {
   .zones-founding {
-    margin-top: auto;
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+
+  .zones-founding h3 {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .zones-founding p {
+    margin-top: 0;
   }
 }
 
