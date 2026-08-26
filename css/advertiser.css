@@ -309,7 +309,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Copy left, map right — same reading order as the rest of the page, but
@@ -328,6 +328,19 @@
 .zones-copy {
   min-width: 0;
   max-width: 52ch;
+}
+
+/* Stretches to the placeholder's full height only at the breakpoint where
+   the two columns actually sit side by side; .zones-founding then pins to
+   the bottom of that flex column with margin-top:auto so its bottom edge
+   lines up with the placeholder's, tying the two together instead of
+   leaving it floating under the chips. Single-column layouts stay natural
+   height — nothing to align against once the placeholder drops below. */
+@media (min-width: 900px) {
+  .zones-copy {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .zones-copy p {
@@ -370,6 +383,15 @@
   border: 1px solid var(--pink-tint);
   border-left: 3px solid var(--pink);
   border-radius: var(--radius-md);
+}
+
+/* Pinned to the bottom of the (flex) copy column so its bottom edge lines
+   up with the placeholder's, composing the two rather than letting the
+   callout float wherever the copy above happens to end. */
+@media (min-width: 900px) {
+  .zones-founding {
+    margin-top: auto;
+  }
 }
 
 .zones-founding h3 {
@@ -443,6 +465,7 @@
   .zones-next {
     grid-template-columns: 240px 1fr;
     gap: 48px;
+    align-items: start;
   }
 }
 
@@ -450,6 +473,17 @@
   margin: 0;
   width: 100%;
   max-width: 240px;
+}
+
+/* Top-aligned with the heading rather than centred against the whole text
+   block: the figure is much shorter than the copy beside it, and centring
+   it left dead space above and below instead of relating it to anything.
+   A small nudge brings its optical centre to the headline's cap-height
+   rather than lining up flush with the very top of the grid cell. */
+@media (min-width: 900px) {
+  .zones-next-figure {
+    margin-top: 6px;
+  }
 }
 
 .zone-split {

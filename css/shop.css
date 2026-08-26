@@ -192,9 +192,17 @@
 
 /* ---------- What this means: price-tag card ---------- */
 
+/* This card is much shorter than the three-paragraph text column beside
+   it, and .anchor-grid centres its two columns by default — fine when
+   the paired visual is close in height (the swap-card, fact-card, meter
+   strip), but here it left the tag floating with dead space above and
+   below. align-self overrides the shared centring for this one instance
+   without touching the other anchor-grid sections that don't need it. */
 .price-tag-card {
   display: flex;
   justify-content: center;
+  align-self: start;
+  margin-top: 6px;
 }
 
 .price-tag {
