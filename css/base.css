@@ -715,6 +715,53 @@ section {
   color: var(--ink-soft);
 }
 
+/* ---------- Hero frame ----------
+   Decorative line tracing the empty space right of the hero visual: a
+   straight drop down the section's right edge, one rounded corner, then
+   a straight run back along the bottom — from a hand-drawn reference the
+   two colour variants below the copy that follow the page's own accent
+   identity (the same amber/teal split as .nav-audience-*), not Signal
+   Pink, since it's decoration rather than an action or a live status.
+   viewBox 0 0 100 100 with preserveAspectRatio="none" lets one path
+   definition stretch to fit each hero's own (font-size-dependent) height
+   without hand-tuning coordinates per breakpoint; non-scaling-stroke
+   keeps the line's pixel width constant despite that non-uniform scale.
+   Sits behind the hero content (negative z-index, inside the section's
+   own stacking context via position:relative below) so it never
+   interferes with reading order or hit targets — aria-hidden as pure
+   decoration. Desktop/tablet only: with the hero stacked to one column
+   on mobile there's no right-hand whitespace left for it to frame. */
+.hero-frame {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .hero-frame {
+    display: block;
+  }
+}
+
+.hero-frame path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-frame-amber path {
+  stroke: var(--amber);
+}
+
+.hero-frame-teal path {
+  stroke: var(--teal);
+}
+
 /* ---------- Hero 3D visual ----------
    Container for the Three.js triple-screen-bike scene (see
    js/hero-3d.js + js/triple-screen-bike.js), shared by the advertiser and

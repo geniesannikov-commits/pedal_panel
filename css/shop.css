@@ -3,6 +3,14 @@
    ========================================================================== */
 
 .shop-hero {
+  position: relative;
+  /* z-index:0, not just position:relative, so this establishes its own
+     stacking context — otherwise .hero-frame's z-index:-1 (see
+     css/base.css) escapes to the page root instead of staying scoped
+     between this section's own background and its content, and this
+     section's own dot-grid background (being just a normal in-flow
+     descendant of the root context) paints over it, hiding it entirely. */
+  z-index: 0;
   padding-top: clamp(56px, 9vw, 100px);
   padding-bottom: clamp(48px, 7vw, 80px);
   background:

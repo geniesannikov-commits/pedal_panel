@@ -5,6 +5,13 @@
 /* ---------- Hero ---------- */
 
 .adv-hero {
+  position: relative;
+  /* z-index:0, not just position:relative, so this establishes its own
+     stacking context — otherwise .hero-frame's z-index:-1 (see
+     css/base.css) escapes to the page root instead of staying scoped
+     between this section's own background and its content, and paints
+     underneath the *next* section's background instead. */
+  z-index: 0;
   padding-top: clamp(48px, 8vw, 88px);
   padding-bottom: clamp(56px, 8vw, 96px);
 }
