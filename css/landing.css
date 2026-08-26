@@ -56,18 +56,29 @@ body.landing {
   letter-spacing: -0.01em;
 }
 
+/* Now the real h1 (base.css's h1-h4 rule supplies the display font,
+   weight, line-height and tracking) — the page's actual proposition,
+   promoted to the hero-headline treatment the advertiser/shop pages
+   already use for their h1 (display clamp + a narrow ch cap forces the
+   same short, punchy stacked wrap as css/advertiser.css's
+   .adv-hero-copy h1, just centered here instead of left-aligned). */
 .landing-tagline {
-  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
-  color: var(--ink-soft);
-  max-width: 34ch;
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  max-width: 20ch;
   margin-inline: auto;
-  line-height: 1.5;
 }
 
+/* Demoted from h1 to the fork's wayfinding prompt — takes over the
+   tagline's old secondary treatment verbatim. */
 .landing-question {
-  margin-top: 56px;
+  margin-top: 40px;
   margin-bottom: 24px;
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--ink-soft);
 }
 
 .fork {
@@ -111,6 +122,11 @@ body.landing {
   outline-offset: 3px;
 }
 
+/* Resting accent, not hover-only: DESIGN.md's Provisional note (confirmed
+   with the user during /impeccable document) permits tint fields as the
+   brand matures. The two tints stay a two-step escalation — tint-2 at
+   rest, tint on hover — so the primary action carries Signal Pink before
+   a visitor ever touches it, not only after. */
 .fork-icon {
   width: 48px;
   height: 48px;
@@ -118,8 +134,8 @@ body.landing {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: var(--paper-alt);
-  color: var(--ink-soft);
+  background: var(--pink-tint-2);
+  color: var(--pink-deep);
   transition: color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
@@ -129,8 +145,8 @@ body.landing {
 }
 
 .fork-card:hover .fork-icon {
-  color: var(--pink-deep);
-  background: var(--pink-tint-2);
+  color: var(--pink);
+  background: var(--pink-tint);
 }
 
 .fork-copy {
