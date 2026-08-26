@@ -119,16 +119,16 @@
                identical amount, only one earning. Both cards use the
                same "hours ridden" bar length; only "amount earned"
                differs. -->
-          <div class="meter-strip reveal" aria-hidden="true">
+          <div class="meter-strip reveal">
             <div class="meter-card meter-without">
               <p class="meter-label mono">Without PedalPanel</p>
               <div class="meter-metric">
                 <span class="meter-metric-label">Hours ridden</span>
-                <div class="meter-track"><div class="meter-fill" style="width: 78%;"></div></div>
+                <div class="meter-track" aria-hidden="true"><div class="meter-fill" style="width: 78%;"></div></div>
               </div>
               <div class="meter-metric">
                 <span class="meter-metric-label">Amount earned</span>
-                <div class="meter-track"><div class="meter-fill" style="width: 4%;"></div></div>
+                <div class="meter-track" aria-hidden="true"><div class="meter-fill" style="width: 4%;"></div></div>
               </div>
               <p class="meter-value mono">$0 earned</p>
             </div>
@@ -136,13 +136,13 @@
               <p class="meter-label mono">With PedalPanel</p>
               <div class="meter-metric">
                 <span class="meter-metric-label">Hours ridden</span>
-                <div class="meter-track"><div class="meter-fill is-live" style="width: 78%;"></div></div>
+                <div class="meter-track" aria-hidden="true"><div class="meter-fill is-live" style="width: 78%;"></div></div>
               </div>
               <div class="meter-metric">
                 <span class="meter-metric-label">Amount earned</span>
-                <div class="meter-track"><div class="meter-fill is-live" style="width: 82%;"></div></div>
+                <div class="meter-track" aria-hidden="true"><div class="meter-fill is-live" style="width: 82%;"></div></div>
               </div>
-              <p class="meter-value mono">earning<span class="meter-live-dot"></span></p>
+              <p class="meter-value mono">earning<span class="meter-live-dot" aria-hidden="true"></span></p>
             </div>
           </div>
         </div>
@@ -207,8 +207,6 @@
           </div>
         </div>
 
-        <p class="finance-note reveal">And it's not limited to those two extremes — the structure scales: the more of the screen cost you're willing to cover, the more of the ongoing ad revenue you keep. We'll work out the exact split with you based on what makes sense for your business.</p>
-
         <!-- The negotiability slider: one range input driving two linked
              fill bars (cost covered / revenue kept), with the two named
              options marked as endpoints on the same spectrum. No specific
@@ -216,6 +214,7 @@
              so per the brief's fallback this is a plain styled
              input[type=range] + CSS custom properties — see js/shop.js. -->
         <div class="split-slider reveal" id="split-slider">
+          <p class="split-caption">Drag to see how the split shifts between the two options above.</p>
           <div class="split-bars">
             <div class="split-bar-row">
               <span class="split-bar-label">You cover</span>
@@ -240,7 +239,7 @@
               <span class="split-endpoint-right"><strong>You buy the screens</strong><br />full upfront</span>
             </div>
           </div>
-          <p class="split-footnote">Illustrative only — of screen cost vs. of ad revenue. Exact split negotiated per shop.</p>
+          <p class="split-footnote">Illustrative only — shows roughly how covering more of the screen cost trades off against a larger share of ad revenue. Exact numbers and split are negotiated per shop.</p>
         </div>
       </div>
     </section>
