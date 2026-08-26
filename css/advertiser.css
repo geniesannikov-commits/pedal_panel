@@ -567,14 +567,24 @@
 }
 
 .zone-split-caps {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 12fr 98fr 60fr 98fr;
   margin-top: 10px;
   font-size: 0.62rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink-faint);
+}
+
+.zone-split-cap-a {
+  grid-column: 2;
+  text-align: center;
+}
+
+.zone-split-cap-b {
+  grid-column: 4;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .zones-next-copy h2 {

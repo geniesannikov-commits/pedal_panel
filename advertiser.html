@@ -263,9 +263,15 @@
                 </g>
               </g>
             </svg>
+            <!-- Grid columns mirror the SVG's own geometry (12 / 98 / 60 / 98,
+                 the viewBox-unit widths of the left margin, shape A's bounding
+                 box, the arrow gap, and shape B's bounding box) so each label
+                 centres under its shape's actual bounding box instead of the
+                 figure's outer edges — space-between put "today" flush left
+                 of the figure, well left of where shape A actually sits. -->
             <figcaption class="zone-split-caps mono">
-              <span>today</span>
-              <span>as the fleet fills in</span>
+              <span class="zone-split-cap-a">today</span>
+              <span class="zone-split-cap-b">as the fleet fills in</span>
             </figcaption>
           </figure>
 
