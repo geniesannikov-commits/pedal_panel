@@ -718,25 +718,38 @@ section {
 /* ---------- Hero frame ----------
    Decorative line tracing the empty space right of the hero visual: a
    straight drop down the section's right edge, one rounded corner, then
-   a straight run back along the bottom — from a hand-drawn reference the
-   two colour variants below the copy that follow the page's own accent
-   identity (the same amber/teal split as .nav-audience-*), not Signal
-   Pink, since it's decoration rather than an action or a live status.
-   viewBox 0 0 100 100 with preserveAspectRatio="none" lets one path
-   definition stretch to fit each hero's own (font-size-dependent) height
-   without hand-tuning coordinates per breakpoint; non-scaling-stroke
-   keeps the line's pixel width constant despite that non-uniform scale.
+   a straight run back along the bottom — from a hand-drawn reference.
+   Colour follows each page's existing accent identity — amber on
+   advertiser, teal on shop, the same split .nav-audience-amber/teal
+   already uses — not Signal Pink, since this is decoration rather than
+   an action or a live status.
+
+   Plain CSS border + border-radius, not an SVG path: a single
+   border-radius value is always a true circle regardless of the box's
+   own aspect ratio, where an SVG viewBox stretched non-uniformly to fit
+   each hero's own (font-size-dependent, non-square) height distorts a
+   path-drawn curve into a visibly flattened ellipse — no per-breakpoint
+   coordinate tuning needed either way. border-width's 0 on the top and
+   left sides keeps those edges invisible, so the box reads as an
+   open-cornered frame rather than a rectangle.
+
    Sits behind the hero content (negative z-index, inside the section's
-   own stacking context via position:relative below) so it never
-   interferes with reading order or hit targets — aria-hidden as pure
-   decoration. Desktop/tablet only: with the hero stacked to one column
-   on mobile there's no right-hand whitespace left for it to frame. */
+   own stacking context via position:relative + z-index:0 on
+   .adv-hero/.shop-hero) so it never interferes with reading order or
+   hit targets — aria-hidden as pure decoration. Desktop/tablet only:
+   with the hero stacked to one column on mobile there's no right-hand
+   whitespace left for it to frame. */
 .hero-frame {
   display: none;
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 3%;
+  right: 3%;
+  bottom: 3%;
+  left: 45%;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  border-color: transparent;
+  border-bottom-right-radius: clamp(24px, 4vw, 56px);
   z-index: -1;
   pointer-events: none;
 }
@@ -747,19 +760,12 @@ section {
   }
 }
 
-.hero-frame path {
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
+.hero-frame-amber {
+  border-color: var(--amber);
 }
 
-.hero-frame-amber path {
-  stroke: var(--amber);
-}
-
-.hero-frame-teal path {
-  stroke: var(--teal);
+.hero-frame-teal {
+  border-color: var(--teal);
 }
 
 /* ---------- Hero 3D visual ----------
