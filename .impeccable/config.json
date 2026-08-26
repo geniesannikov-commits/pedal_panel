@@ -47,12 +47,12 @@
       },
       {
         "rule": "design-system-font-size",
-        "value": "clamp(2.1rem, 5vw, 2.85rem)",
+        "value": "clamp(2.3rem, 5.4vw, 3.15rem)",
         "files": [
           "css/shop.css"
         ],
         "createdAt": "2026-08-26T01:37:54.250Z",
-        "reason": "documented in DESIGN.md: shop hero's own tighter display cap for its longer headline"
+        "reason": "documented in DESIGN.md: shop hero's own tighter display cap for its longer headline (updated for the Big Shoulders Display typeset pass)"
       },
       {
         "rule": "design-system-font-size",
@@ -146,12 +146,12 @@
       },
       {
         "rule": "design-system-font-size",
-        "value": "2.85rem",
+        "value": "3.15rem",
         "files": [
           "css/shop.css"
         ],
         "createdAt": "2026-08-26T01:38:06.077Z",
-        "reason": "documented in DESIGN.md: shop hero's own tighter display cap for its longer headline"
+        "reason": "documented in DESIGN.md: shop hero's own tighter display cap for its longer headline (updated for the Big Shoulders Display typeset pass)"
       },
       {
         "rule": "design-system-color",
