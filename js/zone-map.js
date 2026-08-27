@@ -5,14 +5,22 @@
  * MapLibre GL (~800KB) or assets/zones.geojson until #zone-map is about
  * to scroll into view. The static .zone-map box (css/advertiser.css)
  * holds the exact layout slot the old placeholder held, so nothing
- * reflows while it loads — and if MapLibre, the tiles, or the fetch
- * fail, the dark panel with its "live zones" tag alone still reads as a
- * finished element, same no-visible-failure contract as the hero visual.
+ * reflows while it loads — and if MapLibre or the fetch fail, the dark
+ * panel with its "live zones" tag alone still reads as a finished
+ * element, same no-visible-failure contract as the hero visual.
  *
- * MapLibre GL is loaded from esm.sh (a pinned version), the same CDN and
- * pattern js/triple-screen-bike.js already uses for three.js, rather
- * than vendored — one loading convention for every heavy third-party lib
- * this site pulls in.
+ * MapLibre GL is vendored (js/vendor/maplibre-gl.js + css/vendor/
+ * maplibre-gl.css) rather than pulled from a CDN like js/hero-3d.js
+ * does for three.js: this component is the visible payload of the
+ * section it sits in (the hero visual is ambient background), so a
+ * blocked/unreachable third-party CDN silently breaking it — an ad
+ * blocker, a restrictive network — is a much more visible failure here.
+ * Same-origin static files, same reliability as any other page asset.
+ *
+ * OpenFreeMap's tiles (see probeOpenFreeMap below) are still fetched
+ * live — actual tile imagery can't be vendored — but that call already
+ * has a graceful, tested fallback to a flat dark ground if it's
+ * unreachable, so it doesn't carry the same risk.
  *
  * Display-only, per the "Street Signal" language in DESIGN.md: zones sit
  * near-invisible at rest (a hairline outline, a hint of fill) and lift to
@@ -22,8 +30,8 @@
  * something a site visitor does; this just displays the current result.
  */
 (function () {
-  var MAPLIBRE_JS_URL = "https://esm.sh/maplibre-gl@4.7.1";
-  var MAPLIBRE_CSS_URL = "https://esm.sh/maplibre-gl@4.7.1/dist/maplibre-gl.css";
+  var MAPLIBRE_JS_URL = "js/vendor/maplibre-gl.js";
+  var MAPLIBRE_CSS_URL = "css/vendor/maplibre-gl.css";
   var ZONES_URL = "assets/zones.geojson";
   var OPENFREEMAP_STYLE_URL = "https://tiles.openfreemap.org/styles/dark";
   var PROBE_TIMEOUT_MS = 4000;
@@ -61,6 +69,23 @@
       link.onload = resolve;
       link.onerror = resolve;
       document.head.appendChild(link);
+    });
+  }
+
+  // MapLibre GL's vendored build is a classic UMD bundle (assigns
+  // window.maplibregl), not an ES module — load it as a plain script
+  // rather than a dynamic import().
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = src;
+      script.onload = function () {
+        resolve(window.maplibregl);
+      };
+      script.onerror = function () {
+        reject(new Error("Failed to load script: " + src));
+      };
+      document.head.appendChild(script);
     });
   }
 
@@ -179,6 +204,36 @@
         // finger touch from getting caught zooming/panning the map.
         cooperativeGestures: true,
       });
+      var zoneBoundsLngLat = [[bbox[0], bbox[1]], [bbox[2], bbox[3]]];
+
+      function correctMapSize() {
+        map.resize();
+        map.fitBounds(zoneBoundsLngLat, { padding: 40, duration: 0 });
+      }
+
+      // MapLibre measures its container once at construction and doesn't
+      // always catch a layout that settles slightly later -- the .reveal
+      // fade-in, a web font swap, the grid column still resolving. Left
+      // alone that can leave the canvas rendering at a stale, wrong-
+      // aspect-ratio size, which throws off fitBounds's framing enough
+      // that the zones end up scrolled out of view entirely (a solid
+      // colour with nothing on it).
+      //
+      // A ResizeObserver on its own isn't enough here: the container is
+      // absolutely positioned with inset:0 inside an aspect-ratio-sized
+      // parent, and its first observed size can land mid-layout (seen
+      // locally reporting height 0) — the same instant map.resize() reads
+      // regardless of how it's triggered. So on top of the observer,
+      // force a couple of corrections a frame and a beat later, by which
+      // point layout has always settled in testing.
+      if ("ResizeObserver" in window) {
+        var resizeObserver = new ResizeObserver(correctMapSize);
+        resizeObserver.observe(canvas);
+      }
+      requestAnimationFrame(function () {
+        requestAnimationFrame(correctMapSize);
+      });
+      setTimeout(correctMapSize, 300);
 
       var hoveredZoneId = null;
 
@@ -248,7 +303,7 @@
           },
         });
 
-        map.fitBounds([[bbox[0], bbox[1]], [bbox[2], bbox[3]]], { padding: 40, duration: 0 });
+        map.fitBounds(zoneBoundsLngLat, { padding: 40, duration: 0 });
         container.classList.add("is-ready");
       });
 
@@ -288,15 +343,14 @@
   function load() {
     Promise.all([
       loadCss(MAPLIBRE_CSS_URL),
-      import(/* webpackIgnore: true */ MAPLIBRE_JS_URL),
+      loadScript(MAPLIBRE_JS_URL),
       fetch(ZONES_URL).then(function (res) {
         if (!res.ok) throw new Error("zones.geojson: HTTP " + res.status);
         return res.json();
       }),
     ])
       .then(function (results) {
-        var maplibreModule = results[1];
-        var maplibregl = maplibreModule.default || maplibreModule;
+        var maplibregl = results[1];
         initMap(maplibregl, results[2]);
       })
       .catch(function (err) {

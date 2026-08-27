@@ -487,19 +487,25 @@
   box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.25);
 }
 
-.zone-map-canvas {
+/* MapLibre adds its own "maplibregl-map" class directly onto this same
+   element (not a child wrapper) and its stylesheet sets
+   ".maplibregl-map { position: relative }" — loaded after this
+   stylesheet, so on source order alone it would win on equal
+   specificity and collapse this element back to a content-sized box
+   instead of stretching to fill .zone-map. That's the entire bug behind
+   a blank/black map: MapLibre then measures a container with no real
+   height at construction and never recovers. #zone-map .zone-map-canvas
+   outranks MapLibre's bare-class rule regardless of load order. */
+#zone-map .zone-map-canvas {
   position: absolute;
   inset: 0;
-}
-
-/* Zones fade in once the style + data are ready, rather than popping in
-   mid-tile-load. */
-.zone-map-canvas .maplibregl-map {
   opacity: 0;
   transition: opacity 0.4s var(--ease);
 }
 
-.zone-map.is-ready .zone-map-canvas .maplibregl-map {
+/* Zones fade in once the style + data are ready, rather than popping in
+   mid-tile-load. */
+#zone-map.is-ready .zone-map-canvas {
   opacity: 1;
 }
 
