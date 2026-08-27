@@ -362,21 +362,21 @@
   order: 1;
 }
 
-/* .zones-founding sits after .zone-map-placeholder in source order (so it
-   can span both columns as a grid item at 900px+), but on a single-column
-   mobile layout it needs to read as part of the copy beat, right after the
-   chips — "copy first, placeholder below it" per the comment further down.
+/* .zones-founding sits after .zone-map in source order (so it can span
+   both columns as a grid item at 900px+), but on a single-column mobile
+   layout it needs to read as part of the copy beat, right after the
+   chips — "copy first, map below it" per the comment further down.
    order puts it back between them without touching markup. */
 .zones-founding {
   order: 2;
 }
 
-.zone-map-placeholder {
+.zone-map {
   order: 3;
 }
 
 @media (min-width: 900px) {
-  .zone-map-placeholder {
+  .zone-map {
     order: 2;
   }
 
@@ -467,44 +467,99 @@
    unfinished on purpose — dashed border over a hatched muted fill — and
    sized to hold roughly the space the real component will need so the
    layout doesn't jump when it's dropped in. */
-.zone-map-placeholder {
+/* The live component: a named dark panel (per DESIGN.md's "dark stays a
+   named-panel treatment" rule -- the third, alongside the footer and
+   shop.html's .transparency-card), holding the exact box the placeholder
+   held so nothing reflows. It sits on the .zones-bg line-grid, so it
+   earns the Card-lift shadow at rest per the Flat-At-Rest Rule; the
+   hairline border is --dark-line rather than --paper-line since the
+   panel itself is dark. js/zone-map.js fills #zone-map-canvas once
+   MapLibre and the zone data have loaded; until then (and if either
+   fails) this box alone still reads as a considered, finished element. */
+.zone-map {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 28px;
   aspect-ratio: 1 / 1;
   min-height: 380px;
-  border: 2px dashed var(--paper-line);
+  overflow: hidden;
+  border: 1px solid var(--dark-line);
   border-radius: var(--radius-lg);
-  background-color: var(--paper-alt);
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(139, 139, 152, 0.055) 0 10px,
-    rgba(139, 139, 152, 0) 10px 20px
-  );
+  background: var(--dark);
+  box-shadow: 0 24px 48px -32px rgba(20, 20, 26, 0.25);
+}
+
+.zone-map-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+/* Zones fade in once the style + data are ready, rather than popping in
+   mid-tile-load. */
+.zone-map-canvas .maplibregl-map {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.zone-map.is-ready .zone-map-canvas .maplibregl-map {
+  opacity: 1;
 }
 
 .zone-map-tag {
   position: absolute;
   top: 14px;
   left: 14px;
+  z-index: 2;
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-faint);
-  background: var(--paper);
-  border: 1px solid var(--paper-line);
+  color: var(--dark-text-soft, #9a9aa6);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--dark-line);
   border-radius: 100px;
   padding: 3px 10px;
+  pointer-events: none;
 }
 
+/* Hover name label -- the site's eyebrow motif (mono uppercase + pink
+   dot) reused as a map callout. Fades/scales in rather than popping, and
+   never blocks pointer events so it can sit right over the cursor. */
 .zone-map-label {
-  font-size: 0.82rem;
-  line-height: 1.55;
-  color: var(--ink-faint);
-  max-width: 20ch;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--dark);
+  border: 1px solid var(--pink);
+  box-shadow: 0 20px 40px -22px rgba(255, 44, 104, 0.35);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--pink);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 14px)) scale(0.92);
+  transform-origin: bottom center;
+  transition: opacity 150ms var(--ease), transform 150ms var(--ease);
+}
+
+.zone-map-label.is-visible {
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 14px)) scale(1);
+}
+
+.zone-map-label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pink);
+  flex: 0 0 auto;
 }
 
 /* ---------- Zones: "Hyper-local — on the way" closing beat ----------
@@ -652,15 +707,15 @@
   max-width: 62ch;
 }
 
-/* Mobile / single-column: copy first, placeholder below it — the real
-   map is interactive, so it reads better after the explanation on a
-   small screen — and the map box drops to a shorter fixed block. The
-   founding beat keeps its tint and pink rule; the chip row turns into a
-   full-bleed swipe rail; the subdivision graphic sheds its finest cuts
-   rather than shrinking into illegibility. */
+/* Mobile / single-column: copy first, map below it — it's interactive,
+   so it reads better after the explanation on a small screen — and the
+   map box drops to a shorter fixed block. The founding beat keeps its
+   tint and pink rule; the chip row turns into a full-bleed swipe rail;
+   the subdivision graphic sheds its finest cuts rather than shrinking
+   into illegibility. */
 
 @media (max-width: 899px) {
-  .zone-map-placeholder {
+  .zone-map {
     aspect-ratio: 16 / 10;
     min-height: 260px;
   }
@@ -694,10 +749,9 @@
     padding: 16px 18px;
   }
 
-  .zone-map-placeholder {
+  .zone-map {
     aspect-ratio: auto;
     min-height: 200px;
-    padding: 22px;
   }
 
   .zones-next {

@@ -194,13 +194,12 @@
     </section>
 
     <!-- ================= ZONES / GEOFENCING ================= -->
-    <!-- Two beats in one wrapper: the mechanism (zone selection, with the
-         real map component still to come) and where it's headed
-         (hyper-local, honestly framed as fleet-dependent). Kept in one
-         <section> so the second reads as "and here's where this goes"
-         rather than a third independent pitch. Its own backdrop is a line
-         grid — map-like, and distinct from the dot grid .anchor-bg uses
-         elsewhere on the page. -->
+    <!-- Two beats in one wrapper: the mechanism (zone selection, backed by
+         the live #zone-map component) and where it's headed (hyper-local,
+         honestly framed as fleet-dependent). Kept in one <section> so the
+         second reads as "and here's where this goes" rather than a third
+         independent pitch. Its own backdrop is a line grid — map-like, and
+         distinct from the dot grid .anchor-bg uses elsewhere on the page. -->
     <section class="zones">
       <div class="zones-bg" aria-hidden="true"></div>
       <div class="container">
@@ -223,13 +222,24 @@
             </ul>
           </div>
 
-          <!-- TODO: interactive zone map component to be inserted here -->
-          <!-- Placeholder only — deliberately styled as unfinished (dashed
-               border, hatched muted fill). Holds a 4:3 / 340px-min box so
-               the page doesn't reflow when the real component lands. -->
-          <div class="zone-map-placeholder reveal" aria-hidden="true">
-            <span class="zone-map-tag mono">placeholder</span>
-            <span class="zone-map-label mono">Interactive zone map — component pending</span>
+          <!-- Interactive zone map -- see js/zone-map.js + assets/zones.geojson.
+               Same layout box the placeholder held (css/advertiser.css's
+               .zone-map), now filled in: zones sit near-invisible at rest
+               and lift to Signal Pink on hover with a name label, per
+               DESIGN.md's "Street Signal" language. aria-hidden because
+               the paragraph and chips above already name every zone in
+               accessible text -- this is a supplementary visual, same
+               pattern as the .zone-split figure below. MapLibre GL and the
+               zone data don't load until this box nears the viewport (see
+               js/zone-map.js); until then, and if either fails, the dark
+               panel and its tag alone still read as a finished element. -->
+          <div class="zone-map reveal" id="zone-map" aria-hidden="true">
+            <div class="zone-map-canvas" id="zone-map-canvas"></div>
+            <span class="zone-map-tag mono">live zones</span>
+            <div class="zone-map-label" id="zone-map-label">
+              <span class="zone-map-label-dot"></span>
+              <span id="zone-map-label-text"></span>
+            </div>
           </div>
 
           <!-- Full-width band below both columns from 900px up (grid-column:
@@ -535,5 +545,6 @@
   <script src="js/lead-form.js?v=20260825a"></script>
   <script src="js/hero-3d.js?v=20260825a"></script>
   <script src="js/hero-frame.js?v=20260826a"></script>
+  <script src="js/zone-map.js?v=20260827a"></script>
 </body>
 </html>
