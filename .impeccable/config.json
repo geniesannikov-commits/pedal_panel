@@ -278,6 +278,15 @@
         ],
         "createdAt": "2026-08-26T03:47:35.681Z",
         "reason": "mobile-narrowed variant of budget-amount (2rem) at max-width:480px, same component as the 2rem entry above"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "11px",
+        "files": [
+          "prototypes/zone-map.html"
+        ],
+        "createdAt": "2026-08-27T00:45:15.898Z",
+        "reason": "standalone dev prototype, not site UI — intentional two-tier type scale (14px/11px) chosen to fix an earlier flat-hierarchy finding"
       }
     ]
   }
