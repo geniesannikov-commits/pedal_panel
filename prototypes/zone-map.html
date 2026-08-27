@@ -9,12 +9,18 @@
     Standalone prototype — not wired into the PedalPanel site.
     Open this file directly in a browser to check it renders.
 
-    Step 1 scope only: base map + tooling.
-    No zone drawing, no selection, no interactivity beyond pan/zoom.
+    Step 1: base map + tooling (done).
+    Step 2 (this file): suburb boundary polygons + multi-zone click-to-select.
+    No zone locking, naming, or hover polish yet — that's step 3.
   -->
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+
+  <!-- Static snapshot of Sydney suburb boundary polygons (OSM administrative
+       boundaries, mostly admin_level=9). See sydney-suburbs-data.js for
+       provenance notes. -->
+  <script src="sydney-suburbs-data.js"></script>
 
   <style>
     html, body {
@@ -23,6 +29,90 @@
       height: 100%;
       background: #0d0d0d;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #e6e6e6;
+    }
+
+    #app {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #zone-bar {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #141414;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+    }
+
+    #zone-bar .zone-bar-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #999;
+      margin-right: 4px;
+    }
+
+    .zone-slot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1.5px solid transparent;
+      background: #1f1f1f;
+      color: #ddd;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease;
+    }
+
+    .zone-slot:hover {
+      background: #262626;
+    }
+
+    .zone-slot.active {
+      background: #262626;
+      border-color: var(--zone-color, #fff);
+    }
+
+    .zone-slot .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      background: var(--zone-color, #888);
+      flex: 0 0 auto;
+    }
+
+    .zone-slot .count {
+      color: #999;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #add-zone-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1.5px dashed #444;
+      background: transparent;
+      color: #999;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #add-zone-btn:hover {
+      border-color: #666;
+      color: #ccc;
+    }
+
+    #map-wrap {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
     }
 
     #map {
@@ -52,19 +142,65 @@
     #status.error {
       color: #e79e9e;
     }
+
+    #debug-panel {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      z-index: 10;
+      max-width: 320px;
+      max-height: 220px;
+      overflow: auto;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    #debug-panel .debug-title {
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 10px;
+      margin-bottom: 4px;
+    }
+
+    #debug-panel pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #ccc;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+    }
   </style>
 </head>
 <body>
-  <div id="map"></div>
-  <div id="status">Checking OpenFreeMap…</div>
+  <div id="app">
+    <div id="zone-bar">
+      <span class="zone-bar-label">Active zone:</span>
+      <div id="zone-slots"></div>
+      <button id="add-zone-btn" type="button">+ Add zone</button>
+    </div>
+    <div id="map-wrap">
+      <div id="map"></div>
+      <div id="status">Checking OpenFreeMap…</div>
+      <div id="debug-panel">
+        <div class="debug-title">Selections (in-memory)</div>
+        <pre id="debug-json">{}</pre>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // ---------------------------------------------------------------------
+    // Base map setup (step 1)
+    // ---------------------------------------------------------------------
+
     const OPENFREEMAP_STYLE_URL = "https://tiles.openfreemap.org/styles/dark";
     const PROBE_TIMEOUT_MS = 4000;
 
-    // Flat dark background style used when OpenFreeMap can't be reached.
-    // Single background layer, no basemap — keeps the map usable so zone
-    // work in later steps isn't blocked by tile availability.
     const FALLBACK_STYLE = {
       version: 8,
       name: "Flat Dark Fallback",
@@ -78,8 +214,6 @@
       ],
     };
 
-    // Sydney, scoped roughly to Balmain <-> Bondi Junction,
-    // Chatswood <-> Redfern. City-level view, not full metro.
     const SYDNEY_CENTER = [151.215, -33.855];
     const SYDNEY_ZOOM = 11.6;
     const SYDNEY_MAX_BOUNDS = [
@@ -94,18 +228,11 @@
       statusEl.className = kind || "";
     }
 
-    // Probe OpenFreeMap with a HEAD request before committing to it as the
-    // map style. Falls back to a flat dark background on any failure
-    // (network error, non-OK response, or timeout).
     async function probeOpenFreeMap(url, timeoutMs) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        const res = await fetch(url, {
-          method: "HEAD",
-          mode: "cors",
-          signal: controller.signal,
-        });
+        const res = await fetch(url, { method: "HEAD", mode: "cors", signal: controller.signal });
         return res.ok;
       } catch (err) {
         return false;
@@ -114,19 +241,185 @@
       }
     }
 
-    async function init() {
-      const useOpenFreeMap = await probeOpenFreeMap(
-        OPENFREEMAP_STYLE_URL,
-        PROBE_TIMEOUT_MS
-      );
+    // ---------------------------------------------------------------------
+    // Zone state (step 2)
+    // ---------------------------------------------------------------------
+    //
+    // In-memory only — nothing persists across reloads, and there's no
+    // naming/locking UI yet (step 3). Shape: { [zoneId]: Set<suburbName> }.
 
+    const ZONE_BASE_COLORS = ["#4f8cff", "#ff6b6b", "#ffd166", "#06d6a0"];
+
+    // Beyond the base palette, generate further distinct hues on demand so
+    // more zone slots can be added without hardcoding a limit.
+    function colorForZoneIndex(index) {
+      if (index < ZONE_BASE_COLORS.length) return ZONE_BASE_COLORS[index];
+      const hue = (index * 137.508) % 360; // golden-angle spacing
+      return `hsl(${hue.toFixed(0)}, 65%, 58%)`;
+    }
+
+    let zones = [1, 2, 3, 4].map((id, i) => ({ id, color: colorForZoneIndex(i) }));
+
+    let activeZoneId = zones[0].id;
+    let nextZoneId = zones.length + 1;
+
+    // zoneId -> Set(suburbName)
+    const assignments = new Map(zones.map((z) => [z.id, new Set()]));
+    // suburbName -> zoneId
+    const suburbZone = new Map();
+    // suburbName -> feature id (for feature-state updates)
+    const suburbFeatureId = new Map();
+
+    function zoneById(id) {
+      return zones.find((z) => z.id === id);
+    }
+
+    function renderZoneBar() {
+      const container = document.getElementById("zone-slots");
+      container.innerHTML = "";
+      zones.forEach((zone) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "zone-slot" + (zone.id === activeZoneId ? " active" : "");
+        btn.style.setProperty("--zone-color", zone.color);
+        const count = assignments.get(zone.id)?.size || 0;
+        btn.innerHTML =
+          `<span class="swatch"></span>Zone ${zone.id} <span class="count">(${count})</span>`;
+        btn.addEventListener("click", () => {
+          activeZoneId = zone.id;
+          renderZoneBar();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    function renderDebugPanel() {
+      const out = {};
+      for (const [zoneId, names] of assignments.entries()) {
+        if (names.size > 0) out[`zone ${zoneId}`] = Array.from(names);
+      }
+      document.getElementById("debug-json").textContent = JSON.stringify(out, null, 2);
+    }
+
+    document.getElementById("add-zone-btn").addEventListener("click", () => {
+      const id = nextZoneId++;
+      zones.push({ id, color: colorForZoneIndex(zones.length) });
+      assignments.set(id, new Set());
+      activeZoneId = id;
+      renderZoneBar();
+    });
+
+    // ---------------------------------------------------------------------
+    // Suburb layer + click-to-assign
+    // ---------------------------------------------------------------------
+
+    const DEFAULT_FILL_COLOR = "#3a3a3a";
+    const DEFAULT_FILL_OPACITY = 0.18;
+    const DEFAULT_LINE_COLOR = "rgba(255, 255, 255, 0.35)";
+    const ASSIGNED_FILL_OPACITY = 0.45;
+
+    function paintSuburbFeature(map, featureId, zone) {
+      map.setFeatureState(
+        { source: "suburbs", id: featureId },
+        zone
+          ? {
+              fillColor: zone.color,
+              fillOpacity: ASSIGNED_FILL_OPACITY,
+              lineColor: zone.color,
+              assigned: true,
+            }
+          : { fillColor: null, fillOpacity: null, lineColor: null, assigned: false }
+      );
+    }
+
+    function assignSuburb(map, name) {
+      const featureId = suburbFeatureId.get(name);
+      if (featureId === undefined) return;
+
+      const currentZoneId = suburbZone.get(name);
+
+      if (currentZoneId === activeZoneId) {
+        // Toggle off: clicking a suburb already in the active zone unassigns it.
+        assignments.get(currentZoneId).delete(name);
+        suburbZone.delete(name);
+        paintSuburbFeature(map, featureId, null);
+      } else {
+        // Reassign (or first assign) to the active zone. A suburb can only
+        // belong to one zone at a time, so drop it from its old zone first.
+        if (currentZoneId !== undefined) {
+          assignments.get(currentZoneId).delete(name);
+        }
+        assignments.get(activeZoneId).add(name);
+        suburbZone.set(name, activeZoneId);
+        paintSuburbFeature(map, featureId, zoneById(activeZoneId));
+      }
+
+      renderZoneBar();
+      renderDebugPanel();
+    }
+
+    function addSuburbLayer(map) {
+      const data = window.SYDNEY_SUBURBS_GEOJSON || { type: "FeatureCollection", features: [] };
+
+      data.features.forEach((f) => {
+        suburbFeatureId.set(f.properties.name, f.id);
+      });
+
+      map.addSource("suburbs", { type: "geojson", data });
+
+      map.addLayer({
+        id: "suburbs-fill",
+        type: "fill",
+        source: "suburbs",
+        paint: {
+          "fill-color": ["coalesce", ["feature-state", "fillColor"], DEFAULT_FILL_COLOR],
+          "fill-opacity": ["coalesce", ["feature-state", "fillOpacity"], DEFAULT_FILL_OPACITY],
+        },
+      });
+
+      map.addLayer({
+        id: "suburbs-outline",
+        type: "line",
+        source: "suburbs",
+        paint: {
+          "line-color": ["coalesce", ["feature-state", "lineColor"], DEFAULT_LINE_COLOR],
+          "line-width": ["case", ["boolean", ["feature-state", "assigned"], false], 2, 1],
+        },
+      });
+
+      map.on("click", "suburbs-fill", (e) => {
+        const feature = e.features && e.features[0];
+        if (!feature) return;
+        assignSuburb(map, feature.properties.name);
+      });
+
+      map.on("mouseenter", "suburbs-fill", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+      map.on("mouseleave", "suburbs-fill", () => {
+        map.getCanvas().style.cursor = "";
+      });
+
+      console.log(`Loaded ${data.features.length} suburb boundary polygons.`);
+    }
+
+    // ---------------------------------------------------------------------
+    // Init
+    // ---------------------------------------------------------------------
+
+    async function init() {
+      renderZoneBar();
+      renderDebugPanel();
+
+      const useOpenFreeMap = await probeOpenFreeMap(OPENFREEMAP_STYLE_URL, PROBE_TIMEOUT_MS);
       const style = useOpenFreeMap ? OPENFREEMAP_STYLE_URL : FALLBACK_STYLE;
 
-      if (useOpenFreeMap) {
-        setStatus("OpenFreeMap dark style loaded");
-      } else {
-        setStatus("OpenFreeMap unreachable — using flat dark fallback", "fallback");
-      }
+      setStatus(
+        useOpenFreeMap
+          ? "OpenFreeMap dark style loaded"
+          : "OpenFreeMap unreachable — using flat dark fallback",
+        useOpenFreeMap ? "" : "fallback"
+      );
 
       const map = new maplibregl.Map({
         container: "map",
@@ -143,9 +436,6 @@
       map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
 
       map.on("error", (e) => {
-        // If the style itself fails to load after the probe passed (e.g.
-        // tiles up but style JSON flaky), drop back to the flat style
-        // rather than leaving a broken/blank map.
         console.error("MapLibre error:", e && e.error);
         if (useOpenFreeMap && map.getStyle() && map.isStyleLoaded() === false) {
           setStatus("Map style failed to load — falling back", "error");
@@ -153,10 +443,10 @@
       });
 
       map.on("load", () => {
+        addSuburbLayer(map);
         console.log("Map loaded. Style source:", useOpenFreeMap ? "OpenFreeMap dark" : "flat fallback");
       });
 
-      // Expose for manual console poking during dev.
       window._map = map;
     }
 
