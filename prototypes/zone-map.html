@@ -155,7 +155,8 @@
     }
 
     #add-zone-btn,
-    #export-btn {
+    #export-btn,
+    #reset-btn {
       padding: 6px 12px;
       border-radius: 6px;
       border: 1.5px dashed #444;
@@ -174,6 +175,17 @@
     #export-btn {
       margin-left: auto;
       border-style: solid;
+    }
+
+    #reset-btn {
+      border-style: solid;
+      border-color: #663333;
+      color: #cc8888;
+    }
+
+    #reset-btn:hover {
+      border-color: #a35050;
+      color: #ffaaaa;
     }
 
     #map-wrap {
@@ -328,6 +340,7 @@
       <div id="zone-slots"></div>
       <button id="add-zone-btn" type="button">+ Add zone</button>
       <button id="export-btn" type="button">Export GeoJSON</button>
+      <button id="reset-btn" type="button" title="Clear all zones, assignments, and locks -- useful after pulling in new suburb data">Reset all</button>
     </div>
     <div id="map-wrap">
       <div id="map"></div>
@@ -914,6 +927,19 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    });
+
+    // Clears localStorage and reloads to a clean slate. Mainly here so
+    // testing against updated suburb data (or just starting over) doesn't
+    // require opening devtools to clear the persisted state manually.
+    document.getElementById("reset-btn").addEventListener("click", () => {
+      if (!confirm("Reset all zones, assignments, and locked shapes? This can't be undone.")) return;
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        console.warn("Could not clear localStorage:", e);
+      }
+      location.reload();
     });
 
     // ---------------------------------------------------------------------
