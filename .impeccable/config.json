@@ -284,6 +284,12 @@
         "value": "6px",
         "createdAt": "2026-08-27T04:28:54.942Z",
         "reason": "DESIGN.md's documented bar-track radius exception (reach-scale bars on advertiser.html, named explicitly in the Shapes section) — pre-existing, unrelated to this edit"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.86rem",
+        "createdAt": "2026-08-27T06:21:19.469Z",
+        "reason": "Within DESIGN.md's documented Caption Step Rule tuning band (0.95rem anchor, sanctioned 0.8-0.98rem range) -- 0.86rem is the exact value the doc cites as an example (form error text)"
       }
     ]
   }
