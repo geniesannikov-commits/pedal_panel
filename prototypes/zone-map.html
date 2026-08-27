@@ -10,12 +10,18 @@
     Open this file directly in a browser to check it renders.
 
     Step 1: base map + tooling (done).
-    Step 2 (this file): suburb boundary polygons + multi-zone click-to-select.
-    No zone locking, naming, or hover polish yet — that's step 3.
+    Step 2: suburb boundary polygons + multi-zone click-to-select (done).
+    Step 3 (this file): lock zones into named, dissolved polygons, with
+    localStorage persistence and a GeoJSON export.
+    No hover-lift polish yet — that's step 4.
   -->
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+
+  <!-- Turf.js: used only for turf.union(), to dissolve a zone's assigned
+       suburb polygons into one merged shape when the zone is locked. -->
+  <script src="https://unpkg.com/@turf/turf@7.1.0/turf.min.js"></script>
 
   <!-- Static snapshot of 114 Sydney suburb boundary polygons (OSM
        administrative boundaries, mostly admin_level=9). See
@@ -58,27 +64,53 @@
       margin-right: 4px;
     }
 
+    #zone-slots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .zone-slot {
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 6px 8px 6px 12px;
       border-radius: 6px;
       border: 1.5px solid transparent;
       background: #1f1f1f;
       color: #ddd;
       font-size: 14px;
-      cursor: pointer;
-      transition: background 0.12s ease, border-color 0.12s ease;
     }
 
-    .zone-slot:hover {
+    .zone-slot .zone-main {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .zone-slot:not(.locked):hover {
       background: #262626;
     }
 
     .zone-slot.active {
       background: #262626;
       border-color: var(--zone-color, #fff);
+    }
+
+    .zone-slot.locked {
+      border-color: var(--zone-color, #fff);
+      border-style: solid;
+    }
+
+    .zone-slot.locked .zone-main {
+      cursor: default;
     }
 
     .zone-slot .swatch {
@@ -89,12 +121,40 @@
       flex: 0 0 auto;
     }
 
+    .zone-slot .zone-name {
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .zone-slot .count {
       color: #999;
       font-variant-numeric: tabular-nums;
     }
 
-    #add-zone-btn {
+    .zone-slot .lock-icon {
+      font-size: 12px;
+    }
+
+    .lock-toggle-btn {
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: transparent;
+      color: #999;
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .lock-toggle-btn:hover {
+      border-color: #777;
+      color: #ddd;
+    }
+
+    #add-zone-btn,
+    #export-btn {
       padding: 6px 12px;
       border-radius: 6px;
       border: 1.5px dashed #444;
@@ -104,9 +164,15 @@
       cursor: pointer;
     }
 
-    #add-zone-btn:hover {
+    #add-zone-btn:hover,
+    #export-btn:hover {
       border-color: #666;
       color: #ccc;
+    }
+
+    #export-btn {
+      margin-left: auto;
+      border-style: solid;
     }
 
     #map-wrap {
@@ -174,6 +240,84 @@
       color: #ccc;
       font-family: "SF Mono", Menlo, Consolas, monospace;
     }
+
+    /* Export modal */
+    #export-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #export-modal-backdrop.open {
+      display: flex;
+    }
+
+    #export-modal {
+      width: min(640px, 90%);
+      max-height: 80%;
+      display: flex;
+      flex-direction: column;
+      background: #161616;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 16px;
+      gap: 10px;
+    }
+
+    #export-modal h2 {
+      margin: 0;
+      font-size: 14px;
+      color: #eee;
+    }
+
+    #export-modal p {
+      margin: 0;
+      font-size: 12px;
+      color: #999;
+    }
+
+    #export-textarea {
+      flex: 1 1 auto;
+      min-height: 220px;
+      resize: vertical;
+      background: #0d0d0d;
+      color: #ccc;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    #export-modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    #export-modal-actions button {
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #1f1f1f;
+      color: #ddd;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #export-modal-actions button:hover {
+      border-color: #777;
+    }
+
+    #export-modal-actions .primary {
+      background: #2b6cff;
+      border-color: #2b6cff;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -182,6 +326,7 @@
       <span class="zone-bar-label">Active zone:</span>
       <div id="zone-slots"></div>
       <button id="add-zone-btn" type="button">+ Add zone</button>
+      <button id="export-btn" type="button">Export GeoJSON</button>
     </div>
     <div id="map-wrap">
       <div id="map"></div>
@@ -189,6 +334,18 @@
       <div id="debug-panel">
         <div class="debug-title">Selections (in-memory)</div>
         <pre id="debug-json">{}</pre>
+      </div>
+      <div id="export-modal-backdrop">
+        <div id="export-modal">
+          <h2>Exported zones (GeoJSON)</h2>
+          <p>One Feature per locked zone, dissolved to a single polygon, with its name as a property. Ready to hand to the site build.</p>
+          <textarea id="export-textarea" readonly></textarea>
+          <div id="export-modal-actions">
+            <button id="export-copy-btn" type="button">Copy to clipboard</button>
+            <button id="export-download-btn" type="button" class="primary">Download .geojson</button>
+            <button id="export-close-btn" type="button">Close</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -242,23 +399,33 @@
     }
 
     // ---------------------------------------------------------------------
-    // Zone state (step 2)
+    // Zone state (step 2 + step 3)
     // ---------------------------------------------------------------------
     //
-    // In-memory only — nothing persists across reloads, and there's no
-    // naming/locking UI yet (step 3). Shape: { [zoneId]: Set<suburbName> }.
+    // assignments: { [zoneId]: Set<suburbName> } — the source of truth for
+    // which suburbs belong to which zone, locked or not.
+    //
+    // A locked zone additionally carries `name` and `dissolvedGeometry`
+    // (computed from its assignments at lock time via turf.union). Locking
+    // doesn't change assignments — it freezes them and derives a merged
+    // shape from them. Unlocking just drops the derived name/geometry and
+    // re-opens the same assignments to editing.
 
     const ZONE_BASE_COLORS = ["#4f8cff", "#ff6b6b", "#ffd166", "#06d6a0"];
 
-    // Beyond the base palette, generate further distinct hues on demand so
-    // more zone slots can be added without hardcoding a limit.
     function colorForZoneIndex(index) {
       if (index < ZONE_BASE_COLORS.length) return ZONE_BASE_COLORS[index];
       const hue = (index * 137.508) % 360; // golden-angle spacing
       return `hsl(${hue.toFixed(0)}, 65%, 58%)`;
     }
 
-    let zones = [1, 2, 3, 4].map((id, i) => ({ id, color: colorForZoneIndex(i) }));
+    let zones = [1, 2, 3, 4].map((id, i) => ({
+      id,
+      color: colorForZoneIndex(i),
+      locked: false,
+      name: null,
+      dissolvedGeometry: null,
+    }));
 
     let activeZoneId = zones[0].id;
     let nextZoneId = zones.length + 1;
@@ -274,43 +441,151 @@
       return zones.find((z) => z.id === id);
     }
 
+    function suggestZoneName(suburbNames) {
+      if (suburbNames.length === 0) return "";
+      if (suburbNames.length <= 3) return suburbNames.join(" + ");
+      return suburbNames.slice(0, 2).join(" + ") + ` + ${suburbNames.length - 2} more`;
+    }
+
+    // ---------------------------------------------------------------------
+    // Persistence (step 3) — localStorage only, restored on page load.
+    // ---------------------------------------------------------------------
+
+    const STORAGE_KEY = "pedalpanel-zone-map-v1";
+
+    function saveState() {
+      const state = {
+        zones: zones.map((z) => ({ id: z.id, color: z.color, locked: z.locked, name: z.name })),
+        assignments: Object.fromEntries(
+          Array.from(assignments.entries()).map(([id, set]) => [id, Array.from(set)])
+        ),
+        activeZoneId,
+        nextZoneId,
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.warn("Could not save zone state to localStorage:", e);
+      }
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (e) {
+        console.warn("Could not load zone state from localStorage:", e);
+        return null;
+      }
+    }
+
+    function restoreState() {
+      const saved = loadState();
+      if (!saved || !Array.isArray(saved.zones)) return false;
+
+      zones = saved.zones.map((z) => ({
+        id: z.id,
+        color: z.color,
+        locked: !!z.locked,
+        name: z.name || null,
+        dissolvedGeometry: null, // recomputed below for locked zones
+      }));
+      assignments.clear();
+      for (const zone of zones) {
+        const names = (saved.assignments && saved.assignments[zone.id]) || [];
+        assignments.set(zone.id, new Set(names));
+        for (const name of names) suburbZone.set(name, zone.id);
+      }
+      activeZoneId = zones.some((z) => z.id === saved.activeZoneId) ? saved.activeZoneId : zones[0].id;
+      nextZoneId = saved.nextZoneId || zones.length + 1;
+
+      for (const zone of zones) {
+        if (zone.locked) {
+          zone.dissolvedGeometry = dissolveZoneSuburbs(Array.from(assignments.get(zone.id)));
+        }
+      }
+
+      console.log("Restored zone state from localStorage.");
+      return true;
+    }
+
+    // ---------------------------------------------------------------------
+    // Rendering: zone bar + debug panel
+    // ---------------------------------------------------------------------
+
     function renderZoneBar() {
       const container = document.getElementById("zone-slots");
       container.innerHTML = "";
       zones.forEach((zone) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "zone-slot" + (zone.id === activeZoneId ? " active" : "");
-        btn.style.setProperty("--zone-color", zone.color);
         const count = assignments.get(zone.id)?.size || 0;
-        btn.innerHTML =
-          `<span class="swatch"></span>Zone ${zone.id} <span class="count">(${count})</span>`;
-        btn.addEventListener("click", () => {
+
+        const slot = document.createElement("div");
+        slot.className = "zone-slot" + (zone.id === activeZoneId ? " active" : "") + (zone.locked ? " locked" : "");
+        slot.style.setProperty("--zone-color", zone.color);
+
+        const main = document.createElement("button");
+        main.type = "button";
+        main.className = "zone-main";
+        const label = zone.locked && zone.name ? zone.name : `Zone ${zone.id}`;
+        main.innerHTML =
+          `<span class="swatch"></span>` +
+          (zone.locked ? `<span class="lock-icon">🔒</span>` : "") +
+          `<span class="zone-name">${escapeHtml(label)}</span> <span class="count">(${count})</span>`;
+        main.addEventListener("click", () => {
+          if (zone.locked) return; // locked zones aren't editable until unlocked
           activeZoneId = zone.id;
           renderZoneBar();
         });
-        container.appendChild(btn);
+        slot.appendChild(main);
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.type = "button";
+        toggleBtn.className = "lock-toggle-btn";
+        if (zone.locked) {
+          toggleBtn.textContent = "Unlock";
+          toggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            unlockZone(zone.id);
+          });
+        } else {
+          toggleBtn.textContent = "Lock";
+          toggleBtn.disabled = count === 0;
+          toggleBtn.title = count === 0 ? "Assign at least one suburb first" : "Lock this zone";
+          toggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            lockZone(zone.id);
+          });
+        }
+        slot.appendChild(toggleBtn);
+
+        container.appendChild(slot);
       });
     }
 
     function renderDebugPanel() {
       const out = {};
-      for (const [zoneId, names] of assignments.entries()) {
-        if (names.size > 0) out[`zone ${zoneId}`] = Array.from(names);
+      for (const zone of zones) {
+        const names = assignments.get(zone.id);
+        if (names && names.size > 0) {
+          out[`zone ${zone.id}`] = {
+            locked: zone.locked,
+            name: zone.name,
+            suburbs: Array.from(names),
+          };
+        }
       }
       document.getElementById("debug-json").textContent = JSON.stringify(out, null, 2);
     }
 
-    document.getElementById("add-zone-btn").addEventListener("click", () => {
-      const id = nextZoneId++;
-      zones.push({ id, color: colorForZoneIndex(zones.length) });
-      assignments.set(id, new Set());
-      activeZoneId = id;
-      renderZoneBar();
-    });
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
 
     // ---------------------------------------------------------------------
-    // Suburb layer + click-to-assign
+    // Suburb layer + click-to-assign (step 2)
     // ---------------------------------------------------------------------
 
     const DEFAULT_FILL_COLOR = "#3a3a3a";
@@ -318,8 +593,10 @@
     const DEFAULT_LINE_COLOR = "rgba(255, 255, 255, 0.35)";
     const ASSIGNED_FILL_OPACITY = 0.45;
 
-    function paintSuburbFeature(map, featureId, zone) {
-      map.setFeatureState(
+    let mapRef = null;
+
+    function paintSuburbFeature(featureId, zone) {
+      mapRef.setFeatureState(
         { source: "suburbs", id: featureId },
         zone
           ? {
@@ -332,30 +609,55 @@
       );
     }
 
-    function assignSuburb(map, name) {
+    function assignSuburb(name) {
+      const activeZone = zoneById(activeZoneId);
+      if (!activeZone || activeZone.locked) {
+        setStatus(`Zone ${activeZoneId} is locked — unlock it to make changes`, "fallback");
+        return;
+      }
+
       const featureId = suburbFeatureId.get(name);
       if (featureId === undefined) return;
 
       const currentZoneId = suburbZone.get(name);
 
       if (currentZoneId === activeZoneId) {
-        // Toggle off: clicking a suburb already in the active zone unassigns it.
         assignments.get(currentZoneId).delete(name);
         suburbZone.delete(name);
-        paintSuburbFeature(map, featureId, null);
+        paintSuburbFeature(featureId, null);
       } else {
-        // Reassign (or first assign) to the active zone. A suburb can only
-        // belong to one zone at a time, so drop it from its old zone first.
         if (currentZoneId !== undefined) {
           assignments.get(currentZoneId).delete(name);
         }
         assignments.get(activeZoneId).add(name);
         suburbZone.set(name, activeZoneId);
-        paintSuburbFeature(map, featureId, zoneById(activeZoneId));
+        paintSuburbFeature(featureId, activeZone);
       }
 
       renderZoneBar();
       renderDebugPanel();
+      saveState();
+    }
+
+    // Suburbs that belong to a locked zone are hidden from the per-suburb
+    // layers entirely (and so aren't clickable) — the zone's dissolved
+    // shape on the locked-zones layer stands in for them instead.
+    function lockedSuburbNames() {
+      const names = [];
+      for (const zone of zones) {
+        if (!zone.locked) continue;
+        for (const name of assignments.get(zone.id)) names.push(name);
+      }
+      return names;
+    }
+
+    function refreshSuburbLayerFilter() {
+      const locked = lockedSuburbNames();
+      const filter = locked.length
+        ? ["!", ["in", ["get", "name"], ["literal", locked]]]
+        : null;
+      mapRef.setFilter("suburbs-fill", filter);
+      mapRef.setFilter("suburbs-outline", filter);
     }
 
     function addSuburbLayer(map) {
@@ -384,13 +686,19 @@
         paint: {
           "line-color": ["coalesce", ["feature-state", "lineColor"], DEFAULT_LINE_COLOR],
           "line-width": ["case", ["boolean", ["feature-state", "assigned"], false], 2, 1],
+          // Dashed for every unlocked suburb (assigned or not) — reads as
+          // "in progress". line-dasharray can't be a data (feature-state)
+          // expression in MapLibre, so this is a flat constant; locked
+          // zones get their visual distinction from the separate, solid
+          // locked-zones-outline layer instead.
+          "line-dasharray": [2, 1.5],
         },
       });
 
       map.on("click", "suburbs-fill", (e) => {
         const feature = e.features && e.features[0];
         if (!feature) return;
-        assignSuburb(map, feature.properties.name);
+        assignSuburb(feature.properties.name);
       });
 
       map.on("mouseenter", "suburbs-fill", () => {
@@ -404,10 +712,228 @@
     }
 
     // ---------------------------------------------------------------------
+    // Locked zones: dissolve, render, lock/unlock (step 3)
+    // ---------------------------------------------------------------------
+
+    function toMultiPolygonCoords(geom) {
+      if (geom.type === "Polygon") return [geom.coordinates];
+      if (geom.type === "MultiPolygon") return geom.coordinates;
+      return [];
+    }
+
+    // Merge a zone's assigned suburb polygons into one shape. Prefers a real
+    // topological dissolve (turf.union), which drops the shared internal
+    // borders between adjacent suburbs; falls back to a plain combined
+    // MultiPolygon (borders intact) if turf isn't available or errors out,
+    // so locking never just fails outright.
+    function dissolveZoneSuburbs(suburbNames) {
+      const features = suburbNames
+        .map((name) => window.SYDNEY_SUBURBS_GEOJSON.features.find((f) => f.properties.name === name))
+        .filter(Boolean);
+
+      if (features.length === 0) return null;
+      if (features.length === 1) return JSON.parse(JSON.stringify(features[0].geometry));
+
+      if (typeof turf !== "undefined" && turf.union) {
+        try {
+          const fc = turf.featureCollection(features.map((f) => turf.feature(f.geometry)));
+          const merged = turf.union(fc);
+          if (merged && merged.geometry) return merged.geometry;
+        } catch (e) {
+          console.warn("turf.union failed, falling back to a combined (undissolved) shape:", e);
+        }
+      }
+
+      return {
+        type: "MultiPolygon",
+        coordinates: features.flatMap((f) => toMultiPolygonCoords(f.geometry)),
+      };
+    }
+
+    function refreshLockedZonesSource() {
+      const features = zones
+        .filter((z) => z.locked && z.dissolvedGeometry)
+        .map((z) => ({
+          type: "Feature",
+          id: z.id,
+          properties: { zoneId: z.id, name: z.name, color: z.color },
+          geometry: z.dissolvedGeometry,
+        }));
+      mapRef.getSource("locked-zones").setData({ type: "FeatureCollection", features });
+    }
+
+    function addLockedZonesLayer(map) {
+      map.addSource("locked-zones", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+
+      map.addLayer({
+        id: "locked-zones-fill",
+        type: "fill",
+        source: "locked-zones",
+        paint: {
+          "fill-color": ["get", "color"],
+          "fill-opacity": 0.5,
+        },
+      });
+
+      map.addLayer({
+        id: "locked-zones-outline",
+        type: "line",
+        source: "locked-zones",
+        paint: {
+          "line-color": ["get", "color"],
+          "line-width": 3,
+        },
+      });
+    }
+
+    function lockZone(zoneId) {
+      const zone = zoneById(zoneId);
+      if (!zone) return;
+      const suburbNames = Array.from(assignments.get(zoneId));
+      if (suburbNames.length === 0) return;
+
+      const suggested = suggestZoneName(suburbNames);
+      const name = window.prompt("Name this zone:", zone.name || suggested);
+      if (name === null) return; // cancelled
+      const trimmed = name.trim();
+
+      const dissolved = dissolveZoneSuburbs(suburbNames);
+      if (!dissolved) {
+        alert("Couldn't build a shape for this zone — try again.");
+        return;
+      }
+
+      zone.locked = true;
+      zone.name = trimmed || `Zone ${zone.id}`;
+      zone.dissolvedGeometry = dissolved;
+
+      // Clear the per-suburb highlight state — the merged shape on the
+      // locked-zones layer takes over visually, and those suburb features
+      // are about to be filtered out of suburbs-fill/outline anyway.
+      for (const name of suburbNames) {
+        const featureId = suburbFeatureId.get(name);
+        if (featureId !== undefined) paintSuburbFeature(featureId, null);
+      }
+
+      refreshSuburbLayerFilter();
+      refreshLockedZonesSource();
+
+      if (activeZoneId === zoneId) {
+        const nextActive = zones.find((z) => !z.locked);
+        if (nextActive) activeZoneId = nextActive.id;
+      }
+
+      renderZoneBar();
+      renderDebugPanel();
+      saveState();
+    }
+
+    function unlockZone(zoneId) {
+      const zone = zoneById(zoneId);
+      if (!zone || !zone.locked) return;
+
+      zone.locked = false;
+      zone.dissolvedGeometry = null;
+
+      refreshLockedZonesSource();
+      refreshSuburbLayerFilter();
+
+      // Restore the per-suburb "in progress" highlight for this zone's suburbs.
+      for (const name of assignments.get(zoneId)) {
+        const featureId = suburbFeatureId.get(name);
+        if (featureId !== undefined) paintSuburbFeature(featureId, zone);
+      }
+
+      renderZoneBar();
+      renderDebugPanel();
+      saveState();
+    }
+
+    // ---------------------------------------------------------------------
+    // Export (step 3)
+    // ---------------------------------------------------------------------
+
+    function buildExportGeoJson() {
+      const features = zones
+        .filter((z) => z.locked && z.dissolvedGeometry)
+        .map((z) => ({
+          type: "Feature",
+          properties: { name: z.name, zoneId: z.id },
+          geometry: z.dissolvedGeometry,
+        }));
+      return { type: "FeatureCollection", features };
+    }
+
+    function openExportModal() {
+      const geojson = buildExportGeoJson();
+      if (geojson.features.length === 0) {
+        alert("No locked zones yet — lock at least one zone before exporting.");
+        return;
+      }
+      document.getElementById("export-textarea").value = JSON.stringify(geojson, null, 2);
+      document.getElementById("export-modal-backdrop").classList.add("open");
+    }
+
+    function closeExportModal() {
+      document.getElementById("export-modal-backdrop").classList.remove("open");
+    }
+
+    document.getElementById("export-btn").addEventListener("click", openExportModal);
+    document.getElementById("export-close-btn").addEventListener("click", closeExportModal);
+    document.getElementById("export-modal-backdrop").addEventListener("click", (e) => {
+      if (e.target.id === "export-modal-backdrop") closeExportModal();
+    });
+
+    document.getElementById("export-copy-btn").addEventListener("click", async () => {
+      const text = document.getElementById("export-textarea").value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        // Clipboard API can be unavailable (e.g. insecure/file:// context) —
+        // fall back to select-and-copy via the textarea itself.
+        const ta = document.getElementById("export-textarea");
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand("copy");
+        } catch (e2) {
+          console.warn("Copy failed:", e2);
+        }
+      }
+    });
+
+    document.getElementById("export-download-btn").addEventListener("click", () => {
+      const text = document.getElementById("export-textarea").value;
+      const blob = new Blob([text], { type: "application/geo+json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "pedalpanel-zones.geojson";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // ---------------------------------------------------------------------
+    // Add-zone control
+    // ---------------------------------------------------------------------
+
+    document.getElementById("add-zone-btn").addEventListener("click", () => {
+      const id = nextZoneId++;
+      zones.push({ id, color: colorForZoneIndex(zones.length), locked: false, name: null, dissolvedGeometry: null });
+      assignments.set(id, new Set());
+      activeZoneId = id;
+      renderZoneBar();
+      saveState();
+    });
+
+    // ---------------------------------------------------------------------
     // Init
     // ---------------------------------------------------------------------
 
     async function init() {
+      restoreState();
       renderZoneBar();
       renderDebugPanel();
 
@@ -431,6 +957,7 @@
         maxBounds: SYDNEY_MAX_BOUNDS,
         attributionControl: true,
       });
+      mapRef = map;
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
       map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
@@ -444,6 +971,19 @@
 
       map.on("load", () => {
         addSuburbLayer(map);
+        addLockedZonesLayer(map);
+
+        // Re-apply restored state onto the freshly-added layers: paint
+        // assigned-but-unlocked suburbs, hide locked ones, draw locked shapes.
+        for (const zone of zones) {
+          for (const name of assignments.get(zone.id)) {
+            const featureId = suburbFeatureId.get(name);
+            if (featureId !== undefined && !zone.locked) paintSuburbFeature(featureId, zone);
+          }
+        }
+        refreshSuburbLayerFilter();
+        refreshLockedZonesSource();
+
         console.log("Map loaded. Style source:", useOpenFreeMap ? "OpenFreeMap dark" : "flat fallback");
       });
 
