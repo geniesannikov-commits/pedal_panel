@@ -276,30 +276,34 @@
           },
         });
 
-        // Fill: near-invisible at rest, a quiet presence rather than
-        // none, so the zone still reads as a shape before it's touched.
+        // Fill: a quiet presence at rest rather than none, so each zone
+        // still reads as a shape before it's touched.
         map.addLayer({
           id: "zones-fill",
           type: "fill",
           source: "zones",
           paint: {
             "fill-color": "#ff2c68",
-            "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.22, 0.05],
+            "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.22, 0.08],
             "fill-opacity-transition": PAINT_TRANSITION,
           },
         });
 
-        // Outline: a hairline in --dark-line at rest, solid Signal Pink
-        // on hover.
+        // Outline: --dark-text-soft at rest (a real, legible hairline
+        // rather than --dark-line, which sits too close to the map's own
+        // --dark ground to read as a boundary), solid Signal Pink on
+        // hover.
         map.addLayer({
           id: "zones-outline",
           type: "line",
           source: "zones",
           paint: {
-            "line-color": ["case", ["boolean", ["feature-state", "hover"], false], "#ff2c68", "#2a2a34"],
-            "line-width": ["case", ["boolean", ["feature-state", "hover"], false], 2, 1],
+            "line-color": ["case", ["boolean", ["feature-state", "hover"], false], "#ff2c68", "#9a9aa6"],
+            "line-width": ["case", ["boolean", ["feature-state", "hover"], false], 2, 1.25],
+            "line-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 1, 0.55],
             "line-color-transition": PAINT_TRANSITION,
             "line-width-transition": PAINT_TRANSITION,
+            "line-opacity-transition": PAINT_TRANSITION,
           },
         });
 
