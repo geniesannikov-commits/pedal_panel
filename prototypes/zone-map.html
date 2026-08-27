@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PedalPanel — Sydney Zone Map (prototype)</title>
+
+  <!--
+    Standalone prototype — not wired into the PedalPanel site.
+    Open this file directly in a browser to check it renders.
+
+    Step 1 scope only: base map + tooling.
+    No zone drawing, no selection, no interactivity beyond pan/zoom.
+  -->
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #0d0d0d;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    #map {
+      position: absolute;
+      inset: 0;
+    }
+
+    #status {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 10;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #9ee7c8;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #status.fallback {
+      color: #e7c89e;
+    }
+
+    #status.error {
+      color: #e79e9e;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="status">Checking OpenFreeMap…</div>
+
+  <script>
+    const OPENFREEMAP_STYLE_URL = "https://tiles.openfreemap.org/styles/dark";
+    const PROBE_TIMEOUT_MS = 4000;
+
+    // Flat dark background style used when OpenFreeMap can't be reached.
+    // Single background layer, no basemap — keeps the map usable so zone
+    // work in later steps isn't blocked by tile availability.
+    const FALLBACK_STYLE = {
+      version: 8,
+      name: "Flat Dark Fallback",
+      sources: {},
+      layers: [
+        {
+          id: "background",
+          type: "background",
+          paint: { "background-color": "#0d0d0d" },
+        },
+      ],
+    };
+
+    // Sydney, scoped roughly to Balmain <-> Bondi Junction,
+    // Chatswood <-> Redfern. City-level view, not full metro.
+    const SYDNEY_CENTER = [151.215, -33.855];
+    const SYDNEY_ZOOM = 11.6;
+    const SYDNEY_MAX_BOUNDS = [
+      [151.12, -33.93], // SW: past Balmain / Redfern
+      [151.31, -33.77], // NE: past Bondi Junction / Chatswood
+    ];
+
+    const statusEl = document.getElementById("status");
+
+    function setStatus(text, kind) {
+      statusEl.textContent = text;
+      statusEl.className = kind || "";
+    }
+
+    // Probe OpenFreeMap with a HEAD request before committing to it as the
+    // map style. Falls back to a flat dark background on any failure
+    // (network error, non-OK response, or timeout).
+    async function probeOpenFreeMap(url, timeoutMs) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const res = await fetch(url, {
+          method: "HEAD",
+          mode: "cors",
+          signal: controller.signal,
+        });
+        return res.ok;
+      } catch (err) {
+        return false;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function init() {
+      const useOpenFreeMap = await probeOpenFreeMap(
+        OPENFREEMAP_STYLE_URL,
+        PROBE_TIMEOUT_MS
+      );
+
+      const style = useOpenFreeMap ? OPENFREEMAP_STYLE_URL : FALLBACK_STYLE;
+
+      if (useOpenFreeMap) {
+        setStatus("OpenFreeMap dark style loaded");
+      } else {
+        setStatus("OpenFreeMap unreachable — using flat dark fallback", "fallback");
+      }
+
+      const map = new maplibregl.Map({
+        container: "map",
+        style,
+        center: SYDNEY_CENTER,
+        zoom: SYDNEY_ZOOM,
+        minZoom: 10,
+        maxZoom: 18,
+        maxBounds: SYDNEY_MAX_BOUNDS,
+        attributionControl: true,
+      });
+
+      map.addControl(new maplibregl.NavigationControl(), "top-right");
+      map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
+
+      map.on("error", (e) => {
+        // If the style itself fails to load after the probe passed (e.g.
+        // tiles up but style JSON flaky), drop back to the flat style
+        // rather than leaving a broken/blank map.
+        console.error("MapLibre error:", e && e.error);
+        if (useOpenFreeMap && map.getStyle() && map.isStyleLoaded() === false) {
+          setStatus("Map style failed to load — falling back", "error");
+        }
+      });
+
+      map.on("load", () => {
+        console.log("Map loaded. Style source:", useOpenFreeMap ? "OpenFreeMap dark" : "flat fallback");
+      });
+
+      // Expose for manual console poking during dev.
+      window._map = map;
+    }
+
+    init();
+  </script>
+</body>
+</html>
