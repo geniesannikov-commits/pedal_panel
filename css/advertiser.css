@@ -362,27 +362,18 @@
   order: 1;
 }
 
-/* .zones-founding sits after .zone-map in source order (so it can span
-   both columns as a grid item at 900px+), but on a single-column mobile
-   layout it needs to read as part of the copy beat, right after the
-   chips — "copy first, map below it" per the comment further down.
-   order puts it back between them without touching markup. */
-.zones-founding {
+/* .zones-copy carries an explicit order:1 above, so .zone-map and
+   .zones-founding need their own explicit orders too -- left at the
+   default (0) they'd both sort ahead of the copy instead of after it.
+   Same sequence at every width: copy, then map, then the founding note
+   below it (matching source order already, but order is what actually
+   controls the rendered sequence once one sibling sets it). */
+.zone-map {
   order: 2;
 }
 
-.zone-map {
+.zones-founding {
   order: 3;
-}
-
-@media (min-width: 900px) {
-  .zone-map {
-    order: 2;
-  }
-
-  .zones-founding {
-    order: 3;
-  }
 }
 
 .zones-copy p {
@@ -713,12 +704,14 @@
   max-width: 62ch;
 }
 
-/* Mobile / single-column: copy first, map below it — it's interactive,
-   so it reads better after the explanation on a small screen — and the
-   map box drops to a shorter fixed block. The founding beat keeps its
-   tint and pink rule; the chip row turns into a full-bleed swipe rail;
-   the subdivision graphic sheds its finest cuts rather than shrinking
-   into illegibility. */
+/* Mobile / single-column: copy first, map below it, founding note last
+   — it's interactive, so it reads better after the explanation on a
+   small screen — and the map box drops to a shorter fixed block. The
+   founding note keeps its tint and pink rule but shrinks to read as a
+   quiet aside rather than a second heading now that it's tucked under
+   the map instead of competing with it; the chip row turns into a
+   full-bleed swipe rail; the subdivision graphic sheds its finest cuts
+   rather than shrinking into illegibility. */
 
 @media (max-width: 899px) {
   .zone-map {
@@ -750,14 +743,24 @@
     scroll-snap-align: start;
   }
 
-  .zones-founding {
-    margin-top: 22px;
-    padding: 16px 18px;
-  }
-
   .zone-map {
     aspect-ratio: auto;
     min-height: 400px;
+  }
+
+  .zones-founding {
+    margin-top: 14px;
+    padding: 12px 14px;
+  }
+
+  .zones-founding h3 {
+    font-size: 0.86rem;
+  }
+
+  .zones-founding p {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    line-height: 1.5;
   }
 
   .zones-next {
