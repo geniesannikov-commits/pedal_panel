@@ -23,11 +23,11 @@
        suburb polygons into one merged shape when the zone is locked. -->
   <script src="https://unpkg.com/@turf/turf@7.1.0/turf.min.js"></script>
 
-  <!-- Static snapshot of 114 Sydney suburb boundary polygons (113 real
+  <!-- Static snapshot of 123 Sydney suburb boundary polygons (122 real
        OSM admin_level=9 administrative boundaries, plus one synthetic
        CBD remainder -- no polygon overlaps another). See
        sydney-suburbs-data.js for provenance notes. -->
-  <script src="sydney-suburbs-data.js?v=20260827e"></script>
+  <script src="sydney-suburbs-data.js?v=20260827f"></script>
 
   <style>
     html, body {
@@ -372,10 +372,10 @@
       ],
     };
 
-    const SYDNEY_CENTER = [151.215, -33.855];
-    const SYDNEY_ZOOM = 11.6;
+    const SYDNEY_CENTER = [151.215, -33.86];
+    const SYDNEY_ZOOM = 11.5;
     const SYDNEY_MAX_BOUNDS = [
-      [151.12, -33.93], // SW: past Balmain / Redfern
+      [151.12, -33.95], // SW: past Zetland/Kingsford/Randwick
       [151.31, -33.77], // NE: past Bondi Junction / Chatswood
     ];
 
